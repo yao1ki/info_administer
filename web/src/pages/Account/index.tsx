@@ -1,0 +1,136 @@
+import React, { FC, useState } from 'react';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Card, Table, message, Divider, Button, Modal } from 'antd';
+import { UserItem } from './data.d';
+import OperationModal from './components/OperationModal';
+import { useRequest } from 'umi';
+import service from './service';
+
+const Personnel: FC<{}> = () => {
+  const [visible, setVisible] = useState<boolean>(false);
+  /* current作为修改值可能存在部分属性 */
+  const [current, setCurrent] = useState<Partial<UserItem> | undefined>(undefined);
+  const [pagesize, setPagesize] = useState<number>(1);
+  const [opFlag, setOpFlag] = useState<number>(0);
+
+  //获取数据
+  let { data } = useRequest(
+    async () => {
+      return await service.listUsers();
+    },
+    {
+      refreshDeps: [opFlag],
+    },
+  );
+
+  const deleteItem = async (id: number) => {
+    const res = await service.removeUser(id);
+    if (!res.error) {
+      message.success('删除成功！');
+      setOpFlag(opFlag + 1);
+    }
+  };
+
+  const confirmDelete = (currentItem: UserItem) => {
+    Modal.confirm({
+      title: '删除用户',
+      content: '确定删除该用户吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => deleteItem(currentItem.id as number),
+    });
+  };
+
+  const columns = [
+    {
+      title: '登录账号',
+      dataIndex: 'username',
+      key: 'username',
+      valueType: 'textarea',
+    },
+    {
+      title: '姓名',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+    },
+
+    {
+      title: '操作',
+      key: 'action',
+      render: (item: UserItem) => (
+        <span>
+          <a
+            onClick={() => {
+              showEditModal(item);
+            }}
+          >
+            编辑
+          </a>
+          <Divider type="vertical" />
+          <a
+            onClick={() => {
+              confirmDelete(item);
+            }}
+          >
+            删除
+          </a>
+        </span>
+      ),
+    },
+  ];
+
+  /* 添加current置空 */
+  const showModal = () => {
+    setVisible(true);
+    setCurrent(undefined);
+  };
+  /* 编辑框将item传给current */
+  const showEditModal = (item: UserItem) => {
+    setVisible(true);
+    setCurrent({ ...item });
+  };
+  const handleOk = () => {
+    setVisible(false);
+    setOpFlag(opFlag + 1);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
+  const handleJump = (page: number) => {
+    setPagesize(page);
+  };
+  const pagination = {
+    position: ['bottomRight'],
+    showTotal: (total: number) => {
+      return `共 ${total} 条记录 第 ${pagesize} / ${Math.ceil(total / 10)} 页`;
+    },
+    pageSize: 10,
+    onChange: handleJump,
+  };
+
+  const action = (
+    <>
+      <Button onClick={showModal}>添加账号</Button>
+    </>
+  );
+  return (
+    <div>
+      <PageContainer>
+        <Card title="账号列表" extra={action}>
+          <Table
+            columns={columns}
+            dataSource={data}
+            rowKey={(record: UserItem): number => record.id as number}
+            pagination={pagination}
+          />
+        </Card>
+      </PageContainer>
+      <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+    </div>
+  );
+};
+
+export default Personnel;
