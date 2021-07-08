@@ -64,11 +64,22 @@ class UserController extends Controller {
     }
 
     async destroy() {
-        const { ctx, service } = this;
+        const { ctx, service,app } = this;
+        //获取本人id
+        const {token} = ctx.request.query;
+        let decode = await app.jwt.verify(token, app.config.keys);
+        let user_id = decode.user;
+
         const id = ctx.params.id;
-        const user = await service.user.show(id);
-        await user.destroy();
-        ctx.body = ctx.success();
+        console.log(id);
+        if (user_id!=id){
+            const user = await service.user.show(id);
+            await user.destroy();
+            ctx.body = ctx.success();
+        }else{ 
+            ctx.throw(500,'------');
+        }
+        
     }
 
     async current() {
