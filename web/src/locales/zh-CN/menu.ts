@@ -30,6 +30,10 @@ export default {
   'menu.list.search-list.projects': '搜索列表（项目）',
   'menu.list.search-list.applications': '搜索列表（应用）',
   'menu.list.account':'账号管理',
+  'menu.list2.account':'公司管理',
+  'menu.list.book': '书籍管理',
+
+
   'menu.profile': '详情页',
   'menu.profile.basic': '基础详情页',
   'menu.profile.advanced': '高级详情页',
@@ -50,4 +54,5 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+
 };

@@ -22,6 +22,12 @@
     path: '/account',
     component: './Account/index.tsx',
   },
+  {
+    name: 'list.book',
+    icon: 'table',
+    path: '/Book',
+    component: './Book/index.tsx',
+  },
   // {
   //   path: '/admin',
   //   name: 'admin',

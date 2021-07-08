@@ -1,6 +1,8 @@
 import { request } from 'umi';
 import { UserItem, } from './data.d';
 
+let token = localStorage.getItem('token');
+
 interface ParamsType extends Partial<UserItem> {}
 
 async function listUsers() {
@@ -16,7 +18,7 @@ async function updateUser(id: number, data: ParamsType) {
 }
 
 async function removeUser(id: number) {
-  return request(`/api/users/${id}`, { method: 'DELETE' });
+  return request(`/api/users/${id}?token=${token}`, { method: 'DELETE' });
 }
 
 
