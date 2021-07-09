@@ -1,12 +1,12 @@
-export interface FruitItem {
+export interface BookItem {
     id?: number;
-    breed: string;
+    name: string;
     created_at?: string;
     updated_at?: string;
   }
   
-  export interface FruitItem {
-    breed: string;
+  export interface BookItem {
+    name: string;
     id: number;
     created_at?: string;
     updated_at?: string;
@@ -14,7 +14,7 @@ export interface FruitItem {
   
   export interface Admin {
     id?: number;
-    breed: string;
+    name: string;
     auth: 0;
     status?: boolean;
     company_id?: number;

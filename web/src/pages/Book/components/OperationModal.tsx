@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
-import { FruitItem } from '../data.d';
+import { BookItem } from '../data.d';
 
 interface OperationModalProps {
   visible: boolean;
-  current: Partial<FruitItem> | undefined;
+  current: Partial<BookItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
 }
@@ -43,10 +43,10 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     const id = current ? current.id : '';
     let res;
     if (id) {
-      res = await service.updateFruit(id, values);
+      res = await service.updateBook(id, values);
     } else {
       values = Object.assign(values);
-      res = await service.createFruit(values);
+      res = await service.createBook(values);
     }
     if (!res.error) {
       message.success('操作成功！');
