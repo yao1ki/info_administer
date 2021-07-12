@@ -3,7 +3,6 @@ import  { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useParams,useRequest} from 'umi';
 import service from './service';
-import { count } from '@umijs/deps/compiled/yargs';
 
 interface params{
   id: string;
@@ -18,7 +17,9 @@ const Test: FC<{}> = () => {
 
 const params: params  = useParams();
 console.log('----->',JSON.stringify(params))
-
+console.log('111')
+message.success(params.id);
+console.log(params.id)
    let {data} = useRequest(
     async () => {
       return await service.listUsers();
@@ -27,12 +28,12 @@ console.log('----->',JSON.stringify(params))
       refreshDeps: [opFlag],
     },
   ); 
-
+    console.log(data);
     
     const handleFinish = async (values: { [key: string]: any }) => {
-      let res 
-      console.log (id)
+      let res;
         res = await service.updateUser(id, values);
+
     };
 
 
