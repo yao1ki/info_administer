@@ -84,7 +84,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   return (
     <Modal
-      title={`员工${current ? '编辑' : '添加'}`}
+      title={`${current ? '编辑' : '添加'}`}
       width={640}
       bodyStyle={{ padding: '28px 0 0' }}
       destroyOnClose

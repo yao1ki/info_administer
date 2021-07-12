@@ -23,6 +23,20 @@
     component: './Account/index.tsx',
   },
   {
+    name: 'del.book',
+    icon: 'table',
+    path: '/Book.del',
+    component: './Book/del.tsx',
+    hideInMenu:true,
+  },
+  {
+    name: 'del.user',
+    icon: 'table',
+    path: '/Account.del/:id',
+    component: './Account/del.tsx',
+    hideInMenu:true ,
+  },
+  {
     name: 'list.book',
     icon: 'table',
     path: '/Book',

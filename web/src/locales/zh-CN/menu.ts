@@ -1,5 +1,6 @@
 export default {
   'menu.welcome': '欢迎',
+
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.admin': '管理页',
@@ -32,6 +33,9 @@ export default {
   'menu.list.account':'账号管理',
   'menu.list2.account':'公司管理',
   'menu.list.book': '书籍管理',
+  'menu.del.book': '书籍详情',
+  'menu.del.user': '用户详情',
+
 
 
   'menu.profile': '详情页',

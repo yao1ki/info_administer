@@ -31,6 +31,10 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         username: current.username,
         name: current.name,
         password: current.password,
+        e_mile:current.e_mile,
+        telephone:current.telephone,
+        address: current.address,
+
       });
     }
   }, [props.current]);
@@ -78,8 +82,32 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
+        <Form.Item
+          name="address"
+          label="地址"
+          rules={[{ required: true, message: '请输入地址' }]}
+          key="4"
+        >
+          <Input placeholder="请输入地址" />
+        </Form.Item>
+        <Form.Item
+          name="e_mile"
+          label="邮箱"
+          rules={[{ required: true, message: '请输入邮箱' }]}
+          key="5"
+        >
+          <Input placeholder="请输入邮箱" />
+        </Form.Item>
+        <Form.Item
+          name="telephone"
+          label="电话"
+          rules={[{ required: true, message: '请输入电话' }]}
+          key="6"
+        >
+          <Input placeholder="请输入电话" />
+        </Form.Item>
         <Form.Item name="password" label="密码" key="3">
-          <Input.Password placeholder="请输入密码" visibilityToggle={false} />
+          <Input.Password placeholder="请输入密码" visibilityToggle={true} />
         </Form.Item>
       </Form>
     );

@@ -12,12 +12,14 @@ async function listUsers() {
 async function createUser(data: ParamsType) {
   return request(`/api/users`, { method: 'POST', data });
 }
-
-async function updateUser(id: number, data: ParamsType) {
+async function currentUser(id: string, data: ParamsType) {
+  return request(`/api/users/${id}`, { method: 'post', data });
+}
+async function updateUser(id: string, data: ParamsType) {
   return request(`/api/users/${id}`, { method: 'PUT', data });
 }
 
-async function removeUser(id: number) {
+async function removeUser(id: string) {
   return request(`/api/users/${id}?token=${token}`, { method: 'DELETE' });
 }
 
@@ -35,6 +37,7 @@ async function detail() {
 export default {
   listUsers,
   createUser,
+  currentUser,
   updateUser,
   removeUser,
   edit,

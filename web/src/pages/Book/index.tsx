@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { BookItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest } from 'umi';
+import { useRequest,Link } from 'umi';
 import service from './service';
 
 const Personnel: FC<{}> = () => {
@@ -42,13 +42,20 @@ const Personnel: FC<{}> = () => {
     });
   };
 
-  const columns = [
+   const columns = [
     {
       title: '书籍信息',
-      dataIndex: 'name',
-      key: 'name',
-      valueType: 'textarea',
+      key: 'action',
+      render: (_:any,record: any) => (
+        <span>
+          <span>
+          <Link to={`/Book.del?project_id=${record.id}` }>{record.name}</Link>
+          </span>
+        </span>
+      ),
+
     },
+
     {
       title: '作者',
       dataIndex: 'author',
@@ -86,8 +93,13 @@ const Personnel: FC<{}> = () => {
     setVisible(true);
     setCurrent(undefined);
   };
-  /* 编辑框将item传给current */
+
+/* 编辑框将item传给current */
   const showEditModal = (item: BookItem) => {
+    setVisible(true);
+    setCurrent({ ...item });
+  };
+  const showDetail = (item: BookItem) => {
     setVisible(true);
     setCurrent({ ...item });
   };
@@ -114,13 +126,13 @@ const Personnel: FC<{}> = () => {
 
   const action = (
     <>
-      <Button onClick={showModal}>添加账号</Button>
+      <Button onClick={showModal}>添加书籍</Button>
     </>
   );
   return (
     <div>
       <PageContainer>
-        <Card title="账号列表" extra={action}>
+        <Card title="书籍列表" extra={action}>
           <Table
             columns={columns}
             dataSource={data}

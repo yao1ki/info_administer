@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { UserItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest } from 'umi';
+import { useRequest,Link } from 'umi';
 import service from './service';
 
 const Personnel: FC<{}> = () => {
@@ -44,9 +44,15 @@ const Personnel: FC<{}> = () => {
   const columns = [
     {
       title: '登录账号',
-      dataIndex: 'username',
-      key: 'username',
-      valueType: 'textarea',
+            key: 'username',
+      render: (_:any,record: any) => (
+        <span>
+          <span>
+          <Link to={`/Account.del/${record.id}` }>{record.username}</Link>
+          </span>
+        </span>
+      ),
+
     },
     {
       title: '姓名',
@@ -116,21 +122,21 @@ const Personnel: FC<{}> = () => {
       <Button onClick={showModal}>添加账号</Button>
     </>
   );
+  
   return (
-    <div>
       <PageContainer>
         <Card title="账号列表" extra={action}>
           <Table
             columns={columns}
             dataSource={data}
             rowKey={(record: UserItem): number => record.id as number}
-            pagination={pagination}
           />
         </Card>
-      </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-    </div>
+      </PageContainer>
   );
 };
+
+
 
 export default Personnel;

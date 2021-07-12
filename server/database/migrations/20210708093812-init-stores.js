@@ -3,9 +3,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const { INTEGER, DATE, STRING, TEXT } = Sequelize;
-    await queryInterface.createTable('fruits', {
+    await queryInterface.createTable('book-type', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      breed: STRING,
+      name: STRING,
       created_at: { type: DATE, defaultValue: Sequelize.fn('NOW') },
       updated_at: { type: DATE, defaultValue: Sequelize.fn('NOW') },
     });

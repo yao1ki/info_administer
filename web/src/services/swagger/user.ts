@@ -95,6 +95,23 @@ export async function updateUser(
     ...(options || {}),
   });
 }
+export async function currentUser(
+  params: {
+    // path
+    /** name that need to be updated */
+    username: string;
+  },
+  body: API.User,
+  options?: { [key: string]: any },
+) {
+  const { username: param0 } = params;
+  return request<any>(`/user/${param0}`, {
+    method: 'post',
+    params: { ...params },
+    data: body,
+    ...(options || {}),
+  });
+}
 
 /** Delete user This can only be done by the logged in user. DELETE /user/${param0} */
 export async function deleteUser(
