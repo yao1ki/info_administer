@@ -16,25 +16,24 @@ const Test: FC<{}> = () => {
 
 
 const params: params  = useParams();
-console.log('----->',JSON.stringify(params))
 console.log('111')
 message.success(params.id);
 console.log(params.id)
    let {data} = useRequest(
     async () => {
-      return await service.listUsers();
+      return await service.detail(params.id);
     },
     {
       refreshDeps: [opFlag],
     },
   ); 
-    console.log(data);
-    
-    const handleFinish = async (values: { [key: string]: any }) => {
-      let res;
-        res = await service.updateUser(id, values);
 
+    const id = params.id;
+    const Finish = async (values: { [key: number]: any }) => {
+      let res;
+      return res = await service.currentUser(id, values);
     };
+      console.log(Finish.name)
 
 
 
@@ -42,8 +41,8 @@ console.log(params.id)
   return (
     <PageContainer >
          <Descriptions title="User Info" layout="vertical">
-    <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
-    <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
+    <Descriptions.Item label="UserName">{data === undefined ? '' : data.username}</Descriptions.Item>
+    <Descriptions.Item label="Telephone">{data === undefined ? '' : data.telephone}</Descriptions.Item>
     <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
     <Descriptions.Item label="Address" span={2}>
       No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China

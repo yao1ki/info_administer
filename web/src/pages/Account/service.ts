@@ -30,8 +30,8 @@ async function edit(data: ParamsType) {
   return request('/api/user/edit',{ method: 'PUT', data });
 }
 
-async function detail() {
-  return request('/api/user/detail')
+async function detail(params: string) {
+  return request(`/api/people/${params}`)
 }
 
 export default {

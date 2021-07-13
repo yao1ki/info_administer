@@ -6,13 +6,14 @@
 module.exports = app => {
   const { router, controller } = app;
   router.post('/api/login', controller.user.login);
-  router.get('/api/user', controller.user.current);
+  router.get('/api/user/:id', controller.user.current);
+  // router.get('/api/user', controller.user.show);
+  //router.get('/api/people/:id',controller.user.show)
   router.resources('/api/users',controller.user);
-  router.get('/api/users/index', controller.user.index);
+ // router.get('/api/users/index', controller.user.index);
   router.resources('/api/books',controller.book);
-  router.get('/api/books/index',controller.book.index);
+  //router.get('/api/books/index',controller.book.index);
   router.resources('/api/fruits',controller.fruit);
-  router.get('/api/fruits/index',controller.fruit.index);
-  //router.delete('/api/books/:id',controller.book.destroy);
-
+  //router.get('/api/fruits/index',controller.fruit.index);
+ // router.delete('/api/users/:id',controller.user.destroy);
 };

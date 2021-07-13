@@ -66,12 +66,12 @@ class UserController extends Controller {
     async destroy() {
         const { ctx, service,app } = this;
         //获取本人id
+        //console.log(this.ctx.locals.user);
         const {token} = ctx.request.query;
-        let decode = await app.jwt.verify(token, app.config.keys);
-        let user_id = decode.user;
-
+        //console.log('----',ctx.request.query)
+        let user_id = this.ctx.locals.user.user;
         const id = ctx.params.id;
-        console.log(id);
+        //console.log(id);
         if (user_id!=id){
             const user = await service.user.show(id);
             await user.destroy();
@@ -82,6 +82,16 @@ class UserController extends Controller {
         
     }
 
+    async show(id) {
+        const { ctx } = this;
+        const shop = await ctx.model.User.findByPk(id);
+        console.log("_____________",id);
+
+        if (!shop) {
+            ctx.throw(404, ctx.__('账号未找到'));
+        }
+        return shop;
+    }
     async current() {
         const { ctx, app } = this;
         const { token } = ctx.request.query;
