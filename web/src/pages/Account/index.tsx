@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { UserItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest,Link } from 'umi';
+import { useRequest, Link } from 'umi';
 import service from './service';
 
 const Personnel: FC<{}> = () => {
@@ -23,7 +23,7 @@ const Personnel: FC<{}> = () => {
     },
   );
 
-  const deleteItem = async (id: number) => {
+  const deleteItem = async (id: string) => {
     const res = await service.removeUser(id);
     if (!res.error) {
       message.success('删除成功！');
@@ -31,28 +31,27 @@ const Personnel: FC<{}> = () => {
     }
   };
 
-  const confirmDelete = (currentItem: UserItem) => {
+  const confirmDelete = (current: UserItem) => {
     Modal.confirm({
       title: '删除用户',
       content: '确定删除该用户吗？',
       okText: '确认',
       cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
+      onOk: () => deleteItem(JSON.stringify(current?.id)),
     });
   };
 
   const columns = [
     {
       title: '登录账号',
-            key: 'username',
-      render: (_:any,record: any) => (
+      key: 'username',
+      render: (_: any, record: any) => (
         <span>
           <span>
-          <Link to={`/Account.del/${record.id}` }>{record.username}</Link>
+            <Link to={`/Account.detail/${record.id}`}>{record.username}</Link>
           </span>
         </span>
       ),
-
     },
     {
       title: '姓名',
@@ -122,21 +121,19 @@ const Personnel: FC<{}> = () => {
       <Button onClick={showModal}>添加账号</Button>
     </>
   );
-  
+
   return (
-      <PageContainer>
-        <Card title="账号列表" extra={action}>
-          <Table
-            columns={columns}
-            dataSource={data}
-            rowKey={(record: UserItem): number => record.id as number}
-          />
-        </Card>
+    <PageContainer>
+      <Card title="账号列表" extra={action}>
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowKey={(record: UserItem): number => record.id as number}
+        />
+      </Card>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      </PageContainer>
+    </PageContainer>
   );
 };
-
-
 
 export default Personnel;

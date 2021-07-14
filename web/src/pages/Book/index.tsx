@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { BookItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest,Link } from 'umi';
+import { useRequest, Link } from 'umi';
 import service from './service';
 
 const Personnel: FC<{}> = () => {
@@ -23,7 +23,6 @@ const Personnel: FC<{}> = () => {
     },
   );
 
-
   const deleteItem = async (id: number) => {
     const res = await service.removeBook(id);
     if (!res.error) {
@@ -42,18 +41,17 @@ const Personnel: FC<{}> = () => {
     });
   };
 
-   const columns = [
+  const columns = [
     {
       title: '书籍信息',
       key: 'action',
-      render: (_:any,record: any) => (
+      render: (_: any, record: any) => (
         <span>
           <span>
-          <Link to={`/Book.del?project_id=${record.id}` }>{record.name}</Link>
+            <Link to={`/Book.detail/${record.id}`}>{record.name}</Link>
           </span>
         </span>
       ),
-
     },
 
     {
@@ -87,14 +85,13 @@ const Personnel: FC<{}> = () => {
       ),
     },
   ];
-
   /* 添加current置空 */
   const showModal = () => {
     setVisible(true);
     setCurrent(undefined);
   };
 
-/* 编辑框将item传给current */
+  /* 编辑框将item传给current */
   const showEditModal = (item: BookItem) => {
     setVisible(true);
     setCurrent({ ...item });
@@ -137,7 +134,6 @@ const Personnel: FC<{}> = () => {
             columns={columns}
             dataSource={data}
             rowKey={(record: BookItem): number => record.id as number}
-            pagination={pagination}
           />
         </Card>
       </PageContainer>

@@ -23,18 +23,18 @@
     component: './Account/index.tsx',
   },
   {
-    name: 'del.book',
+    name: 'detail.book',
     icon: 'table',
-    path: '/Book.del',
-    component: './Book/del.tsx',
-    hideInMenu:true,
+    path: '/Book.detail/:id',
+    component: './Book/detail.tsx',
+    hideInMenu: true,
   },
   {
-    name: 'del.user',
+    name: 'detail.user',
     icon: 'table',
-    path: '/Account.del/:id',
-    component: './Account/del.tsx',
-    hideInMenu:true ,
+    path: '/Account.detail/:id',
+    component: './Account/detail.tsx',
+    hideInMenu: true,
   },
   {
     name: 'list.book',
@@ -63,5 +63,4 @@
   //   path: '/list',
   //   component: './ListTableList',
   // },
-  
 ];

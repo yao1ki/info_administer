@@ -30,6 +30,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       form.setFieldsValue({
         name: current.name,
         author: current.author,
+        category: current.category,
+        intro: current.intro,
       });
     }
   }, [props.current]);
@@ -77,7 +79,22 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入作者姓名" />
         </Form.Item>
-
+        <Form.Item
+          name="category"
+          label="类别"
+          rules={[{ required: true, message: '请输入类别' }]}
+          key="3"
+        >
+          <Input placeholder="请输入类别" />
+        </Form.Item>
+        <Form.Item
+          name="intro"
+          label="简介"
+          rules={[{ required: true, message: '请输入简介' }]}
+          key="4"
+        >
+          <Input placeholder="请输入简介" />
+        </Form.Item>
       </Form>
     );
   };
