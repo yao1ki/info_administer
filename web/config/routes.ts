@@ -42,6 +42,22 @@
     path: '/Book',
     component: './Book/index.tsx',
   },
+  {
+    name: 'sample',
+    icon: 'table',
+    routes: [
+      {
+        name: 'lifebook.del',
+        path: '/hell/lifebook.del',
+        component: './hell/lifebook.del',
+      },
+      {
+        name: 'sample',
+        path: '/hell/sample',
+        component: './hell/sample',
+      },
+    ],
+  },
   // {
   //   path: '/admin',
   //   name: 'admin',

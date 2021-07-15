@@ -35,7 +35,67 @@ export default defineConfig({
     ie: 11,
   },
   // umi routes: https://umijs.org/docs/routing
-  routes,
+  routes:[
+    {
+      path: '/user',
+      layout: false,
+      routes: [
+        {
+          name: 'login',
+          path: '/user/login',
+          component: './user/login',
+        },
+      ],
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      icon: 'smile',
+      component: './Welcome',
+    },
+    {
+      name: 'list.account',
+      icon: 'table',
+      path: '/account',
+      component: './Account/index.tsx',
+    },
+    {
+      name: 'detail.book',
+      icon: 'table',
+      path: '/Book.detail/:id',
+      component: './Book/detail.tsx',
+      hideInMenu: true,
+    },
+    {
+      name: 'detail.user',
+      icon: 'table',
+      path: '/Account.detail/:id',
+      component: './Account/detail.tsx',
+      hideInMenu: true,
+    },
+    {
+      name: 'list.book',
+      icon: 'table',
+      path: '/Book',
+      component: './Book/index.tsx',
+    },
+    {
+      name: 'hell',
+      icon: 'table',
+      routes: [
+        {
+          name: 'lifebook.del',
+          path: '/hell/lifebook.del',
+          component: './hell/lifebook.del',
+        },
+        {
+          name: 'sample',
+          path: '/hell/sample',
+          component: './hell/sample',
+        },
+      ],
+    },
+  ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': defaultSettings.primaryColor,

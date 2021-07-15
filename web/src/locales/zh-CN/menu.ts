@@ -35,7 +35,10 @@ export default {
   'menu.list.book': '书籍管理',
   'menu.detail.book': '书籍详情',
   'menu.detail.user': '用户详情',
-
+  'menu.hell.sample': '地狱试点',
+  'menu.hell.lifebook.del': '生死簿—已删除',
+  'menu.hell': '地狱入口',
+  
   'menu.profile': '详情页',
   'menu.profile.basic': '基础详情页',
   'menu.profile.advanced': '高级详情页',

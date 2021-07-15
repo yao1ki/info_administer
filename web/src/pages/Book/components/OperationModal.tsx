@@ -43,10 +43,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
+    console.log(id)
     let res;
     if (id) {
+      console.log("修改")
+
       res = await service.updateBook(id, values);
     } else {
+      console.log("添加")
       values = Object.assign(values);
       res = await service.createBook(values);
     }

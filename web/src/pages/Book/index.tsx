@@ -28,6 +28,7 @@ const Personnel: FC<{}> = () => {
     if (!res.error) {
       message.success('删除成功！');
       setOpFlag(opFlag + 1);
+
     }
   };
 
@@ -68,6 +69,7 @@ const Personnel: FC<{}> = () => {
         <span>
           <a
             onClick={() => {
+              console.log(item)
               showEditModal(item);
             }}
           >
