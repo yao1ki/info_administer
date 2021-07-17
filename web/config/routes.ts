@@ -43,21 +43,34 @@
     component: './Book/index.tsx',
   },
   {
-    name: 'sample',
+    name: 'lifebook',
     icon: 'table',
     routes: [
       {
-        name: 'lifebook.del',
-        path: '/hell/lifebook.del',
-        component: './hell/lifebook.del',
+        name: 'demon',
+        path: '/lifebook/demon',
+        component: './lifebook/demon',
+        hideInMenu: true,
       },
       {
-        name: 'sample',
-        path: '/hell/sample',
-        component: './hell/sample',
+        name: 'ghost',
+        path: '/lifebook/ghost',
+        component: './lifebook/ghost',
+        hideInMenu: true,
+      },
+      {
+        name: 'live',
+        path: '/lifebook/live',
+        component: './lifebook/live',
+        hideInMenu: true,
+      },
+      {
+        name: 'mistake',
+        path: '/lifebook/mistake',
+        component: './lifebook/mistake',
+        hideInMenu: true,
       },
     ],
-  },
   // {
   //   path: '/admin',
   //   name: 'admin',
@@ -78,5 +91,5 @@
   //   icon: 'table',
   //   path: '/list',
   //   component: './ListTableList',
-  // },
-];
+},
+]

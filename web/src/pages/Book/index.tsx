@@ -5,7 +5,8 @@ import { BookItem } from './data.d';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
 import service from './service';
-
+import { Select } from 'antd';
+const { Option } = Select;
 const Personnel: FC<{}> = () => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
@@ -129,6 +130,7 @@ const Personnel: FC<{}> = () => {
     </>
   );
   return (
+    
     <div>
       <PageContainer>
         <Card title="书籍列表" extra={action}>
@@ -140,6 +142,9 @@ const Personnel: FC<{}> = () => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+      <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
+      <Option value="lucy">Lucy</Option>
+    </Select>
     </div>
   );
 };
