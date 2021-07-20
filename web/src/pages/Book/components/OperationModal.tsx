@@ -43,7 +43,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
-    console.log(id)
     let res;
     if (id) {
       console.log("修改")

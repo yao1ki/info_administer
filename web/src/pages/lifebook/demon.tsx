@@ -50,7 +50,6 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      console.log('----',params);
       return await service.querystate(state,params);
     },
     {
@@ -109,7 +108,6 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              console.log(item);
               showEditModal(item);
             }}
           >
@@ -160,7 +158,6 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-    console.log("live--------->",key)
 
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
@@ -188,7 +185,6 @@ const Personnel: FC<SearchProps> = (props) => {
     // eslint-disable-next-line no-console
     setParams(value);
     setOpFlag(opFlag+1);
-    console.log(value);
   };
 
   const getTabKey = () => {
