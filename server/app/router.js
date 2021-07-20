@@ -9,6 +9,7 @@ module.exports = app => {
   router.get('/api/user', controller.user.current);
   router.get('/api/book', controller.book.current);
   router.get('/api/querystate/:state', controller.ghost.querystate);
+  router.get('/api/query', controller.ghost.query);
 
   // router.get('/api/user', controller.user.show);
   //router.get('/api/people/:id',controller.user.show)

@@ -1,12 +1,13 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Modal } from 'antd';
+import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest } from 'umi';
+import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import { values } from 'lodash';
 
 type SearchProps = {
   match: {
@@ -35,7 +36,7 @@ const tabList = [
     tab: '已删除',
   },
 ];
-const state = '4';
+const state ="4";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -43,17 +44,20 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
+  const [key, setKey] = useState<string>('live');
+  const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state);
+      console.log('----',params);
+      return await service.querystate(state,params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
+  
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -71,6 +75,7 @@ const Personnel: FC<SearchProps> = (props) => {
       onOk: () => deleteItem(currentItem.id as number),
     });
   };
+
 
   const columns = [
     {
@@ -123,6 +128,10 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   ];
   /* 添加current置空 */
+  const showModal = () => {
+    setVisible(true);
+    setCurrent(undefined);
+  };
 
   /* 编辑框将item传给current */
   const showEditModal = (item: GhostItem) => {
@@ -150,8 +159,9 @@ const Personnel: FC<SearchProps> = (props) => {
     pageSize: 10,
     onChange: handleJump,
   };
-
   const handleTabChange = (key: string) => {
+    console.log("live--------->",key)
+
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -172,6 +182,15 @@ const Personnel: FC<SearchProps> = (props) => {
     }
   };
 
+
+
+  const handleFormSubmit = (value: string) => {
+    // eslint-disable-next-line no-console
+    setParams(value);
+    setOpFlag(opFlag+1);
+    console.log(value);
+  };
+
   const getTabKey = () => {
     const { match, location } = props;
     const url = match.path === '/' ? '' : match.path;
@@ -181,7 +200,6 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
-
   return (
     <div>
       <PageContainer
@@ -191,6 +209,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
+            onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -198,8 +217,9 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
+        
       >
-        <Card>
+        <Card >
           <Table
             columns={columns}
             dataSource={data}
@@ -211,4 +231,5 @@ const Personnel: FC<SearchProps> = (props) => {
     </div>
   );
 };
+
 export default Personnel;

@@ -7,6 +7,7 @@ import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import { values } from 'lodash';
 
 type SearchProps = {
   match: {
@@ -44,16 +45,19 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [key, setKey] = useState<string>('live');
+  const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state);
+      console.log('----',params);
+      return await service.querystate(state,params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
+  
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -182,6 +186,8 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
+    setParams(value);
+    setOpFlag(opFlag+1);
     console.log(value);
   };
 
@@ -203,6 +209,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
+            onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>

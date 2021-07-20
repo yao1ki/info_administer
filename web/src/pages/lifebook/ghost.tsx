@@ -1,12 +1,13 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Modal } from 'antd';
+import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest } from 'umi';
+import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import { values } from 'lodash';
 
 type SearchProps = {
   match: {
@@ -35,23 +36,28 @@ const tabList = [
     tab: '已删除',
   },
 ];
-const state = '2';
+const state ="2";
+
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
+  const [key, setKey] = useState<string>('live');
+  const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state);
+      console.log('----',params);
+      return await service.querystate(state,params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
+  
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -69,6 +75,7 @@ const Personnel: FC<SearchProps> = (props) => {
       onOk: () => deleteItem(currentItem.id as number),
     });
   };
+
 
   const columns = [
     {
@@ -152,10 +159,10 @@ const Personnel: FC<SearchProps> = (props) => {
     pageSize: 10,
     onChange: handleJump,
   };
-
   const handleTabChange = (key: string) => {
-    const { match } = props;
+    console.log("live--------->",key)
 
+    const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'live':
@@ -173,6 +180,15 @@ const Personnel: FC<SearchProps> = (props) => {
       default:
         break;
     }
+  };
+
+
+
+  const handleFormSubmit = (value: string) => {
+    // eslint-disable-next-line no-console
+    setParams(value);
+    setOpFlag(opFlag+1);
+    console.log(value);
   };
 
   const getTabKey = () => {
@@ -193,6 +209,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
+            onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -200,8 +217,9 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
+        
       >
-        <Card>
+        <Card >
           <Table
             columns={columns}
             dataSource={data}

@@ -1,7 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
-
+const Op = require('sequelize').Op;
 class GhostService extends Service {
 
     async show(id) {
@@ -55,14 +55,41 @@ class GhostService extends Service {
             ctx.throw(500, ctx.__('修改失败'));
         }
     }
-    async querystate(state){
+    async querystate(state,params){
         const { ctx } = this;
-        console.log('--寻找---',state)
-        const shop = await ctx.model.Ghost.findAll({
-            where: {state: state},
-        });
+        console.log('--寻找---',state);
+        let shop;
+        console.log('-----',params);
+        if(params){
+            shop = await ctx.model.Ghost.findAll({
+                where: {state: state, name: {
+                    [Op.like]: `%${params}%`
+                  }},
+            });
+        }else{
+            shop = await ctx.model.Ghost.findAll({
+                where: {state: state,},
+            });
+        }
         if (!shop) {
-            ctx.throw(404, ctx.__('书籍未找到'));
+            ctx.throw(404, ctx.__('未找到'));
+        }
+        return shop;
+
+    }
+    async query(name){
+        const { ctx } = this;
+        console.log('--寻找2---',name)
+        const shop = await ctx.model.Ghost.findAndCountAll({
+            where: {
+               name: {
+                 [Op.like]: `%${name}%`
+               }
+            },
+         })
+         console.log(shop)
+        if (!shop) {
+            ctx.throw(404, ctx.__('未找到'));
         }
         return shop;
 

@@ -70,7 +70,6 @@ const Personnel: FC<{}> = () => {
         <span>
           <a
             onClick={() => {
-              console.log(item)
               showEditModal(item);
             }}
           >

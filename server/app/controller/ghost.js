@@ -1,6 +1,8 @@
 'use strict';
 const Controller = require('egg').Controller;
 
+const Op = require('sequelize').Op;
+
 class GhostController extends Controller {
 
 
@@ -44,7 +46,16 @@ v
     async querystate() {
         const { ctx, service } = this;
         const state = ctx.params.state;
-        const ghost = await service.ghost.querystate(state);
+        const {params} = ctx.request.query;
+        const ghost = await service.ghost.querystate(state,params);
+        ctx.body = ctx.success(ghost);
+    }
+    async query() {
+        const { ctx, service } = this;
+        const {name} = ctx.request.query;
+        console.log('--111111111111111---',name)
+
+        const ghost = await service.ghost.query(name);
         ctx.body = ctx.success(ghost);
     }
     async destroy() {
