@@ -32,6 +32,8 @@ class GhostService extends Service {
     }
 
     async create(data) {
+        console.log("++++++创建")
+
         const { ctx } = this;
         try {
             await ctx.model.Ghost.create(data);
@@ -44,6 +46,7 @@ class GhostService extends Service {
 
     async update(data) {
         const { ctx } = this;
+        console.log("++++++修改")
         try {
             console.log(ctx);
             return await ctx.model.Ghost.update(data);
@@ -52,7 +55,18 @@ class GhostService extends Service {
             ctx.throw(500, ctx.__('修改失败'));
         }
     }
+    async querystate(state){
+        const { ctx } = this;
+        console.log('--寻找---',state)
+        const shop = await ctx.model.Ghost.findAll({
+            where: {state: state},
+        });
+        if (!shop) {
+            ctx.throw(404, ctx.__('书籍未找到'));
+        }
+        return shop;
 
+    }
     async destroy(id) {
         await this.ctx.model.Ghost.destroy({ where: { id } });
     }

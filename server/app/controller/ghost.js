@@ -29,8 +29,8 @@ v
         const id = ctx.params.id;
         console.log("update")
         const ghost = await service.ghost.show(id);
-        const { name,lifetime,cause,sort} = ctx.request.body;
-        await ghost.update({ name,lifetime,cause,sort });
+        const { name,lifetime,cause,sort,state} = ctx.request.body;
+        await ghost.update({ name,lifetime,cause,sort,state });
         ctx.body = ctx.success();
     }
     async show() {
@@ -39,6 +39,12 @@ v
         console.log("show")
 
         const ghost = await service.ghost.show(id);
+        ctx.body = ctx.success(ghost);
+    }
+    async querystate() {
+        const { ctx, service } = this;
+        const state = ctx.params.state;
+        const ghost = await service.ghost.querystate(state);
         ctx.body = ctx.success(ghost);
     }
     async destroy() {

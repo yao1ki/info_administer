@@ -52,7 +52,18 @@ class BookService extends Service {
             ctx.throw(500, ctx.__('修改书籍失败'));
         }
     }
+    async queryip(ip){
+        const { ctx } = this;
+        console.log('-----',ip)
+        const shop = await ctx.model.Book.findAll({
+            where: {ip: ip},
+        });
+        if (!shop) {
+            ctx.throw(404, ctx.__('书籍未找到'));
+        }
+        return shop;
 
+    }
     async destroy(id) {
         await this.ctx.model.Book.destroy({ where: { id } });
     }

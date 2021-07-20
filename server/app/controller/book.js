@@ -6,6 +6,7 @@ class BookController extends Controller {
 
     async index() {
         const { ctx, service } = this;
+        console.log(ctx)
         const opt = ctx.helper.curd(ctx);
         const ret = await service.book.list(opt);
         ctx.body = ctx.success(ret.rows, { total: ret.count });
@@ -31,7 +32,15 @@ class BookController extends Controller {
     async show() {
         const { ctx,service } = this;
         const id = ctx.params.id;
+        console.log('-------------->1',id)
         const book = await service.book.show(id);
+        console.log(book)
+        ctx.body = ctx.success(book);
+    }
+    async queryip() {
+        const { ctx, service } = this;
+        const ip = ctx.params.ip;
+        const book = await service.book.queryip(ip);
         ctx.body = ctx.success(book);
     }
     async destroy() {

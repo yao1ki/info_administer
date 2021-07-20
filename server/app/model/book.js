@@ -8,6 +8,7 @@ module.exports = (app) => {
     name: STRING,
     author: STRING,
     category: STRING,
+    ip:STRING,
     intro: STRING,
     created_at: {
       type: app.Sequelize.DATE,

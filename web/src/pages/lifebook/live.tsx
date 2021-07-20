@@ -35,6 +35,7 @@ const tabList = [
     tab: '已删除',
   },
 ];
+const state ="1";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -42,17 +43,17 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
+  const [key, setKey] = useState<string>('live');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.listGhost();
+      return await service.querystate(state);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -155,6 +156,8 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
+    console.log("live--------->",key)
+
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -207,7 +210,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-
+        
       >
         <Card >
           <Table

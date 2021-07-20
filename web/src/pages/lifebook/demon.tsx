@@ -1,9 +1,9 @@
-import  { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider,  Modal } from 'antd';
+import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest} from 'umi';
+import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
@@ -18,6 +18,7 @@ type SearchProps = {
   };
 };
 
+const state = '3';
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -29,13 +30,12 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.listGhost();
+      return await service.querystate(state);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -150,7 +150,7 @@ const Personnel: FC<SearchProps> = (props) => {
     pageSize: 10,
     onChange: handleJump,
   };
- const handleTabChange = (key: string) => {
+  const handleTabChange = (key: string) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -171,7 +171,6 @@ const Personnel: FC<SearchProps> = (props) => {
     }
   };
 
-  
   const getTabKey = () => {
     const { match, location } = props;
     const url = match.path === '/' ? '' : match.path;
@@ -198,7 +197,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}

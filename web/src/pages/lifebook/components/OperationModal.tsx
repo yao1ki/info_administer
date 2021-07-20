@@ -2,12 +2,16 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
-
+import {ModalForm, ProFormSelect,
+} from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
+
+
+
 }
 
 const formLayout = {
@@ -99,6 +103,26 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入生肖" />
         </Form.Item>
+        <ProFormSelect
+            name="state"
+            label="死因"
+            rules={[{ required: true, message: '请选择死因' }]}
+            options={[
+              {
+                label: '阳寿未尽',
+                value: '1',
+              },
+              {
+                label: '孤魂野鬼',
+                value: '2',
+              },
+              {
+                label: '投胎转世',
+                value: '3',
+              },
+            ]}
+            placeholder="请选择死因"
+          />
       </Form>
     );
   };

@@ -8,6 +8,8 @@ module.exports = app => {
   router.post('/api/login', controller.user.login);
   router.get('/api/user', controller.user.current);
   router.get('/api/book', controller.book.current);
+  router.get('/api/querystate/:state', controller.ghost.querystate);
+
   // router.get('/api/user', controller.user.show);
   //router.get('/api/people/:id',controller.user.show)
   router.resources('/api/users',controller.user);

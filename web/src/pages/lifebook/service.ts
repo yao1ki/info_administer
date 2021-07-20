@@ -7,7 +7,9 @@ interface ParamsType extends Partial<GhostItem> {}
 async function listGhost() {
   return request('/api/ghosts', { method: 'GET' });
 }
-
+async function querystate(state: string) {
+  return request(`/api/querystate/${state}`);
+}
 async function createGhost(data: ParamsType) {
   return request(`/api/ghosts`, { method: 'POST', data });
 }
@@ -34,6 +36,7 @@ export default {
   showGhost,
   updateGhost,
   removeGhost,
+  querystate,
   edit,
 
 };

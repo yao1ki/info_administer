@@ -1,4 +1,4 @@
-import  { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
@@ -35,7 +35,7 @@ const tabList = [
     tab: '已删除',
   },
 ];
-
+const state = '2';
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
@@ -46,19 +46,17 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.listGhost();
+      return await service.querystate(state);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
       message.success('删除成功！');
       setOpFlag(opFlag + 1);
-
     }
   };
 
@@ -73,8 +71,6 @@ const Personnel: FC<SearchProps> = (props) => {
   };
 
   const columns = [
-
-
     {
       title: '姓名',
       dataIndex: 'name',
@@ -86,14 +82,14 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'lifetime',
       key: 'lifetime',
       valueType: 'textarea',
-    },    
+    },
     {
-      
       title: '死亡方式 ',
       dataIndex: 'cause',
       key: 'cause',
       valueType: 'textarea',
-    },    {
+    },
+    {
       title: '类别',
       dataIndex: 'sort',
       key: 'sort',
@@ -106,7 +102,7 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              console.log(item)
+              console.log(item);
               showEditModal(item);
             }}
           >
@@ -157,9 +153,9 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
 
-
   const handleTabChange = (key: string) => {
     const { match } = props;
+
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'live':
@@ -205,7 +201,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}

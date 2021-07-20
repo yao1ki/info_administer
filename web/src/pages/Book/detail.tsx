@@ -8,7 +8,6 @@ import service from './service';
 interface params {
   id: string;
 }
-
 const Test: FC<{}> = () => {
   /* current作为修改值可能存在部分属性 */
   const [visible, setVisible] = useState<boolean>(false);
