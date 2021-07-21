@@ -78,6 +78,12 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const columns = [
     {
+      title: 'ID',
+      dataIndex: 'ghost_id',
+      key: 'ghost_id',
+      valueType: 'textarea',
+    },
+    {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',

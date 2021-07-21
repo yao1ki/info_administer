@@ -55,6 +55,25 @@ class GhostService extends Service {
             ctx.throw(500, ctx.__('修改失败'));
         }
     }
+    async ghostlist(params){
+        const { ctx } = this;
+        let shop;
+        console.log('-----',params);
+        if(params){
+            shop = await ctx.model.Ghost.findAll({
+                where: {name: {
+                    [Op.like]: `%${params}%`
+                  }},
+            });
+        }else{
+            shop = await ctx.model.Ghost.findAll();
+        }
+        if (!shop) {
+            ctx.throw(404, ctx.__('未找到'));
+        }
+        return shop;
+
+    }
     async querystate(state,params){
         const { ctx } = this;
         console.log('--寻找---',state);
@@ -63,7 +82,7 @@ class GhostService extends Service {
         if(params){
             shop = await ctx.model.Ghost.findAll({
                 where: {state: state, name: {
-                    [Op.like]: `%${params}%`
+                    [Op.like]: `%${params}%`,
                   }},
             });
         }else{

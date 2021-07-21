@@ -8,7 +8,6 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
-
 type SearchProps = {
   match: {
     url: string;
@@ -36,7 +35,6 @@ const tabList = [
     tab: '已删除',
   },
 ];
-const state ="1";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -44,19 +42,18 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      return await service.listGhost(params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  
+
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -77,12 +74,6 @@ const Personnel: FC<SearchProps> = (props) => {
 
 
   const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
-      valueType: 'textarea',
-    },
     {
       title: '姓名',
       dataIndex: 'name',

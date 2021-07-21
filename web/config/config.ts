@@ -79,34 +79,40 @@ export default defineConfig({
       path: '/Book',
       component: './Book/index.tsx',
     },
-
+{
+  name: 'death.book',
+  icon: 'table',
+  path: '/lifebook',
+  component: './lifebook/index.tsx',
+},
     {
       name: 'lifebook',
       icon: 'table',
+      hideInMenu:true,
       routes: [
         {
           name: 'demon',
           path: '/lifebook/demon',
           component: './lifebook/demon',
-          hideInMenu: false,
+          hideInMenu:true,
         },
         {
           name: 'ghost',
           path: '/lifebook/ghost',
           component: './lifebook/ghost',
-          hideInMenu: false,
+          hideInMenu: true,
         },
         {
           name: 'live',
           path: '/lifebook/live',
           component: './lifebook/live',
-          hideInMenu: false,
+          hideInMenu: true,
         },
         {
           name: 'mistake',
           path: '/lifebook/mistake',
           component: './lifebook/mistake',
-          hideInMenu: false,
+          hideInMenu: true,
         },
       ],
     },

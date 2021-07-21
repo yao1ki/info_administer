@@ -40,7 +40,7 @@ export default {
   'menu.lifebook.ghost': '孤魂野鬼',
   'menu.lifebook.mistake': '已删除',
   'menu.lifebook': '生死簿',
-  
+  'menu.death.book': '生死簿',
   'menu.profile': '详情页',
   'menu.profile.basic': '基础详情页',
   'menu.profile.advanced': '高级详情页',

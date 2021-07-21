@@ -14,7 +14,12 @@ class GhostController extends Controller {
         const ret = await service.ghost.list(opt);
         ctx.body = ctx.success(ret.rows, { total: ret.count });
     }
-v
+    async ghostlist() {
+        const { ctx, service } = this;
+        const {params} = ctx.request.query;
+        const ghost = await service.ghost.ghostlist(params);
+        ctx.body = ctx.success(ghost);
+    }
     async create() {
         const ctx = this.ctx;
         console.log("create")
@@ -53,8 +58,6 @@ v
     async query() {
         const { ctx, service } = this;
         const {name} = ctx.request.query;
-        console.log('--111111111111111---',name)
-
         const ghost = await service.ghost.query(name);
         ctx.body = ctx.success(ghost);
     }
