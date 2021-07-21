@@ -118,13 +118,13 @@ const Personnel: FC<{}> = () => {
 
   const action = (
     <>
-      <Button onClick={showModal}>添加账号</Button>
+      <Button onClick={showModal}>添加差吏</Button>
     </>
   );
 
   return (
     <PageContainer>
-      <Card title="账号列表" extra={action}>
+      <Card title="差吏列表" extra={action}>
         <Table
           columns={columns}
           dataSource={data}

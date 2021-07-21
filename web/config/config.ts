@@ -91,9 +91,9 @@ export default defineConfig({
       hideInMenu:true,
       routes: [
         {
-          name: 'demon',
-          path: '/lifebook/demon',
-          component: './lifebook/demon',
+          name: 'birth',
+          path: '/lifebook/birth',
+          component: './lifebook/birth',
           hideInMenu:true,
         },
         {

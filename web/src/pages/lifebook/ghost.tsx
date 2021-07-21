@@ -28,7 +28,7 @@ const tabList = [
     tab: '孤魂野鬼',
   },
   {
-    key: 'demon',
+    key: 'birth',
     tab: '投胎转世',
   },
   {
@@ -171,8 +171,8 @@ const Personnel: FC<SearchProps> = (props) => {
       case 'live':
         history.push(`/lifebook/live`);
         break;
-      case 'demon':
-        history.push(`/lifebook/demon`);
+      case 'birth':
+        history.push(`/lifebook/birth`);
         break;
       case 'ghost':
         history.push(`/lifebook/ghost`);
