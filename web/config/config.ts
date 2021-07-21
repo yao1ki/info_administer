@@ -35,7 +35,7 @@ export default defineConfig({
     ie: 11,
   },
   // umi routes: https://umijs.org/docs/routing
-  routes:[
+  routes: [
     {
       path: '/user',
       layout: false,
@@ -47,6 +47,7 @@ export default defineConfig({
         },
       ],
     },
+
     {
       path: '/welcome',
       name: 'welcome',
@@ -54,18 +55,19 @@ export default defineConfig({
       component: './Welcome',
     },
     {
-      name: 'list.account',
+      name: 'leader',
       icon: 'table',
-      path: '/account',
-      component: './Account/index.tsx',
+      path: '/account/leader.tsx',
+      component: './Account/leader.tsx',
     },
     {
-      name: 'detail.book',
+      name: 'list.account',
       icon: 'table',
-      path: '/Book.detail/:id',
-      component: './Book/detail.tsx',
-      hideInMenu: true,
+      path: '/account/index.tsx',
+      component: './Account/index.tsx',
     },
+
+ 
     {
       name: 'detail.user',
       icon: 'table',
@@ -73,28 +75,23 @@ export default defineConfig({
       component: './Account/detail.tsx',
       hideInMenu: true,
     },
+
     {
-      name: 'list.book',
+      name: 'death.book',
       icon: 'table',
-      path: '/Book',
-      component: './Book/index.tsx',
+      path: '/lifebook',
+      component: './lifebook/index.tsx',
     },
-{
-  name: 'death.book',
-  icon: 'table',
-  path: '/lifebook',
-  component: './lifebook/index.tsx',
-},
     {
       name: 'lifebook',
       icon: 'table',
-      hideInMenu:true,
+      hideInMenu: true,
       routes: [
         {
           name: 'birth',
           path: '/lifebook/birth',
           component: './lifebook/birth',
-          hideInMenu:true,
+          hideInMenu: true,
         },
         {
           name: 'ghost',
@@ -115,6 +112,20 @@ export default defineConfig({
           hideInMenu: true,
         },
       ],
+    },
+
+    {
+      name: 'detail.book',
+      icon: 'table',
+      path: '/Book.detail/:id',
+      component: './Book/detail.tsx',
+      hideInMenu: true,
+    },
+    {
+      name: 'list.book',
+      icon: 'table',
+      path: '/Book',
+      component: './Book/index.tsx',
     },
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn

@@ -12,6 +12,17 @@ class UserService extends Service {
         }
         return shop;
     }
+    async userlist(potence) {
+        console.log("<<<<<<<<<<<<<<<",potence)
+        const { ctx } = this;
+        return await ctx.model.User.findAll({
+            where: {
+                potence: potence,
+            },
+        });
+
+        
+    }
     async list(arg) {
         const { ctx } = this;
         const opt = {};

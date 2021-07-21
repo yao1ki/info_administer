@@ -11,6 +11,7 @@ module.exports = app => {
     telephone:STRING,
     e_mile:STRING,
     name: STRING,
+    potence:STRING,
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });

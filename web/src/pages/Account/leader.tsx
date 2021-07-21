@@ -12,7 +12,7 @@ const Personnel: FC<{}> = () => {
   const [current, setCurrent] = useState<Partial<UserItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const potence="1";
+  const potence="0";
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -116,15 +116,10 @@ const Personnel: FC<{}> = () => {
     onChange: handleJump,
   };
 
-  const action = (
-    <>
-      <Button onClick={showModal}>添加差吏</Button>
-    </>
-  );
 
   return (
     <PageContainer>
-      <Card title="差吏列表" extra={action}>
+      <Card title="阎王列表">
         <Table
           columns={columns}
           dataSource={data}

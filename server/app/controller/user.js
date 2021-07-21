@@ -39,6 +39,7 @@ class UserController extends Controller {
 
   async index() {
     const { ctx, service } = this;
+
     const opt = ctx.helper.curd(ctx);
     const ret = await service.user.list(opt);
     ctx.body = ctx.success(ret.rows, { total: ret.count });
@@ -97,7 +98,13 @@ class UserController extends Controller {
       ctx.throw(500, "------");
     }
   }
-
+  async userlist() {
+    const { ctx, service } = this;
+    const potence = ctx.params.potence;
+    console.log(">>>>>>>>>>>>>>>>",potence)
+    const user = await service.user.userlist(potence);
+    ctx.body = ctx.success(user);
+  }
   async show() {
     const { ctx, service } = this;
     const id = ctx.params.id;

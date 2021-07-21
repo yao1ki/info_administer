@@ -8,7 +8,10 @@ interface ParamsType extends Partial<UserItem> {}
 async function listUsers() {
   return request('/api/users', { method: 'GET' });
 }
+async function list(potence: string) {
+  return request(`/api/userlist/${potence}`, { method: 'GET'});
 
+}
 async function createUser(data: ParamsType) {
   return request(`/api/users`, { method: 'POST', data });
 }
@@ -40,6 +43,7 @@ export default {
   currentUser,
   showUser,
   updateUser,
+  list,
   removeUser,
   edit,
   detail,

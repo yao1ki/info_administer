@@ -12,6 +12,7 @@ module.exports = app => {
   router.get('/api/query', controller.ghost.query);
   
   router.get('/api/ghostlist', controller.ghost.ghostlist);
+  router.get('/api/userlist/:potence', controller.user.userlist);
   
 
   // router.get('/api/user', controller.user.show);

@@ -197,6 +197,12 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+  const action = (
+    <>
+      <Button onClick={showModal}>添加目标</Button>
+    </>
+  );
+
   return (
     <div>
       <PageContainer
@@ -216,7 +222,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card>
+      <Card title="列表" extra={action}>
           <Table
             columns={columns}
             dataSource={data}

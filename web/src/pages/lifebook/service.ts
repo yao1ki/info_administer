@@ -5,7 +5,6 @@ import { GhostItem } from './data.d';
 interface ParamsType extends Partial<GhostItem> {}
 
 async function listGhost(params: any) {
-  console.log('=====',params)
   return request(`/api/ghostlist/?params=${params}`, { method: 'GET' });
 
 }

@@ -32,6 +32,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         lifetime: current.lifetime,
         cause: current.cause,
         sort: current.sort,
+        ghost_id:current.ghost_id,
+        state:current.state,
       });
     }
   }, [props.current]);
@@ -45,11 +47,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     const id = current ? current.id : '';
     let res;
     if (id) {
-      console.log('修改');
-
       res = await service.updateGhost(id, values);
     } else {
-      console.log('添加');
       values = Object.assign(values);
       res = await service.createGhost(values);
     }
@@ -66,11 +65,19 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
+         <Form.Item
+          name="ghost_id"
+          label="ID"
+          rules={[{ required: true, message: '请输入ID' }]}
+          key="1"
+        >
+          <Input placeholder="请输入ID" />
+        </Form.Item>
         <Form.Item
           name="name"
           label="姓名"
           rules={[{ required: true, message: '请输入姓名' }]}
-          key="1"
+          key="2"
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
@@ -78,7 +85,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           name="lifetime"
           label="阳寿"
           rules={[{ required: true, message: '请输入阳寿' }]}
-          key="2"
+          key="3"
         >
           <Input placeholder="请输入阳寿" />
         </Form.Item>
