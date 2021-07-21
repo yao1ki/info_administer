@@ -96,7 +96,7 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '类别',
+      title: '生肖',
       dataIndex: 'sort',
       key: 'sort',
       valueType: 'textarea',

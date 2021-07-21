@@ -64,7 +64,7 @@ v
 
         const id = ctx.params.id;
         const ghost = await service.ghost.show(id);
-        await ghost.destroy();
+        await ghost.update({state: 4});
         ctx.body = ctx.success();
     }
 

@@ -2,16 +2,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
-import {ModalForm, ProFormSelect,
-} from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
-
-
-
 }
 
 const formLayout = {
@@ -49,11 +45,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     const id = current ? current.id : '';
     let res;
     if (id) {
-      console.log("修改")
+      console.log('修改');
 
       res = await service.updateGhost(id, values);
     } else {
-      console.log("添加")
+      console.log('添加');
       values = Object.assign(values);
       res = await service.createGhost(values);
     }
@@ -86,42 +82,98 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入阳寿" />
         </Form.Item>
-        <Form.Item
-          name="cause"
-          label="死因"
-          rules={[{ required: true, message: '请输入死因' }]}
-          key="3"
-        >
-          <Input placeholder="请输入死因" />
-        </Form.Item>
-        <Form.Item
-          name="sort"
-          label="生肖"
-          rules={[{ required: true, message: '请输入生肖' }]}
-          key="4"
-        >
-          <Input placeholder="请输入生肖" />
-        </Form.Item>
-        <ProFormSelect
-            name="state"
-            label="死因"
-            rules={[{ required: true, message: '请选择死因' }]}
+          <ProFormSelect
+            name="cause"
+            label="死亡方式"
+            rules={[{ required: true, message: '请选择死亡方式' }]}
             options={[
               {
-                label: '阳寿未尽',
-                value: '1',
+                label: '善终',
+                value: '善终',
               },
               {
-                label: '孤魂野鬼',
-                value: '2',
-              },
-              {
-                label: '投胎转世',
-                value: '3',
+                label: '惨死',
+                value: '惨死',
               },
             ]}
-            placeholder="请选择死因"
-          />
+            placeholder="请选择死亡方式"
+          />  
+        <ProFormSelect
+          name="sort"
+          label="生肖"
+          rules={[{ required: true, message: '请选择生肖' }]}
+          options={[
+            {
+              label: '鼠',
+              value: '鼠',
+            },
+            {
+              label: '牛',
+              value: '牛',
+            },
+            {
+              label: '虎',
+              value: '虎',
+            },
+            {
+              label: '兔',
+              value: '兔',
+            },
+            {
+              label: '龙',
+              value: '龙',
+            },
+            {
+              label: '蛇',
+              value: '蛇',
+            },
+            {
+              label: '马',
+              value: '马',
+            },
+            {
+              label: '羊',
+              value: '羊',
+            },
+            {
+              label: '猴',
+              value: '猴',
+            },
+            {
+              label: '鸡',
+              value: '鸡',
+            },
+            {
+              label: '狗',
+              value: '狗',
+            },
+            {
+              label: '猪',
+              value: '猪',
+            },
+          ]}
+          placeholder="请选择生肖"
+        />
+        <ProFormSelect
+          name="state"
+          label="死因"
+          rules={[{ required: true, message: '请选择死因' }]}
+          options={[
+            {
+              label: '阳寿未尽',
+              value: '1',
+            },
+            {
+              label: '孤魂野鬼',
+              value: '2',
+            },
+            {
+              label: '投胎转世',
+              value: '3',
+            },
+          ]}
+          placeholder="请选择死因"
+        />
       </Form>
     );
   };
@@ -138,7 +190,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       onCancel={handleCancel}
     >
       {getModalContent()}
-      
     </Modal>
   );
 };

@@ -44,7 +44,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
 
   //获取数据
@@ -96,7 +95,7 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '类别',
+      title: '生肖',
       dataIndex: 'sort',
       key: 'sort',
       valueType: 'textarea',
@@ -114,13 +113,7 @@ const Personnel: FC<SearchProps> = (props) => {
             编辑
           </a>
           <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+  
         </span>
       ),
     },

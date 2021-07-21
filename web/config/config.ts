@@ -79,6 +79,7 @@ export default defineConfig({
       path: '/Book',
       component: './Book/index.tsx',
     },
+
     {
       name: 'lifebook',
       icon: 'table',

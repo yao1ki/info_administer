@@ -17,6 +17,7 @@ module.exports = app => {
  // router.get('/api/users/index', controller.user.index);
   router.resources('/api/books',controller.book);
   router.resources('/api/ghosts',controller.ghost);
+  router.put('/api/ghosts/destroy/:id',controller.ghost.destroy);
   //router.resources('/api/fruits',controller.fruit);
   //router.get('/api/fruits/index',controller.fruit.index);
  // router.delete('/api/users/:id',controller.user.destroy);

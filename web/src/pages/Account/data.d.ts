@@ -1,4 +1,4 @@
-export interface GhostItem {
+export interface UserItem {
     id?: number;
     username: string;
     name: string;
