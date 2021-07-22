@@ -58,9 +58,11 @@ class GhostService extends Service {
     const { ctx } = this;
     let shop;
     console.log("-----", params);
+
     if (params) {
       shop = await ctx.model.Ghost.findAll({
         where: {
+          state:{[Op.not]:"4"},
           [Op.or]: [
             {
               name: {
@@ -83,10 +85,15 @@ class GhostService extends Service {
               },
             },
           ],
+
         },
+        
       });
     } else {
-      shop = await ctx.model.Ghost.findAll();
+      shop = await ctx.model.Ghost.findAll({
+        where: {
+          state:{[Op.not]:"4"},}}
+      );
     }
     if (!shop) {
       ctx.throw(404, ctx.__("未找到"));
