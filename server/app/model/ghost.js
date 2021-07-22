@@ -9,8 +9,8 @@ module.exports = app => {
     lifetime:STRING,
     cause:STRING,
     sort:STRING,
-    state:STRING,
     ghost_id:STRING,
+    state:STRING,
     deathtime:STRING,
     emissary_id:STRING,
     reason:STRING,
@@ -19,5 +19,11 @@ module.exports = app => {
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });
 
+  Ghost.associate = function() {
+    app.model.Ghost.hasMany(app.model.Order, { foreignKey: 'id', targetKey: 'id'})
+  }
+ 
+
+  
   return Ghost;
-};
+}

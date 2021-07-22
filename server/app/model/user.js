@@ -15,6 +15,9 @@ module.exports = app => {
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });
-
+  User.associate = function() {
+    app.model.User.belongsTo(app.model.Order, { foreignKey: 'id', targetKey: 'id'})
+  }
+ 
   return User;
 };

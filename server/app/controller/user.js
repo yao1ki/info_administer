@@ -101,7 +101,6 @@ class UserController extends Controller {
   async userlist() {
     const { ctx, service } = this;
     const potence = ctx.params.potence;
-    console.log(">>>>>>>>>>>>>>>>",potence)
     const user = await service.user.userlist(potence);
     ctx.body = ctx.success(user);
   }
