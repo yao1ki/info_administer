@@ -15,6 +15,7 @@ module.exports = app => {
     emissary_id:STRING,
     reason:STRING,
     returntime:STRING,
+    manager:STRING,
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });

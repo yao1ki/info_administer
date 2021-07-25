@@ -83,13 +83,9 @@ class UserController extends Controller {
 
   async destroy() {
     const { ctx, service, app } = this;
-    //获取本人id
-    //console.log(this.ctx.locals.user);
     const { token } = ctx.request.query;
-    //console.log('----',ctx.request.query)
     let user_id = this.ctx.locals.user.user;
     const id = ctx.params.id;
-    //console.log(id);
     if (user_id != id) {
       const user = await service.user.show(id);
       await user.destroy();
@@ -114,7 +110,6 @@ class UserController extends Controller {
     const { ctx, app } = this;
     const { token } = ctx.request.query;
     let decoded = await app.jwt.verify(token, app.config.keys);
-    console.log("---->", decoded);
     const user = await ctx.model.User.findByPk(decoded.user);
     if (user) {
       ctx.body = ctx.success({

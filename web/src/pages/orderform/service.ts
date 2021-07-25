@@ -8,6 +8,11 @@ async function listGhost(params: any) {
   return request(`/api/ghostlist/?params=${params}`, { method: 'GET' });
 
 }
+async function list() {
+  return request(`/api/orders`, { method: 'GET' });
+
+}
+
 async function querystate(state: string,params: any) {
   return request(`/api/querystate/${state}?params=${params}`);
 }
@@ -39,5 +44,5 @@ export default {
   removeGhost,
   querystate,
   edit,
-
+  list,
 };

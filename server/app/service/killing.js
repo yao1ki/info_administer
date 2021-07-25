@@ -31,7 +31,6 @@ class GhostService extends Service {
   }
 
   async create(data) {
-    console.log("++++++创建");
 
     const { ctx } = this;
     try {
@@ -45,9 +44,7 @@ class GhostService extends Service {
 
   async update(data) {
     const { ctx } = this;
-    console.log("++++++修改");
     try {
-      console.log(ctx);
       return await ctx.model.Ghost.update(data);
     } catch (e) {
       ctx.logger.warn(e);
@@ -57,7 +54,6 @@ class GhostService extends Service {
   async ghostlist(params) {
     const { ctx } = this;
     let shop;
-    console.log("-----", params);
     if (params) {
       shop = await ctx.model.Ghost.findAll({
         where: {
@@ -95,9 +91,7 @@ class GhostService extends Service {
   }
   async querystate(state, params) {
     const { ctx } = this;
-    console.log("--寻找---", state);
     let shop;
-    console.log("-----", params);
     if (params) {
       shop = await ctx.model.Ghost.findAll({
         where: {
@@ -138,7 +132,6 @@ class GhostService extends Service {
   }
   async query(name) {
     const { ctx } = this;
-    console.log("--寻找2---", name);
     const shop = await ctx.model.Ghost.findAndCountAll({
       where: {
         name: {
@@ -146,7 +139,6 @@ class GhostService extends Service {
         },
       },
     });
-    console.log(shop);
     if (!shop) {
       ctx.throw(404, ctx.__("未找到"));
     }

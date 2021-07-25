@@ -14,10 +14,12 @@ module.exports = (app) => {
   router.get("/api/ghostlist", controller.ghost.ghostlist);
   
   router.resources("/api/users", controller.user);
-  router.resources("/api/books", controller.book);
+ 
   router.resources("/api/ghosts", controller.ghost);
+  router.resources("/api/orders", controller.order);
 
+  router.resources("/api/books", controller.book);
   router.get("/api/book", controller.book.current);
-  router.get("/api/order/test", controller.orderform.test);
+ // router.get("/api/order/test", controller.order.test);
 
 };

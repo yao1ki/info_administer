@@ -6,6 +6,8 @@ export interface GhostItem {
     cause:STRING,
     sort:STRING,
     state:STRING,
+    reason:STRING,
+    emissary_id:String,
     created_at?: string;
     updated_at?: string;
 }

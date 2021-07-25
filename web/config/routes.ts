@@ -10,6 +10,7 @@
       },
     ],
   },
+
   {
     path: '/welcome',
     name: 'welcome',
@@ -17,18 +18,19 @@
     component: './Welcome',
   },
   {
-    name: 'list.account',
+    name: 'leader',
     icon: 'table',
-    path: '/account',
-    component: './Account/index.tsx',
+    path: '/account/leader.tsx',
+    component: './Account/leader.tsx',
   },
   {
-    name: 'detail.book',
+    name: 'list.account',
     icon: 'table',
-    path: '/Book.detail/:id',
-    component: './Book/detail.tsx',
-    hideInMenu: true,
+    path: '/account/index.tsx',
+    component: './Account/index.tsx',
   },
+
+
   {
     name: 'detail.user',
     icon: 'table',
@@ -36,15 +38,23 @@
     component: './Account/detail.tsx',
     hideInMenu: true,
   },
+
   {
-    name: 'list.book',
+    name: 'death.book',
     icon: 'table',
-    path: '/Book',
-    component: './Book/index.tsx',
+    path: '/lifebook',
+    component: './lifebook/index.tsx',
+  },
+  {
+    name: 'order',
+    icon: 'table',
+    path: '/orderform',
+    component: './orderform/process.tsx',
   },
   {
     name: 'lifebook',
     icon: 'table',
+    hideInMenu: true,
     routes: [
       {
         name: 'birth',
@@ -71,25 +81,52 @@
         hideInMenu: true,
       },
     ],
-  // {
-  //   path: '/admin',
-  //   name: 'admin',
-  //   icon: 'crown',
-  //   access: 'canAdmin',
-  //   component: './Admin',
-  //   routes: [
-  //     {
-  //       path: '/admin/sub-page',
-  //       name: 'sub-page',
-  //       icon: 'smile',
-  //       component: './Welcome',
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: 'list.table-list',
-  //   icon: 'table',
-  //   path: '/list',
-  //   component: './ListTableList',
-},
+  },
+
+  {
+    name: 'orderform',
+    icon: 'table',
+    hideInMenu: false,
+    routes: [
+      {
+        name: 'order',
+        path: '/orderform/order',
+        component: './orderform/order.tsx',
+        hideInMenu: false,
+      },        {
+        name: 'process',
+        path: '/orderform/process',
+        component: './orderform/process',
+        hideInMenu: false,
+      },
+      {
+        name: 'checkout',
+        path: '/orderform/checkout',
+        component: './orderform/checkout',
+        hideInMenu: false,
+      },
+      {
+        name: 'chargeback',
+        path: '/orderform/chargeback',
+        component: './orderform/chargeback',
+        hideInMenu: false,
+      },
+    ],
+  },
+
+
+  ///////////////////////////
+  {
+    name: 'detail.book',
+    icon: 'table',
+    path: '/Book.detail/:id',
+    component: './Book/detail.tsx',
+    hideInMenu: true,
+  },
+  {
+    name: 'list.book',
+    icon: 'table',
+    path: '/Book',
+    component: './Book/index.tsx',
+  },
 ]

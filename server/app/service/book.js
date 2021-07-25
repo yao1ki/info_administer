@@ -45,7 +45,6 @@ class BookService extends Service {
     async update(data) {
         const { ctx } = this;
         try {
-            console.log(ctx);
             return await ctx.model.Book.update(data);
         } catch (e) {
             ctx.logger.warn(e);
@@ -54,7 +53,6 @@ class BookService extends Service {
     }
     async queryip(ip){
         const { ctx } = this;
-        console.log('-----',ip)
         const shop = await ctx.model.Book.findAll({
             where: {ip: ip},
         });

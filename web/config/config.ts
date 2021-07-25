@@ -67,7 +67,6 @@ export default defineConfig({
       component: './Account/index.tsx',
     },
 
- 
     {
       name: 'detail.user',
       icon: 'table',
@@ -83,7 +82,7 @@ export default defineConfig({
       component: './lifebook/index.tsx',
     },
     {
-      name: 'orderform',
+      name: 'order',
       icon: 'table',
       path: '/orderform',
       component: './orderform/index.tsx',
@@ -117,20 +116,14 @@ export default defineConfig({
           component: './lifebook/mistake',
           hideInMenu: true,
         },
-      ],
-    },
- 
-    {
-      name: 'form',
-      icon: 'table',
-      hideInMenu: false,
-      routes: [
+
         {
           name: 'order',
           path: '/orderform/order',
           component: './orderform/order',
           hideInMenu: false,
-        },        {
+        },
+        {
           name: 'process',
           path: '/orderform/process',
           component: './orderform/process',
@@ -151,6 +144,37 @@ export default defineConfig({
       ],
     },
 
+    {
+      name: 'orderform',
+      icon: 'table',
+      hideInMenu: false,
+      routes: [
+        {
+          name: 'order',
+          path: '/orderform/order',
+          component: './orderform/order',
+          hideInMenu: false,
+        },
+        {
+          name: 'process',
+          path: '/orderform/process',
+          component: './orderform/process',
+          hideInMenu: false,
+        },
+        {
+          name: 'checkout',
+          path: '/orderform/checkout',
+          component: './orderform/checkout',
+          hideInMenu: false,
+        },
+        {
+          name: 'chargeback',
+          path: '/orderform/chargeback',
+          component: './orderform/chargeback',
+          hideInMenu: false,
+        },
+      ],
+    },
 
     ///////////////////////////
     {
@@ -160,6 +184,7 @@ export default defineConfig({
       component: './Book/detail.tsx',
       hideInMenu: true,
     },
+
     {
       name: 'list.book',
       icon: 'table',

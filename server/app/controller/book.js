@@ -6,7 +6,6 @@ class BookController extends Controller {
 
     async index() {
         const { ctx, service } = this;
-        console.log(ctx)
         const opt = ctx.helper.curd(ctx);
         const ret = await service.book.list(opt);
         ctx.body = ctx.success(ret.rows, { total: ret.count });
@@ -32,9 +31,7 @@ class BookController extends Controller {
     async show() {
         const { ctx,service } = this;
         const id = ctx.params.id;
-        console.log('-------------->1',id)
         const book = await service.book.show(id);
-        console.log(book)
         ctx.body = ctx.success(book);
     }
     async queryip() {
@@ -54,7 +51,6 @@ class BookController extends Controller {
         const { ctx, app } = this;
         const { token } = ctx.request.query;
         let decoded = await app.jwt.verify(token, app.config.keys);
-        console.log('---->',decoded);
         const book = await ctx.model.User.findByPk(decoded.book,);
         if (book) {
             ctx.body = ctx.success({
