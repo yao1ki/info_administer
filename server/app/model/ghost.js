@@ -21,7 +21,9 @@ module.exports = app => {
   });
 
   Ghost.associate = function() {
-    app.model.Ghost.hasMany(app.model.Order, { foreignKey: 'id', targetKey: 'id'})
+   // app.model.Ghost.belongsToMany(app.model.User, { foreignKey: 'ghost_id',through: 'Order'})
+    
+    app.model.Ghost.hasMany(app.model.Order, { foreignKey: 'ghost_id', targetKey: 'id'})
   }
  
 

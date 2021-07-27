@@ -36,7 +36,6 @@ const tabList = [
     tab: '退单',
   },
 ];
-const state ="2";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -44,13 +43,15 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      const data = await service.list();
+      console.log(data)
+      return  data;
+
     },
     {
       refreshDeps: [opFlag],
@@ -79,46 +80,33 @@ const Personnel: FC<SearchProps> = (props) => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      dataIndex: ['ghost','ghost_id'],
+      key: 'id',
       valueType: 'textarea',
+      // render: (_:any, record:any) => {
+      //   return record.ghost.name;
+      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
+      render: (_:any, record:any) => {
+        return record.ghost.name;
+      }
     },
     {
       title: '勾魂使者',
-      dataIndex: 'lifetime',
-      key: 'lifetime',
+      dataIndex: 'envoy',
+      key: 'envoy',
       valueType: 'textarea',
+      render:(_:any,record:any)=>{
+        return record.user.name;
+      }
     },
-    {
-      title: '勾魂时间 ',
-      dataIndex: 'cause',
-      key: 'cause',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单理由',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单人',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单时间',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
+
+
     {
       title: '操作',
       key: 'action',

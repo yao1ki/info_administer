@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Button, Modal } from 'antd';
+import { Card, Table, message, Divider, Button, Modal,Select } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
@@ -8,6 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
+const { Option } = Select;
 
 type SearchProps = {
   match: {
@@ -57,7 +58,9 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-  
+  if(data!==undefined){
+ data.map((v:any,i:any)=>console.log("++++++>",v.name))
+  }
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -206,6 +209,9 @@ const Personnel: FC<SearchProps> = (props) => {
         break;
     }
   };
+  function handleChange(value: any) {
+    console.log(`selected ${value}`);
+  }
 
 
 
@@ -251,6 +257,17 @@ const Personnel: FC<SearchProps> = (props) => {
           />
         </Card>
       </PageContainer>
+      <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+      {/* <Option value="jack">Jack</Option>
+      <Option value="lucy">Lucy</Option>
+      <Option value="disabled" disabled>
+        Disabled
+      </Option>
+      <Option value="Yiminghe">yiminghe</Option> */}
+      {tabList.map( (v,i) => (
+        <Option value={v.tab}>{v.tab}</Option>
+      ) )}
+    </Select>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );

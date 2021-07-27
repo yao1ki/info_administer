@@ -16,7 +16,9 @@ module.exports = app => {
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });
   User.associate = function() {
-    app.model.User.belongsTo(app.model.Order, { foreignKey: 'id', targetKey: 'id'})
+    app.model.User.hasMany(app.model.Order, { foreignKey: 'user_id', targetKey: 'id'})
+   // app.model.User.belongsToMany(app.model.Ghost, { foreignKey: 'user_id', through: 'Order'});
+
   }
  
   return User;
