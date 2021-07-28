@@ -34,7 +34,28 @@ class OrderService extends Service {
         }
     }
 
-
+    async ghostlist(params) {
+        const { ctx } = this;
+        let shop;
+    
+        if (params) {
+          shop = await ctx.model.Ghost.findAll({
+            where: {
+              state:{[Op.not]:"4"}
+            },
+            
+          });
+        } else {
+          shop = await ctx.model.Ghost.findAll({
+            where: {
+              state:{[Op.not]:"4"},}}
+          );
+        }
+        if (!shop) {
+          ctx.throw(404, ctx.__("未找到"));
+        }
+        return shop;
+      }
 
 
 }

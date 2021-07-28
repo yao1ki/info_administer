@@ -49,15 +49,14 @@ const Personnel: FC<SearchProps> = (props) => {
   let { data } = useRequest(
     async () => {
       const data = await service.list();
-      console.log(data)
-      return  data;
-
+      console.log(data);
+      return data;
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  
+
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -76,11 +75,10 @@ const Personnel: FC<SearchProps> = (props) => {
     });
   };
 
-
   const columns = [
     {
       title: 'ID',
-      dataIndex: ['ghost','ghost_id'],
+      dataIndex: ['ghost', 'ghost_id'],
       key: 'id',
       valueType: 'textarea',
       // render: (_:any, record:any) => {
@@ -92,20 +90,10 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-      render: (_:any, record:any) => {
+      render: (_: any, record: any) => {
         return record.ghost.name;
-      }
+      },
     },
-    {
-      title: '勾魂使者',
-      dataIndex: 'envoy',
-      key: 'envoy',
-      valueType: 'textarea',
-      render:(_:any,record:any)=>{
-        return record.user.name;
-      }
-    },
-
 
     {
       title: '操作',
@@ -164,7 +152,6 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -185,12 +172,10 @@ const Personnel: FC<SearchProps> = (props) => {
     }
   };
 
-
-
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -211,7 +196,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -219,9 +204,8 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}

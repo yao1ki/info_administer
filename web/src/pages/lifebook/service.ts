@@ -20,7 +20,7 @@ async function updateGhost(id: number, data: ParamsType) {
 }
 
 async function removeGhost(id: number) {
-  return request(`/api/ghosts/destroy/${id}`, { method: 'PUT' });
+  return request(`/api/ghosts/move/${id}`, { method: 'PUT' });
 }
 
 async function edit(data: ParamsType) {

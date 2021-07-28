@@ -61,6 +61,12 @@ export default defineConfig({
       component: './Account/leader.tsx',
     },
     {
+      name:'order',
+      icon:'table',
+     path:'/order/index.tsx',
+     component:'./Order/index.tsx' 
+    },
+    {
       name: 'list.account',
       icon: 'table',
       path: '/account/index.tsx',
@@ -143,6 +149,7 @@ export default defineConfig({
         },
       ],
     },
+
 
     {
       name: 'orderform',

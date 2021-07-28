@@ -42,6 +42,20 @@ class OrderController extends Controller {
     const order = await service.order.show(id);
     ctx.body = ctx.success(order);
   }
+  async ghostlist() {
+    const { ctx, service } = this;
+    const {params} = ctx.request.query;
+    const ghost = await service.ghost.ghostlist(params);
+    ctx.body = ctx.success(ghost);
+}
+async move() {
+  const { ctx, service } = this;
+console.log("????????????????//")
+  const id = ctx.params.id;
+  const ghost = await service.ghost.show(id);
+  await ghost.update({state: 2});
+  ctx.body = ctx.success();
+}
 }
 
 module.exports = OrderController;

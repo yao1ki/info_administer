@@ -23,7 +23,7 @@ async function updateUser(id: number, data: ParamsType) {
 }
 
 async function removeUser(id: string) {
-  return request(`/api/users/${id}`, { method: 'DELETE' });
+  return request(`/api/users/move/${id}`, { method: 'put' });
 }
 async function showUser(id: string) {
   return request(`/api/users/${id}`);

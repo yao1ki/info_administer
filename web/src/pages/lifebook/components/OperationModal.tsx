@@ -98,6 +98,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
                 label: '善终',
                 value: '善终',
               },
+              
               {
                 label: '惨死',
                 value: '惨死',

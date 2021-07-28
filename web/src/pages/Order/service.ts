@@ -12,23 +12,24 @@ async function list() {
   return request(`/api/orders`, { method: 'GET' });
 
 }
-async function userlist() {
-  return request(`/api/users`, { method: 'GET' });
+
+async function userlist(potence: string) {
+  return request(`/api/userlist/${potence}`, { method: 'GET'});
 
 }
 async function querystate(state: string,params: any) {
   return request(`/api/querystate/${state}?params=${params}`);
 }
-async function createGhost(data: ParamsType) {
-  return request(`/api/ghosts`, { method: 'POST', data });
+async function createOrder(data: ParamsType) {
+  return request(`/api/orders`, { method: 'POST', data });
 }
 
 async function updateGhost(id: number, data: ParamsType) {
   return request(`/api/ghosts/${id}`, { method: 'PUT', data });
 }
 
-async function removeGhost(id: number) {
-  return request(`/api/ghosts/destroy/${id}`, { method: 'PUT' });
+async function removeOrder(id: number) {
+  return request(`/api/orders/move/${id}`, { method: 'PUT' });
 }
 
 async function edit(data: ParamsType) {
@@ -40,13 +41,10 @@ async function showGhost(id: string) {
 
 
 export default {
-  listGhost,
-  createGhost,
   showGhost,
   updateGhost,
-  removeGhost,
+  removeOrder,
   querystate,
-  edit,
-  list,
   userlist,
+  createOrder,
 };

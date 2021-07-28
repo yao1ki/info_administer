@@ -9,10 +9,6 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
 
-
-import { Select } from 'antd';
-
-const { Option } = Select;
 type SearchProps = {
   match: {
     url: string;
@@ -53,19 +49,8 @@ const Personnel: FC<SearchProps> = (props) => {
   let { data } = useRequest(
     async () => {
       const data = await service.list();
-    //  console.log(data)
+      console.log(data)
       return  data;
-
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
-  let arr  = useRequest(
-    async () => {
-      const arr = await service.userlist();
-    //  console.log(data)
-      return  arr;
 
     },
     {
@@ -74,7 +59,7 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   
   const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
+    const res = await service.removeOrder(id);
     if (!res.error) {
       message.success('删除成功！');
       setOpFlag(opFlag + 1);
@@ -111,39 +96,9 @@ const Personnel: FC<SearchProps> = (props) => {
         return record.ghost.name;
       }
     },
-    {
-      title: '勾魂使者',
-      dataIndex: 'envoy',
-      key: 'envoy',
-      valueType: 'textarea',
-      render:(_:any,record:any)=>{
-        return record.user.name;
-      }
-    },
-    {
-      title: '勾魂时间 ',
-      dataIndex: 'created_at',
-      key: 'created_at',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单理由',
-      dataIndex:  ['ghost','reason'],
-      key: 'reason',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单人',
-      dataIndex: ['ghost','manager'],
-      key: 'name',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单时间',
-      dataIndex: ['updated_at'],
-      key: 'time',
-      valueType: 'textarea',
-    },
+ 
+
+
     {
       title: '操作',
       key: 'action',
@@ -239,7 +194,6 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
-
   return (
     <div>
       <PageContainer
@@ -268,9 +222,6 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      <Select>
-            {(arr.data===undefined)?"":arr.data.map((v => (<Option value={v.name}>{v.name}</Option>)))}
-          </Select>
     </div>
   );
 };

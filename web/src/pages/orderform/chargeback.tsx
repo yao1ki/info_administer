@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
-import { GhostItem } from './data.d';
+import { GhostItem } from './data';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
 import service from './service';
@@ -187,6 +187,12 @@ const Personnel: FC<SearchProps> = (props) => {
   };
   const handleTabChange = (key: string) => {
 
+
+
+
+
+
+    
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {

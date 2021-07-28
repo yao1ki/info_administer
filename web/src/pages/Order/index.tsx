@@ -11,7 +11,7 @@ import { values } from 'lodash';
 
 
 import { Select } from 'antd';
-
+const state ="1";
 const { Option } = Select;
 type SearchProps = {
   match: {
@@ -48,14 +48,11 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
-
+const potence = "1"
   //获取数据
   let { data } = useRequest(
     async () => {
-      const data = await service.list();
-    //  console.log(data)
-      return  data;
-
+      return await service.querystate(state,params);
     },
     {
       refreshDeps: [opFlag],
@@ -63,7 +60,7 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   let arr  = useRequest(
     async () => {
-      const arr = await service.userlist();
+      const arr = await service.userlist(potence);
     //  console.log(data)
       return  arr;
 
@@ -73,75 +70,20 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   );
   
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
-    if (!res.error) {
-      message.success('删除成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
 
-  const confirmDelete = (currentItem: GhostItem) => {
-    Modal.confirm({
-      title: '删除',
-      content: '确定删除？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
-    });
-  };
 
 
   const columns = [
     {
       title: 'ID',
-      dataIndex: ['ghost','ghost_id'],
-      key: 'id',
+      dataIndex: 'ghost_id',
+      key: 'ghost_id',
       valueType: 'textarea',
-      // render: (_:any, record:any) => {
-      //   return record.ghost.name;
-      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
-      valueType: 'textarea',
-      render: (_:any, record:any) => {
-        return record.ghost.name;
-      }
-    },
-    {
-      title: '勾魂使者',
-      dataIndex: 'envoy',
-      key: 'envoy',
-      valueType: 'textarea',
-      render:(_:any,record:any)=>{
-        return record.user.name;
-      }
-    },
-    {
-      title: '勾魂时间 ',
-      dataIndex: 'created_at',
-      key: 'created_at',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单理由',
-      dataIndex:  ['ghost','reason'],
-      key: 'reason',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单人',
-      dataIndex: ['ghost','manager'],
-      key: 'name',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单时间',
-      dataIndex: ['updated_at'],
-      key: 'time',
       valueType: 'textarea',
     },
     {
@@ -154,16 +96,10 @@ const Personnel: FC<SearchProps> = (props) => {
               showEditModal(item);
             }}
           >
-            编辑
+            选择勾魂人
           </a>
           <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+
         </span>
       ),
     },
@@ -269,7 +205,7 @@ const Personnel: FC<SearchProps> = (props) => {
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
       <Select>
-            {(arr.data===undefined)?"":arr.data.map((v => (<Option value={v.name}>{v.name}</Option>)))}
+            {(arr.data===undefined)?"":arr.data.map(((v:any) => (<Option value={v.name}>{v.name}</Option>)))}
           </Select>
     </div>
   );
