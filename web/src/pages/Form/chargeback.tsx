@@ -1,14 +1,12 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Button, Modal } from 'antd';
-import { GhostItem } from './data';
+import { Card, Table} from 'antd';
+import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest, Link } from 'umi';
+import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-import { values } from 'lodash';
-
 type SearchProps = {
   match: {
     url: string;
@@ -36,112 +34,72 @@ const tabList = [
     tab: '退单',
   },
 ];
-const state ="2";
-
+const state = "4"
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
-  const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
+  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
-
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      return await service.list(state, params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
-    if (!res.error) {
-      message.success('删除成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
-
-  const confirmDelete = (currentItem: GhostItem) => {
-    Modal.confirm({
-      title: '删除',
-      content: '确定删除？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
-    });
-  };
 
 
   const columns = [
     {
       title: 'ID',
       dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      key: 'id',
       valueType: 'textarea',
+      // render: (_:any, record:any) => {
+      //   return record.ghost.name;
+      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
+      // render: (_: any, record: any) => {
+      //   return record.ghost.name;
+      // },
     },
     {
-      title: '寿命',
-      dataIndex: 'lifetime',
-      key: 'lifetime',
+      title: '勾魂使者',
+      dataIndex: 'name',
+      key: 'name',
       valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.orders.map((v: any, i: any) => {
+          if (i < record.orders.length - 1) {
+            return v.user.name + '、';
+          } else {
+            return v.user.name;
+          }
+        });
+        //return record.ghost.name;
+      },
     },
     {
-      title: '死亡方式 ',
-      dataIndex: 'cause',
-      key: 'cause',
+      title: '退单理由',
+      dataIndex: 'reason',
+      key: 'reason',
       valueType: 'textarea',
+      // render: (_: any, record: any) => {
+      //   return record.ghost.name;
+      // },
     },
-    {
-      title: '生肖',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
-    {
-      title: '操作',
-      key: 'action',
-      render: (item: GhostItem) => (
-        <span>
-          <a
-            onClick={() => {
-              showEditModal(item);
-            }}
-          >
-            编辑
-          </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
-        </span>
-      ),
-    },
-  ];
-  /* 添加current置空 */
-  const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
 
-  /* 编辑框将item传给current */
-  const showEditModal = (item: GhostItem) => {
-    setVisible(true);
-    setCurrent({ ...item });
-  };
+  ];
+
 
   const handleOk = () => {
     setVisible(false);
@@ -164,33 +122,28 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
-    const { match } = props;
-    const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'order':
-        history.push(`/orderform/order`);
-        break;
-      case 'process':
-        history.push(`/orderform/process`);
-        break;
-      case 'checkout':
-        history.push(`/orderform/checkout`);
-        break;
-      case 'chargeback':
-        history.push(`/orderform/chargeback`);
-        break;
-      default:
-        break;
-    }
+        case 'order':
+          history.push(`/Form/index.tsx`);
+          break;
+        case 'process':
+          history.push(`/Form/process.tsx`);
+          break;
+        case 'checkout':
+          history.push(`/Form/checkout.tsx`);
+          break;
+        case 'chargeback':
+          history.push(`/Form/chargeback.tsx`);
+          break;
+        default:
+          break;
+      }
   };
-
-
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -202,6 +155,7 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+
   return (
     <div>
       <PageContainer
@@ -211,7 +165,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -219,9 +173,8 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}
@@ -230,6 +183,7 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+
     </div>
   );
 };

@@ -1,18 +1,14 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Button, Modal } from 'antd';
+import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest, Link } from 'umi';
+import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-import { values } from 'lodash';
 
-
-import { Select } from 'antd';
-
-const { Option } = Select;
+const state = '2';
 type SearchProps = {
   match: {
     url: string;
@@ -40,109 +36,67 @@ const tabList = [
     tab: '退单',
   },
 ];
-
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
-  const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
+  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
-
   //获取数据
   let { data } = useRequest(
     async () => {
-      const data = await service.list();
-    //  console.log(data)
-      return  data;
-
+      console.log(params)
+      return await service.list(state,params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  let arr  = useRequest(
-    async () => {
-      const arr = await service.userlist();
-    //  console.log(data)
-      return  arr;
-
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
-  
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
+  const confirmDelete = (current: GhostItem) => {
+    Modal.confirm({
+      title: '确认勾魂',
+      content: '确定勾对人了吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => showEditModal(JSON.stringify(current?.id)),
+    });
+  };
+  const showEditModal = async (id: any) => {
+    const res = await service.updateGhost(id,{"state":"3"});
     if (!res.error) {
-      message.success('删除成功！');
+      message.success('确认成功！');
       setOpFlag(opFlag + 1);
     }
   };
-
-  const confirmDelete = (currentItem: GhostItem) => {
-    Modal.confirm({
-      title: '删除',
-      content: '确定删除？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
-    });
-  };
-
-
   const columns = [
     {
       title: 'ID',
-      dataIndex: ['ghost','ghost_id'],
+      dataIndex: 'ghost_id',
       key: 'id',
-      valueType: 'textarea',
-      // render: (_:any, record:any) => {
-      //   return record.ghost.name;
-      // }
+      valueType: 'textarea'
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-      render: (_:any, record:any) => {
-        return record.ghost.name;
-      }
     },
     {
       title: '勾魂使者',
-      dataIndex: 'envoy',
-      key: 'envoy',
-      valueType: 'textarea',
-      render:(_:any,record:any)=>{
-        return record.user.name;
-      }
-    },
-    {
-      title: '勾魂时间 ',
-      dataIndex: 'created_at',
-      key: 'created_at',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单理由',
-      dataIndex:  ['ghost','reason'],
-      key: 'reason',
-      valueType: 'textarea',
-    },
-    {
-      title: '退单人',
-      dataIndex: ['ghost','manager'],
+      dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-    },
-    {
-      title: '退单时间',
-      dataIndex: ['updated_at'],
-      key: 'time',
-      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.orders.map((v: any, i: any) => {
+          if (i < record.orders.length - 1) {
+            return v.user.name + '、';
+          } else {
+            return v.user.name;
+          }
+        });
+        //return record.ghost.name;
+      },
     },
     {
       title: '操作',
@@ -151,34 +105,20 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              showEditModal(item);
-            }}
-          >
-            编辑
-          </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
               confirmDelete(item);
             }}
           >
-            删除
+            确认已勾魂
           </a>
+          <Divider type="vertical" />
         </span>
       ),
     },
   ];
-  /* 添加current置空 */
-  const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
+
 
   /* 编辑框将item传给current */
-  const showEditModal = (item: GhostItem) => {
-    setVisible(true);
-    setCurrent({ ...item });
-  };
+;
 
   const handleOk = () => {
     setVisible(false);
@@ -201,33 +141,29 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
-    const { match } = props;
-    const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'order':
-        history.push(`/orderform/order`);
-        break;
-      case 'process':
-        history.push(`/orderform/process`);
-        break;
-      case 'checkout':
-        history.push(`/orderform/checkout`);
-        break;
-      case 'chargeback':
-        history.push(`/orderform/chargeback`);
-        break;
-      default:
-        break;
-    }
+        case 'order':
+          history.push(`/Form/index.tsx`);
+          break;
+        case 'process':
+          history.push(`/Form/process.tsx`);
+          break;
+        case 'checkout':
+          history.push(`/Form/checkout.tsx`);
+          break;
+        case 'chargeback':
+          history.push(`/Form/chargeback.tsx`);
+          break;
+        default:
+          break;
+      }
+
   };
-
-
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -249,7 +185,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -257,9 +193,8 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}
@@ -268,9 +203,7 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      <Select>
-            {(arr.data===undefined)?"":arr.data.map((v => (<Option value={v.name}>{v.name}</Option>)))}
-          </Select>
+
     </div>
   );
 };

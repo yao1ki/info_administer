@@ -1,16 +1,12 @@
-import React, { FC, useState } from 'react';
+import  { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Button, Modal } from 'antd';
+import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
-import OperationModal from './components/OperationModal';
-import { useRequest, Link } from 'umi';
+import Back from'./components/chargeback';
+import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-import { values } from 'lodash';
-
-import { Select } from 'antd';
-
 type SearchProps = {
   match: {
     url: string;
@@ -38,7 +34,7 @@ const tabList = [
     tab: '退单',
   },
 ];
-
+const state = "3"
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
@@ -49,7 +45,7 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list();
+      return await service.list(state, params);
     },
     {
       refreshDeps: [opFlag],
@@ -57,15 +53,15 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   const confirmDelete = (current: GhostItem) => {
     Modal.confirm({
-      title: '确认勾魂',
-      content: '确定勾对人了吗？',
+      title: '确认资格',
+      content: '确定它有资格投胎吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => deleteItem(JSON.stringify(current?.id)),
     });
   };
   const deleteItem = async (id: any) => {
-    const res = await service.removeOrder(id);
+    const res = await service.updateGhost(id,{"state":"5"});
     if (!res.error) {
       message.success('确认成功！');
       setOpFlag(opFlag + 1);
@@ -77,18 +73,14 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'ghost_id',
       key: 'id',
       valueType: 'textarea',
-      // render: (_:any, record:any) => {
-      //   return record.ghost.name;
-      // }
+
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
+
     },
     {
       title: '勾魂使者',
@@ -103,27 +95,33 @@ const Personnel: FC<SearchProps> = (props) => {
             return v.user.name;
           }
         });
-        //return record.ghost.name;
       },
     },
     {
-      title: '退单理由',
-      dataIndex: 'reason',
-      key: 'reason',
-      valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
+      title: '操作',
+      key: 'action',
+      render: (item: GhostItem) => (
+        <span>
+          <a
+            onClick={() => {
+              confirmDelete(item);
+            }}
+          >
+            确认
+          </a>
+          <Divider type="vertical" />
+
+          <a
+            onClick={() => {
+              showEditModal(item);
+            }}
+          >
+            退单
+          </a>
+        </span>
+      ),
     },
-
   ];
-  /* 添加current置空 */
-  const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
-
-  /* 编辑框将item传给current */
   const showEditModal = (item: GhostItem) => {
     setVisible(true);
     setCurrent({ ...item });
@@ -150,28 +148,25 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-    const { match } = props;
-    const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'order':
-        history.push(`/order/index.tsx`);
-        break;
-      case 'process':
-        history.push(`/order/process`);
-        break;
-      case 'checkout':
-        history.push(`/order/checkout`);
-        break;
-      case 'chargeback':
-        history.push(`/order/chargeback`);
-        break;
-      default:
-        break;
-    }
+        case 'order':
+          history.push(`/Form/index.tsx`);
+          break;
+        case 'process':
+          history.push(`/Form/process.tsx`);
+          break;
+        case 'checkout':
+          history.push(`/Form/checkout.tsx`);
+          break;
+        case 'chargeback':
+          history.push(`/Form/chargeback.tsx`);
+          break;
+        default:
+          break;
+      }
   };
 
   const handleFormSubmit = (value: string) => {
-    // eslint-disable-next-line no-console
     setParams(value);
     setOpFlag(opFlag + 1);
   };
@@ -212,12 +207,8 @@ const Personnel: FC<SearchProps> = (props) => {
           />
         </Card>
       </PageContainer>
-      <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      {/* <Select>
-        {arr.data === undefined
-          ? ''
-          : arr.data.map((v: any) => <Option value={v.name}>{v.name}</Option>)}
-      </Select> */}
+      <Back current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+
     </div>
   );
 };

@@ -57,14 +57,7 @@ class GhostController extends Controller {
         const ghost = await service.ghost.query(name);
         ctx.body = ctx.success(ghost);
     }
-    async destroy() {
-        const { ctx, service } = this;
 
-        const id = ctx.params.id;
-        const ghost = await service.ghost.show(id);
-        await ghost.update({state: 4});
-        ctx.body = ctx.success();
-    }
     async move() {
         const { ctx, service } = this;
 

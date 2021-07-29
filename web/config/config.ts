@@ -60,18 +60,7 @@ export default defineConfig({
       path: '/account/leader.tsx',
       component: './Account/leader.tsx',
     },
-    {
-      name:'order',
-      icon:'table',
-     path:'/Form/index.tsx',
-     component:'./Form/index.tsx' 
-    },
-    {
-      name:'order',
-      icon:'table',
-     path:'/order/index.tsx',
-     component:'./Order/index.tsx' 
-    },
+   
     {
       name: 'list.account',
       icon: 'table',
@@ -92,6 +81,40 @@ export default defineConfig({
       icon: 'table',
       path: '/lifebook',
       component: './lifebook/index.tsx',
+    },
+    {
+      name:'orderform',
+      icon:'table',
+     path:'/Form/index.tsx',
+     component:'./Form/index.tsx' 
+    },
+    {
+      name:'checkout',
+      icon:'table',
+     path:'/Form/checkout.tsx',
+     component:'./Form/checkout.tsx' ,
+     hideInMenu: true,
+    },
+    {
+      name:'process',
+      icon:'table',
+     path:'/Form/process.tsx',
+     component:'./Form/process.tsx' ,
+     hideInMenu: true,
+    },
+    {
+      name:'chargeback',
+      icon:'table',
+     path:'/Form/chargeback.tsx',
+     component:'./Form/chargeback.tsx' ,
+     hideInMenu: true,
+    },
+    {
+      name:'order',
+      icon:'table',
+     path:'/Form/index.tsx',
+     component:'./Form/index.tsx' ,
+     hideInMenu: true,
     },
 
     {
@@ -123,54 +146,12 @@ export default defineConfig({
           component: './lifebook/mistake',
           hideInMenu: true,
         },
-        {
-          name: 'process',
-          path: '/order/process',
-          component: './Order/process/index.tsx',
-          hideInMenu: false,
-        },
-        {
-          name: 'checkout',
-          path: '/order/checkout',
-          component: './Order/checkout/index.tsx',
-          hideInMenu: false,
-        },
-        {
-          name: 'chargeback',
-          path: '/order/chargeback',
-          component: './Order/chargeback/index.tsx',
-          hideInMenu: false,
-        },
 ////////////////////////////
       ],
     },
 
 
-    {
-      name: 'order',
-      icon: 'table',
-      hideInMenu: false,
-      routes: [
-        {
-          name: 'process',
-          path: '/order/process',
-          component: './Order/process/index.tsx',
-          hideInMenu: false,
-        },
-        {
-          name: 'checkout',
-          path: '/order/checkout',
-          component: './Order/checkout/index.tsx',
-          hideInMenu: false,
-        },
-        {
-          name: 'chargeback',
-          path: '/order/chargeback',
-          component: './Order/chargeback/index.tsx',
-          hideInMenu: false,
-        },
-      ],
-    },
+
 
     ///////////////////////////
     {

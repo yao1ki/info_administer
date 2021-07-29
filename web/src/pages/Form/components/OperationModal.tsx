@@ -74,19 +74,17 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
+    const state = current ? current.state : '';
 
     let res;
-    if (id) {
-      res= await service.removeOrder(id);
-      
-     // console.log(values)
+    if (id&&state!="3") {
+      res= await service.removeOrder(id);  
       (values.user_id===undefined)?"":values.user_id.map(async (v:any,i:any)=>{
         values = Object.assign({user_id:v},{ghost_id: id});
         await service.createOrder(values);
       })
       
     }
-    //les = service.createOrder(values);
     if (!res.error) {
       message.success('操作成功！');
       onOk();
@@ -100,19 +98,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-        <Form.Item
+{        <Form.Item
           name="user_id"
           label="勾魂使者"
           rules={[{ required: true, message: '勾魂使者----' }]}
           key="1"
         >
-          {/* <Select>
-          {(data.data===undefined)?"":data.data.map(((v:any,i:any) => (<Option value={i-1}>{v.name}</Option>)))}
-          </Select> */}
           <Checkbox.Group options={options} />
-        </Form.Item>
-
-
+        </Form.Item>}
       </Form>
     );
   };

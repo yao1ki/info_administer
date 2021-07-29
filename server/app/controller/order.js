@@ -13,15 +13,15 @@ class OrderController extends Controller {
     });
     ctx.body = ctx.success(orders);
   }
-  async list() {
-    const { ctx } = this;
-    const orders = await ctx.model.Ghost.findAll({
-      where :{ state:"3"},
-      include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
-      //attributes:['id','ghost_id','user_id']{关联部分数据}
-    });
-    ctx.body = ctx.success(orders);
-  }
+  // async list() {
+  //   const { ctx } = this;
+  //   const orders = await ctx.model.Ghost.findAll({
+  //     where :{ state:"3"},
+  //     include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
+  //     //attributes:['id','ghost_id','user_id']{关联部分数据}
+  //   });
+  //   ctx.body = ctx.success(orders);
+  // }
   async list1() {
     const { ctx } = this;
     const orders = await ctx.model.Ghost.findAll({
@@ -31,6 +31,17 @@ class OrderController extends Controller {
     });
     ctx.body = ctx.success(orders);
   }
+
+
+
+  async list() {
+    const { ctx, service } = this;
+    const state = ctx.params.state;
+    const {params} = ctx.request.query;
+    console.log(params)
+    const order = await service.order.querystate(state,params);
+    ctx.body = ctx.success(order);
+}
   async create() {
     const ctx = this.ctx;
     const { ghost_id, user_id } = ctx.request.body;

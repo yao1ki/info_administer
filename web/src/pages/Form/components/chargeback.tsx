@@ -1,11 +1,8 @@
 import  { FC, useEffect } from 'react';
-import { Modal, Form, message } from 'antd';
+import { Modal, Form, Input,message } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
-import { useRequest } from 'umi';
-import { Checkbox } from 'antd';
-const potence="1";
-interface OperationModalProps {
+interface BackProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
@@ -13,10 +10,6 @@ interface OperationModalProps {
 }
 
 
-interface opt{
-  label: string;
-  value: string;
-}
 
 const formLayout = {
   labelCol: { span: 7 },
@@ -28,21 +21,8 @@ const formLayout = {
 
 // const arr = [{id: '1',name:'唐玄奘'},{id: '2',name:'孙悟空'},{id: '3',name:'猪悟能'},{id: '4',name:'沙悟净'}];
 
-const OperationModal: FC<OperationModalProps> = (props) => {
-  let data  = useRequest(
-    async () => {
-      const data = await service.userlist(potence);
-    //  console.log(data)
-      return  data;
+const Back: FC<BackProps> = (props) => {
 
-    },
-
-  );
-
-  let options: opt[] = [];
-  for(let i = 0;(data.data===undefined)?"":i < data.data.length;i++){
-    options.push({label: data.data[i].name,value: data.data[i].id});
-  }
 
   
   const [form] = Form.useForm();
@@ -61,7 +41,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         lifetime: current.lifetime,
         cause: current.cause,
         sort: current.sort,
-        ghost_id:current.ghost_id,
+        reason:current.reason,
         state:current.state,
       });
     }
@@ -77,16 +57,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
     let res;
     if (id) {
-      res= await service.removeOrder(id);
-      
-     // console.log(values)
-      (values.user_id===undefined)?"":values.user_id.map(async (v:any,i:any)=>{
-        values = Object.assign({user_id:v},{ghost_id: id});
-        await service.createOrder(values);
-      })
-      
+      values={"reason":values.reason , "state":"4"}
+      res= await service.updateGhost(id,values);
     }
-    //les = service.createOrder(values);
     if (!res.error) {
       message.success('操作成功！');
       onOk();
@@ -100,18 +73,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-        <Form.Item
-          name="user_id"
-          label="勾魂使者"
-          rules={[{ required: true, message: '勾魂使者----' }]}
-          key="1"
-        >
-          {/* <Select>
-          {(data.data===undefined)?"":data.data.map(((v:any,i:any) => (<Option value={i-1}>{v.name}</Option>)))}
-          </Select> */}
-          <Checkbox.Group options={options} />
-        </Form.Item>
+  <Form.Item
+          name="reason"
+          label="退单理由"
+          rules={[{ required: true, message: '请输入理由' }]}
 
+        >
+          <Input placeholder="请输入理由" />
+        </Form.Item>
 
       </Form>
     );
@@ -133,4 +102,4 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   );
 };
 
-export default OperationModal;
+export default Back;

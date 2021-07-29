@@ -24,7 +24,9 @@ async function updateGhost(id: number, data: ParamsType) {
 async function removeOrder(id: number) {
   return request(`/api/orders/move/${id}`, { method: 'PUT' });
 }
-
+async function list(state: string,params: any) {
+  return request(`/api/list/${state}?params=${params}`);
+}
 
 
 
@@ -34,5 +36,6 @@ export default {
   removeOrder,
   querystate,
   userlist,
+  list,
   createOrder,
 };
