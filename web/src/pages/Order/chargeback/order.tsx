@@ -20,23 +20,22 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'live',
-    tab: '阳寿未尽',
+    key: 'order',
+    tab: '未处理',
   },
   {
-    key: 'ghost',
-    tab: '阳寿已尽',
+    key: 'process',
+    tab: '勾魂中',
   },
   {
-    key: 'birth',
-    tab: '投胎转世',
+    key: 'checkout',
+    tab: '孟婆验收',
   },
   {
-    key: 'mistake',
-    tab: '永世不得轮回',
+    key: 'chargeback',
+    tab: '退单',
   },
 ];
-const state ="3";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -44,13 +43,15 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      const data = await service.list();
+      console.log(data)
+      return  data;
+
     },
     {
       refreshDeps: [opFlag],
@@ -58,17 +59,17 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   
   const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
+    const res = await service.removeOrder(id);
     if (!res.error) {
-      message.success('放逐成功！');
+      message.success('删除成功！');
       setOpFlag(opFlag + 1);
     }
   };
 
   const confirmDelete = (currentItem: GhostItem) => {
     Modal.confirm({
-      title: '放逐',
-      content: '确定放逐？',
+      title: '删除',
+      content: '确定删除？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => deleteItem(currentItem.id as number),
@@ -79,34 +80,25 @@ const Personnel: FC<SearchProps> = (props) => {
   const columns = [
     {
       title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      dataIndex: ['ghost','ghost_id'],
+      key: 'id',
       valueType: 'textarea',
+      // render: (_:any, record:any) => {
+      //   return record.ghost.name;
+      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
+      render: (_:any, record:any) => {
+        return record.ghost.name;
+      }
     },
-    {
-      title: '寿命',
-      dataIndex: 'lifetime',
-      key: 'lifetime',
-      valueType: 'textarea',
-    },
-    {
-      title: '死亡方式 ',
-      dataIndex: 'cause',
-      key: 'cause',
-      valueType: 'textarea',
-    },
-    {
-      title: '生肖',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
+ 
+
+
     {
       title: '操作',
       key: 'action',
@@ -168,17 +160,17 @@ const Personnel: FC<SearchProps> = (props) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'live':
-        history.push(`/lifebook/live`);
+      case 'order':
+        history.push(`/orderform/order`);
         break;
-      case 'birth':
-        history.push(`/lifebook/birth`);
+      case 'process':
+        history.push(`/orderform/process`);
         break;
-      case 'ghost':
-        history.push(`/lifebook/ghost`);
+      case 'checkout':
+        history.push(`/orderform/checkout`);
         break;
-      case 'mistake':
-        history.push(`/lifebook/mistake`);
+      case 'chargeback':
+        history.push(`/orderform/chargeback`);
         break;
       default:
         break;

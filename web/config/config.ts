@@ -87,12 +87,7 @@ export default defineConfig({
       path: '/lifebook',
       component: './lifebook/index.tsx',
     },
-    {
-      name: 'order',
-      icon: 'table',
-      path: '/orderform',
-      component: './orderform/index.tsx',
-    },
+
     {
       name: 'lifebook',
       icon: 'table',
@@ -122,62 +117,50 @@ export default defineConfig({
           component: './lifebook/mistake',
           hideInMenu: true,
         },
-
-        {
-          name: 'order',
-          path: '/orderform/order',
-          component: './orderform/order',
-          hideInMenu: false,
-        },
         {
           name: 'process',
-          path: '/orderform/process',
-          component: './orderform/process',
+          path: '/order/process',
+          component: './Order/process/index.tsx',
           hideInMenu: false,
         },
         {
           name: 'checkout',
-          path: '/orderform/checkout',
-          component: './orderform/checkout',
+          path: '/order/checkout',
+          component: './Order/checkout/index.tsx',
           hideInMenu: false,
         },
         {
           name: 'chargeback',
-          path: '/orderform/chargeback',
-          component: './orderform/chargeback',
+          path: '/order/chargeback',
+          component: './Order/chargeback/index.tsx',
           hideInMenu: false,
         },
+////////////////////////////
       ],
     },
 
 
     {
-      name: 'orderform',
+      name: 'order',
       icon: 'table',
       hideInMenu: false,
       routes: [
         {
-          name: 'order',
-          path: '/orderform/order',
-          component: './orderform/order',
-          hideInMenu: false,
-        },
-        {
           name: 'process',
-          path: '/orderform/process',
-          component: './orderform/process',
+          path: '/order/process',
+          component: './Order/process/index.tsx',
           hideInMenu: false,
         },
         {
           name: 'checkout',
-          path: '/orderform/checkout',
-          component: './orderform/checkout',
+          path: '/order/checkout',
+          component: './Order/checkout/index.tsx',
           hideInMenu: false,
         },
         {
           name: 'chargeback',
-          path: '/orderform/chargeback',
-          component: './orderform/chargeback',
+          path: '/order/chargeback',
+          component: './Order/chargeback/index.tsx',
           hideInMenu: false,
         },
       ],

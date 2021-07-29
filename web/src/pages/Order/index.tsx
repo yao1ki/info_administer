@@ -58,17 +58,17 @@ const potence = "1"
       refreshDeps: [opFlag],
     },
   );
-  let arr  = useRequest(
-    async () => {
-      const arr = await service.userlist(potence);
-    //  console.log(data)
-      return  arr;
+  // let arr  = useRequest(
+  //   async () => {
+  //     const arr = await service.userlist(potence);
+  //   //  console.log(data)
+  //     return  arr;
 
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
+  //   },
+  //   {
+  //     refreshDeps: [opFlag],
+  //   },
+  // );
   
 
 
@@ -142,16 +142,16 @@ const potence = "1"
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'order':
-        history.push(`/orderform/order`);
+        history.push(`/order/index.tsx`);
         break;
       case 'process':
-        history.push(`/orderform/process`);
+        history.push(`/order/process`);
         break;
       case 'checkout':
-        history.push(`/orderform/checkout`);
+        history.push(`/order/checkout`);
         break;
       case 'chargeback':
-        history.push(`/orderform/chargeback`);
+        history.push(`/order/chargeback`);
         break;
       default:
         break;
@@ -204,9 +204,9 @@ const potence = "1"
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      <Select>
+      {/* <Select>
             {(arr.data===undefined)?"":arr.data.map(((v:any) => (<Option value={v.name}>{v.name}</Option>)))}
-          </Select>
+          </Select> */}
     </div>
   );
 };

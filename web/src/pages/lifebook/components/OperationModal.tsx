@@ -162,17 +162,17 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           ]}
           placeholder="请选择生肖"
         />
-        <ProFormSelect
+        {/* <ProFormSelect
           name="state"
-          label="死因"
-          rules={[{ required: true, message: '请选择死因' }]}
+          label="类别"
+          rules={[{ required: true, message: '请选择类别' }]}
           options={[
             {
               label: '阳寿未尽',
               value: '1',
             },
             {
-              label: '孤魂野鬼',
+              label: '阳寿已尽',
               value: '2',
             },
             {
@@ -180,8 +180,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
               value: '3',
             },
           ]}
-          placeholder="请选择死因"
-        />
+          placeholder="请选择类别"
+        /> */}
       </Form>
     );
   };

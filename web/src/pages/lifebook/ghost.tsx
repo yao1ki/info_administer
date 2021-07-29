@@ -25,7 +25,7 @@ const tabList = [
   },
   {
     key: 'ghost',
-    tab: '孤魂野鬼',
+    tab: '阳寿已尽',
   },
   {
     key: 'birth',
@@ -33,7 +33,7 @@ const tabList = [
   },
   {
     key: 'mistake',
-    tab: '已删除',
+    tab: '永世不得轮回',
   },
 ];
 const state ="2";
@@ -60,15 +60,15 @@ const Personnel: FC<SearchProps> = (props) => {
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
-      message.success('删除成功！');
+      message.success('放逐成功！');
       setOpFlag(opFlag + 1);
     }
   };
 
   const confirmDelete = (currentItem: GhostItem) => {
     Modal.confirm({
-      title: '删除',
-      content: '确定删除？',
+      title: '放逐',
+      content: '确定放逐？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => deleteItem(currentItem.id as number),

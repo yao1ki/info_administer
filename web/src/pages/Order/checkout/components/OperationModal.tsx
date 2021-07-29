@@ -80,9 +80,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       res= await service.removeOrder(id);
       
      // console.log(values)
-      (values.user_id===undefined)?"":values.user_id.map(async (v:any,i:any)=>{
+      (values.user_id===undefined)?"":values.user_id.map((v:any,i:any)=>{
         values = Object.assign({user_id:v},{ghost_id: id});
-        await service.createOrder(values);
+        service.createOrder(values);
       })
       
     }

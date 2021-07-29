@@ -8,7 +8,6 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
-import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 
 type SearchProps = {
   match: {
@@ -26,7 +25,7 @@ const tabList = [
   },
   {
     key: 'ghost',
-    tab: '孤魂野鬼',
+    tab: '阳寿已尽',
   },
   {
     key: 'birth',
@@ -34,10 +33,10 @@ const tabList = [
   },
   {
     key: 'mistake',
-    tab: '已删除',
+    tab: '永世不得轮回',
   },
 ];
-const state = '1';
+const state ="1";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -45,36 +44,36 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state,params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
+  
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
-      message.success('删除成功！');
+      message.success('放逐成功！');
       setOpFlag(opFlag + 1);
     }
   };
 
   const confirmDelete = (currentItem: GhostItem) => {
     Modal.confirm({
-      title: '删除',
-      content: '确定删除？',
+      title: '放逐',
+      content: '确定放逐？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => deleteItem(currentItem.id as number),
     });
   };
+
 
   const columns = [
     {
@@ -164,6 +163,7 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
+
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -184,10 +184,12 @@ const Personnel: FC<SearchProps> = (props) => {
     }
   };
 
+
+
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag + 1);
+    setOpFlag(opFlag+1);
   };
 
   const getTabKey = () => {
@@ -208,17 +210,17 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-              onSearch={handleFormSubmit}
+            onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
-
           </div>
         }
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
+        
       >
-        <Card>
+        <Card >
           <Table
             columns={columns}
             dataSource={data}

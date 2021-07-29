@@ -6,8 +6,9 @@ const crypto = require("crypto");
 class OrderController extends Controller {
   async index() {
     const { ctx } = this;
-    const orders = await ctx.model.Order.findAll({
-      include: [{ model: ctx.model.User }, { model: ctx.model.Ghost }],
+    const orders = await ctx.model.Ghost.findAll({
+      where :{ state:"5"},
+      include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
       //attributes:['id','ghost_id','user_id']{关联部分数据}
     });
     ctx.body = ctx.success(orders);
@@ -50,10 +51,16 @@ class OrderController extends Controller {
 }
 async move() {
   const { ctx, service } = this;
-console.log("????????????????//")
   const id = ctx.params.id;
   const ghost = await service.ghost.show(id);
-  await ghost.update({state: 2});
+  await ghost.update({state: 5});
+  ctx.body = ctx.success();
+}
+async moveghost() {
+  const { ctx, service } = this;
+  const id = ctx.params.id;
+  const ghost = await service.ghost.show(id);
+  await ghost.update({state: 6});
   ctx.body = ctx.success();
 }
 }

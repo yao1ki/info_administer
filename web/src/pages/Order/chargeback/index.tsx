@@ -9,6 +9,10 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
 
+
+import { Select } from 'antd';
+const state ="1";
+const { Option } = Select;
 type SearchProps = {
   match: {
     url: string;
@@ -20,23 +24,22 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'live',
-    tab: '阳寿未尽',
+    key: 'order',
+    tab: '未处理',
   },
   {
-    key: 'ghost',
-    tab: '阳寿已尽',
+    key: 'process',
+    tab: '勾魂中',
   },
   {
-    key: 'birth',
-    tab: '投胎转世',
+    key: 'checkout',
+    tab: '孟婆验收',
   },
   {
-    key: 'mistake',
-    tab: '永世不得轮回',
+    key: 'chargeback',
+    tab: '退单',
   },
 ];
-const state ="3";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -44,9 +47,8 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
-
+const potence = "1"
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -56,24 +58,19 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-  
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
-    if (!res.error) {
-      message.success('放逐成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
+  let arr  = useRequest(
+    async () => {
+      const arr = await service.userlist(potence);
+    //  console.log(data)
+      return  arr;
 
-  const confirmDelete = (currentItem: GhostItem) => {
-    Modal.confirm({
-      title: '放逐',
-      content: '确定放逐？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
-    });
-  };
+    },
+    {
+      refreshDeps: [opFlag],
+    },
+  );
+  
+
 
 
   const columns = [
@@ -90,24 +87,6 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '寿命',
-      dataIndex: 'lifetime',
-      key: 'lifetime',
-      valueType: 'textarea',
-    },
-    {
-      title: '死亡方式 ',
-      dataIndex: 'cause',
-      key: 'cause',
-      valueType: 'textarea',
-    },
-    {
-      title: '生肖',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
-    },
-    {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
@@ -117,16 +96,10 @@ const Personnel: FC<SearchProps> = (props) => {
               showEditModal(item);
             }}
           >
-            编辑
+            选择勾魂人
           </a>
           <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+
         </span>
       ),
     },
@@ -168,17 +141,17 @@ const Personnel: FC<SearchProps> = (props) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'live':
-        history.push(`/lifebook/live`);
+      case 'order':
+        history.push(`/order/index.tsx`);
         break;
-      case 'birth':
-        history.push(`/lifebook/birth`);
+      case 'process':
+        history.push(`/order/process`);
         break;
-      case 'ghost':
-        history.push(`/lifebook/ghost`);
+      case 'checkout':
+        history.push(`/order/checkout`);
         break;
-      case 'mistake':
-        history.push(`/lifebook/mistake`);
+      case 'chargeback':
+        history.push(`/order/chargeback`);
         break;
       default:
         break;
@@ -202,6 +175,7 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+
   return (
     <div>
       <PageContainer
@@ -230,6 +204,9 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+      <Select>
+            {(arr.data===undefined)?"":arr.data.map(((v:any) => (<Option value={v.name}>{v.name}</Option>)))}
+          </Select>
     </div>
   );
 };

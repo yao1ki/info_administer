@@ -9,6 +9,9 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
 
+import { Select } from 'antd';
+const state = '1';
+const { Option } = Select;
 type SearchProps = {
   match: {
     url: string;
@@ -20,23 +23,22 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'live',
-    tab: '阳寿未尽',
+    key: 'order',
+    tab: '未处理',
   },
   {
-    key: 'ghost',
-    tab: '阳寿已尽',
+    key: 'process',
+    tab: '勾魂中',
   },
   {
-    key: 'birth',
-    tab: '投胎转世',
+    key: 'checkout',
+    tab: '孟婆验收',
   },
   {
-    key: 'mistake',
-    tab: '永世不得轮回',
+    key: 'chargeback',
+    tab: '退单',
   },
 ];
-const state ="3";
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -44,68 +46,66 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [key, setKey] = useState<string>('live');
   const [params, setParams] = useState<string>('');
-
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      return await service.list();
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
+  const confirmDelete = (current: GhostItem) => {
+    Modal.confirm({
+      title: '确认勾魂',
+      content: '确定勾对人了吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => deleteItem(JSON.stringify(current?.id)),
+    });
+  };
+  const deleteItem = async (id: any) => {
+    const res = await service.removeOrder(id);
     if (!res.error) {
-      message.success('放逐成功！');
+      message.success('确认成功！');
       setOpFlag(opFlag + 1);
     }
   };
-
-  const confirmDelete = (currentItem: GhostItem) => {
-    Modal.confirm({
-      title: '放逐',
-      content: '确定放逐？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(currentItem.id as number),
-    });
-  };
-
-
   const columns = [
     {
       title: 'ID',
       dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      key: 'id',
       valueType: 'textarea',
+      // render: (_:any, record:any) => {
+      //   return record.ghost.name;
+      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
+      // render: (_: any, record: any) => {
+      //   return record.ghost.name;
+      // },
     },
     {
-      title: '寿命',
-      dataIndex: 'lifetime',
-      key: 'lifetime',
+      title: '勾魂使者',
+      dataIndex: 'name',
+      key: 'name',
       valueType: 'textarea',
-    },
-    {
-      title: '死亡方式 ',
-      dataIndex: 'cause',
-      key: 'cause',
-      valueType: 'textarea',
-    },
-    {
-      title: '生肖',
-      dataIndex: 'sort',
-      key: 'sort',
-      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.orders.map((v: any, i: any) => {
+          if (i < record.orders.length - 1) {
+            return v.user.name + '、';
+          } else {
+            return v.user.name;
+          }
+        });
+        //return record.ghost.name;
+      },
     },
     {
       title: '操作',
@@ -114,19 +114,12 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              showEditModal(item);
-            }}
-          >
-            编辑
-          </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
               confirmDelete(item);
             }}
           >
-            删除
+            确认已勾魂
           </a>
+          <Divider type="vertical" />
         </span>
       ),
     },
@@ -164,33 +157,30 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'live':
-        history.push(`/lifebook/live`);
+      case 'order':
+        history.push(`/order/index.tsx`);
         break;
-      case 'birth':
-        history.push(`/lifebook/birth`);
+      case 'process':
+        history.push(`/order/process`);
         break;
-      case 'ghost':
-        history.push(`/lifebook/ghost`);
+      case 'checkout':
+        history.push(`/order/checkout`);
         break;
-      case 'mistake':
-        history.push(`/lifebook/mistake`);
+      case 'chargeback':
+        history.push(`/order/chargeback`);
         break;
       default:
         break;
     }
   };
 
-
-
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -202,6 +192,7 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+
   return (
     <div>
       <PageContainer
@@ -211,7 +202,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -219,9 +210,8 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}
@@ -230,6 +220,11 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+      {/* <Select>
+        {arr.data === undefined
+          ? ''
+          : arr.data.map((v: any) => <Option value={v.name}>{v.name}</Option>)}
+      </Select> */}
     </div>
   );
 };
