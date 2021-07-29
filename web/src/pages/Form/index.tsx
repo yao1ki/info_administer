@@ -10,7 +10,8 @@ import { history } from 'umi';
 import { values } from 'lodash';
 
 import { Select } from 'antd';
-
+const state = '1';
+const { Option } = Select;
 type SearchProps = {
   match: {
     url: string;
@@ -46,83 +47,46 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
+
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list();
+      return await service.querystate(state, params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  const confirmDelete = (current: GhostItem) => {
-    Modal.confirm({
-      title: '确认勾魂',
-      content: '确定勾对人了吗？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(JSON.stringify(current?.id)),
-    });
-  };
-  const deleteItem = async (id: any) => {
-    const res = await service.removeOrder(id);
-    if (!res.error) {
-      message.success('确认成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
   const columns = [
     {
       title: 'ID',
       dataIndex: 'ghost_id',
-      key: 'id',
+      key: 'ghost_id',
       valueType: 'textarea',
-      // render: (_:any, record:any) => {
-      //   return record.ghost.name;
-      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
     },
     {
-      title: '勾魂使者',
-      dataIndex: 'name',
-      key: 'name',
-      valueType: 'textarea',
-      render: (_: any, record: any) => {
-        return record.orders.map((v: any, i: any) => {
-          if (i < record.orders.length - 1) {
-            return v.user.name + '、';
-          } else {
-            return v.user.name;
-          }
-        });
-        //return record.ghost.name;
-      },
+      title: '操作',
+      key: 'action',
+      render: (item: GhostItem) => (
+        <span>
+          <a
+            onClick={() => {
+              showEditModal(item);
+            }}
+          >
+            选择勾魂人
+          </a>
+          <Divider type="vertical" />
+        </span>
+      ),
     },
-    {
-      title: '退单理由',
-      dataIndex: 'reason',
-      key: 'reason',
-      valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
-    },
-
   ];
-  /* 添加current置空 */
-  const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
-
   /* 编辑框将item传给current */
   const showEditModal = (item: GhostItem) => {
     setVisible(true);
@@ -150,41 +114,38 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-    const { match } = props;
-    const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'order':
-        history.push(`/order/index.tsx`);
+        history.push(`/Form/index.tsx`);
         break;
       case 'process':
-        history.push(`/order/process`);
+        history.push(`/Form/process.tsx`);
         break;
       case 'checkout':
-        history.push(`/order/checkout`);
+        history.push(`/Form/checkout.tsx`);
         break;
       case 'chargeback':
-        history.push(`/order/chargeback`);
+        history.push(`/Form/chargeback.tsx`);
         break;
       default:
         break;
     }
   };
-
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
     setOpFlag(opFlag + 1);
   };
 
-  const getTabKey = () => {
-    const { match, location } = props;
-    const url = match.path === '/' ? '' : match.path;
-    const tabKey = location.pathname.replace(`${url}/`, '');
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
-    return 'articles';
-  };
+  // const getTabKey = () => {
+  //   const { match, location } = props;
+  //   const url = match.path === '/' ? '' : match.path;
+  //   const tabKey = location.pathname.replace(`${url}/`, '');
+  //   if (tabKey && tabKey !== '/') {
+  //     return tabKey;
+  //   }
+  //   return 'articles';
+  // };
 
   return (
     <div>
@@ -201,7 +162,7 @@ const Personnel: FC<SearchProps> = (props) => {
           </div>
         }
         tabList={tabList}
-        tabActiveKey={getTabKey()}
+       // tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
         <Card>
@@ -214,10 +175,8 @@ const Personnel: FC<SearchProps> = (props) => {
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
       {/* <Select>
-        {arr.data === undefined
-          ? ''
-          : arr.data.map((v: any) => <Option value={v.name}>{v.name}</Option>)}
-      </Select> */}
+            {(arr.data===undefined)?"":arr.data.map(((v:any) => (<Option value={v.name}>{v.name}</Option>)))}
+          </Select> */}
     </div>
   );
 };

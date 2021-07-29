@@ -7,13 +7,30 @@ class OrderController extends Controller {
   async index() {
     const { ctx } = this;
     const orders = await ctx.model.Ghost.findAll({
-      where :{ state:"5"},
+      where :{ state:"2"},
       include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
       //attributes:['id','ghost_id','user_id']{关联部分数据}
     });
     ctx.body = ctx.success(orders);
   }
-
+  async list() {
+    const { ctx } = this;
+    const orders = await ctx.model.Ghost.findAll({
+      where :{ state:"3"},
+      include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
+      //attributes:['id','ghost_id','user_id']{关联部分数据}
+    });
+    ctx.body = ctx.success(orders);
+  }
+  async list1() {
+    const { ctx } = this;
+    const orders = await ctx.model.Ghost.findAll({
+      where :{ state:"4"},
+      include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
+      //attributes:['id','ghost_id','user_id']{关联部分数据}
+    });
+    ctx.body = ctx.success(orders);
+  }
   async create() {
     const ctx = this.ctx;
     const { ghost_id, user_id } = ctx.request.body;
@@ -53,14 +70,14 @@ async move() {
   const { ctx, service } = this;
   const id = ctx.params.id;
   const ghost = await service.ghost.show(id);
-  await ghost.update({state: 5});
+  await ghost.update({state: 2});
   ctx.body = ctx.success();
 }
 async moveghost() {
   const { ctx, service } = this;
   const id = ctx.params.id;
   const ghost = await service.ghost.show(id);
-  await ghost.update({state: 6});
+  await ghost.update({state: 3});
   ctx.body = ctx.success();
 }
 }

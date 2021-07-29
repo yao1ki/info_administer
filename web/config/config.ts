@@ -63,6 +63,12 @@ export default defineConfig({
     {
       name:'order',
       icon:'table',
+     path:'/Form/index.tsx',
+     component:'./Form/index.tsx' 
+    },
+    {
+      name:'order',
+      icon:'table',
      path:'/order/index.tsx',
      component:'./Order/index.tsx' 
     },

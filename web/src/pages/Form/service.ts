@@ -4,9 +4,7 @@ import { GhostItem } from './data.d';
 
 interface ParamsType extends Partial<GhostItem> {}
 
-async function list(){
-  return request('/api/list1',{ method:'GET'});
-}
+
 
 async function userlist(potence: string) {
   return request(`/api/userlist/${potence}`, { method: 'GET'});
@@ -36,6 +34,5 @@ export default {
   removeOrder,
   querystate,
   userlist,
-  list,
   createOrder,
 };

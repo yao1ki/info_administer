@@ -48,7 +48,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
-const potence = "1"
+
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -58,6 +58,7 @@ const potence = "1"
       refreshDeps: [opFlag],
     },
   );
+  // const potence = "1"
   // let arr  = useRequest(
   //   async () => {
   //     const arr = await service.userlist(potence);

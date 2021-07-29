@@ -9,9 +9,8 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
 
-
 import { Select } from 'antd';
-const state ="1";
+const state = '1';
 const { Option } = Select;
 type SearchProps = {
   match: {
@@ -48,43 +47,65 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
-const potence = "1"
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      return await service.list();
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  let arr  = useRequest(
-    async () => {
-      const arr = await service.userlist(potence);
-    //  console.log(data)
-      return  arr;
-
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
-  
-
-
-
+  const confirmDelete = (current: GhostItem) => {
+    Modal.confirm({
+      title: '确认勾魂',
+      content: '确定勾对人了吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => deleteItem(JSON.stringify(current?.id)),
+    });
+  };
+  const deleteItem = async (id: any) => {
+    const res = await service.removeOrder(id);
+    if (!res.error) {
+      message.success('确认成功！');
+      setOpFlag(opFlag + 1);
+    }
+  };
   const columns = [
     {
       title: 'ID',
       dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      key: 'id',
       valueType: 'textarea',
+      // render: (_:any, record:any) => {
+      //   return record.ghost.name;
+      // }
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
+      // render: (_: any, record: any) => {
+      //   return record.ghost.name;
+      // },
+    },
+    {
+      title: '勾魂使者',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.orders.map((v: any, i: any) => {
+          if (i < record.orders.length - 1) {
+            return v.user.name + '、';
+          } else {
+            return v.user.name;
+          }
+        });
+        //return record.ghost.name;
+      },
     },
     {
       title: '操作',
@@ -93,13 +114,20 @@ const potence = "1"
         <span>
           <a
             onClick={() => {
-              showEditModal(item);
+              confirmDelete(item);
             }}
           >
-            选择勾魂人
+            确认
           </a>
           <Divider type="vertical" />
 
+          <a
+            onClick={() => {
+              showEditModal(item);
+            }}
+          >
+            退单
+          </a>
         </span>
       ),
     },
@@ -137,7 +165,6 @@ const potence = "1"
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -158,12 +185,10 @@ const potence = "1"
     }
   };
 
-
-
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -185,7 +210,7 @@ const potence = "1"
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -193,9 +218,8 @@ const potence = "1"
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}
@@ -204,9 +228,11 @@ const potence = "1"
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-      <Select>
-            {(arr.data===undefined)?"":arr.data.map(((v:any) => (<Option value={v.name}>{v.name}</Option>)))}
-          </Select>
+      {/* <Select>
+        {arr.data === undefined
+          ? ''
+          : arr.data.map((v: any) => <Option value={v.name}>{v.name}</Option>)}
+      </Select> */}
     </div>
   );
 };

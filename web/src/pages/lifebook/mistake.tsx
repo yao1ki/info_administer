@@ -106,29 +106,7 @@ const Personnel: FC<SearchProps> = (props) => {
       key: 'sort',
       valueType: 'textarea',
     },
-    {
-      title: '操作',
-      key: 'action',
-      render: (item: GhostItem) => (
-        <span>
-          <a
-            onClick={() => {
-              showEditModal(item);
-            }}
-          >
-            编辑
-          </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
-        </span>
-      ),
-    },
+
   ];
   /* 添加current置空 */
   const showModal = () => {
