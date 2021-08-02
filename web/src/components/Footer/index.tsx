@@ -6,16 +6,16 @@ export default () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '蚂蚁集团体验技术部出品',
+    defaultMessage: '转轮王技术部出品',
   });
 
   return (
-    <DefaultFooter
-      copyright={`2020 ${defaultMessage}`}
+    <DefaultFooter 
+      copyright={`2021 ${defaultMessage}`}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
+          key: 'the nether world',
+          title: 'the nether world',
           href: 'https://pro.ant.design',
           blankTarget: true,
         },
@@ -26,8 +26,8 @@ export default () => {
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
+          key: 'Hell',
+          title: 'Hell',
           href: 'https://ant.design',
           blankTarget: true,
         },

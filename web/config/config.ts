@@ -154,20 +154,15 @@ export default defineConfig({
 
 
     ///////////////////////////
-    {
-      name: 'detail.book',
-      icon: 'table',
-      path: '/Book.detail/:id',
-      component: './Book/detail.tsx',
-      hideInMenu: true,
-    },
+    // {
+    //   name: 'detail.book',
+    //   icon: 'table',
+    //   path: '/Book.detail/:id',
+    //   component: './Book/detail.tsx',
+    //   hideInMenu: true,
+    // },
 
-    {
-      name: 'list.book',
-      icon: 'table',
-      path: '/Book',
-      component: './Book/index.tsx',
-    },
+ 
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {

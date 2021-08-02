@@ -29,7 +29,7 @@ const tabList = [
   },
   {
     key: 'checkout',
-    tab: '孟婆验收',
+    tab: '阎王验收',
   },
   {
     key: 'chargeback',

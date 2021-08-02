@@ -8,7 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
-
+import styles from './index.less';
 import { Select } from 'antd';
 const state = '1';
 const { Option } = Select;
@@ -32,7 +32,7 @@ const tabList = [
   },
   {
     key: 'checkout',
-    tab: '孟婆验收',
+    tab: '阎王验收',
   },
   {
     key: 'chargeback',
@@ -148,7 +148,7 @@ const Personnel: FC<SearchProps> = (props) => {
   // };
 
   return (
-    <div>
+    <div className={styles.container}>
       <PageContainer
         content={
           <div style={{ textAlign: 'center' }}>

@@ -23,13 +23,13 @@
     path: '/account/leader.tsx',
     component: './Account/leader.tsx',
   },
+ 
   {
     name: 'list.account',
     icon: 'table',
     path: '/account/index.tsx',
     component: './Account/index.tsx',
   },
-
 
   {
     name: 'detail.user',
@@ -46,11 +46,40 @@
     component: './lifebook/index.tsx',
   },
   {
-    name: 'order',
-    icon: 'table',
-    path: '/orderform',
-    component: './orderform/process.tsx',
+    name:'orderform',
+    icon:'table',
+   path:'/Form/index.tsx',
+   component:'./Form/index.tsx' 
   },
+  {
+    name:'checkout',
+    icon:'table',
+   path:'/Form/checkout.tsx',
+   component:'./Form/checkout.tsx' ,
+   hideInMenu: true,
+  },
+  {
+    name:'process',
+    icon:'table',
+   path:'/Form/process.tsx',
+   component:'./Form/process.tsx' ,
+   hideInMenu: true,
+  },
+  {
+    name:'chargeback',
+    icon:'table',
+   path:'/Form/chargeback.tsx',
+   component:'./Form/chargeback.tsx' ,
+   hideInMenu: true,
+  },
+  {
+    name:'order',
+    icon:'table',
+   path:'/Form/index.tsx',
+   component:'./Form/index.tsx' ,
+   hideInMenu: true,
+  },
+
   {
     name: 'lifebook',
     icon: 'table',
@@ -80,53 +109,26 @@
         component: './lifebook/mistake',
         hideInMenu: true,
       },
+////////////////////////////
     ],
   },
 
-  {
-    name: 'orderform',
-    icon: 'table',
-    hideInMenu: false,
-    routes: [
-      {
-        name: 'order',
-        path: '/orderform/order',
-        component: './orderform/order.tsx',
-        hideInMenu: false,
-      },        {
-        name: 'process',
-        path: '/orderform/process',
-        component: './orderform/process',
-        hideInMenu: false,
-      },
-      {
-        name: 'checkout',
-        path: '/orderform/checkout',
-        component: './orderform/checkout',
-        hideInMenu: false,
-      },
-      {
-        name: 'chargeback',
-        path: '/orderform/chargeback',
-        component: './orderform/chargeback',
-        hideInMenu: false,
-      },
-    ],
-  },
+
 
 
   ///////////////////////////
+  // {
+  //   name: 'detail.book',
+  //   icon: 'table',
+  //   path: '/Book.detail/:id',
+  //   component: './Book/detail.tsx',
+  //   hideInMenu: true,
+  // },
+
   {
-    name: 'detail.book',
+    name: 'card-list',
     icon: 'table',
-    path: '/Book.detail/:id',
-    component: './Book/detail.tsx',
-    hideInMenu: true,
-  },
-  {
-    name: 'list.book',
-    icon: 'table',
-    path: '/Book',
-    component: './Book/index.tsx',
+    path: '/card-list/index',
+    component: './card-list/index',
   },
 ]

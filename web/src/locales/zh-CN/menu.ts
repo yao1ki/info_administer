@@ -35,7 +35,7 @@ export default {
   'menu.orderform':'勾魂管理系统',
   'menu.order':'待处理',
   'menu.process':'勾魂中',
-  'menu.checkout':'孟婆审核中',
+  'menu.checkout':'阎王审核中',
   'menu.chargeback':'退单',
 
   'menu.list2.account': '公司管理',
@@ -46,6 +46,7 @@ export default {
   'menu.lifebook.live': '阳寿未尽',
   'menu.lifebook.ghost': '阳寿已尽',
   'menu.lifebook.mistake': '已删除',
+  'menu.card-list': '测试',
   'menu.lifebook': '生死簿',
   'menu.death.book': '生死簿',
   'menu.profile': '详情页',
