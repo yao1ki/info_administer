@@ -54,6 +54,8 @@ export default defineConfig({
       icon: 'smile',
       component: './Welcome',
     },
+
+ 
     {
       name: 'leader',
       icon: 'table',
@@ -115,6 +117,12 @@ export default defineConfig({
      path:'/Form/index.tsx',
      component:'./Form/index.tsx' ,
      hideInMenu: true,
+    },
+    {
+      path: '/Tool',
+      name: 'tool',
+      icon: 'table',
+      component: './Tool',
     },
 
     {

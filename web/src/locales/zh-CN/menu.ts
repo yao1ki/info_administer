@@ -37,6 +37,7 @@ export default {
   'menu.process':'勾魂中',
   'menu.checkout':'阎王审核中',
   'menu.chargeback':'退单',
+  'menu.tool':'工具管理',
 
   'menu.list2.account': '公司管理',
   'menu.list.book': '书籍管理',
