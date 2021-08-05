@@ -59,7 +59,6 @@ class OrderService extends Service {
   // ////
   async querystate(state, params) {
     const { ctx } = this;
-    console.log("+++++++++++++++", params);
     let shop;
     if (params) {
       shop = await ctx.model.Ghost.findAll({

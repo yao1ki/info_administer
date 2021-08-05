@@ -55,14 +55,36 @@ export default defineConfig({
       component: './Welcome',
     },
 
- 
+    {
+      path: '/Record',
+      name: 'test',
+      icon: 'smile',
+      component: './Record',
+    },
+
+    {
+      path: '/Lucky/:id',
+      name: 'lucky',
+      icon: 'table',
+      component: './Lucky/lucky.jsx',
+      hideInMenu: true,
+    },
+    {
+      path: '/Create',
+      name: 'create',
+      icon: 'table',
+      component: './Lucky/create',
+      hideInMenu: true,
+
+    },
+
     {
       name: 'leader',
       icon: 'table',
       path: '/account/leader.tsx',
       component: './Account/leader.tsx',
     },
-   
+
     {
       name: 'list.account',
       icon: 'table',
@@ -85,44 +107,50 @@ export default defineConfig({
       component: './lifebook/index.tsx',
     },
     {
-      name:'orderform',
-      icon:'table',
-     path:'/Form/index.tsx',
-     component:'./Form/index.tsx' 
+      name: 'orderform',
+      icon: 'table',
+      path: '/Form/index.tsx',
+      component: './Form/index.tsx',
     },
     {
-      name:'checkout',
-      icon:'table',
-     path:'/Form/checkout.tsx',
-     component:'./Form/checkout.tsx' ,
-     hideInMenu: true,
+      name: 'checkout',
+      icon: 'table',
+      path: '/Form/checkout.tsx',
+      component: './Form/checkout.tsx',
+      hideInMenu: true,
     },
     {
-      name:'process',
-      icon:'table',
-     path:'/Form/process.tsx',
-     component:'./Form/process.tsx' ,
-     hideInMenu: true,
+      name: 'process',
+      icon: 'table',
+      path: '/Form/process.tsx',
+      component: './Form/process.tsx',
+      hideInMenu: true,
     },
     {
-      name:'chargeback',
-      icon:'table',
-     path:'/Form/chargeback.tsx',
-     component:'./Form/chargeback.tsx' ,
-     hideInMenu: true,
+      name: 'chargeback',
+      icon: 'table',
+      path: '/Form/chargeback.tsx',
+      component: './Form/chargeback.tsx',
+      hideInMenu: true,
     },
     {
-      name:'order',
-      icon:'table',
-     path:'/Form/index.tsx',
-     component:'./Form/index.tsx' ,
-     hideInMenu: true,
+      name: 'order',
+      icon: 'table',
+      path: '/Form/index.tsx',
+      component: './Form/index.tsx',
+      hideInMenu: true,
     },
     {
       path: '/Tool',
       name: 'tool',
       icon: 'table',
       component: './Tool',
+    },
+    {
+      path: '/Rein',
+      name: 'Rein',
+      icon: 'table',
+      component: './Lucky/index.tsx',
     },
 
     {
@@ -154,12 +182,9 @@ export default defineConfig({
           component: './lifebook/mistake',
           hideInMenu: true,
         },
-////////////////////////////
+        ////////////////////////////
       ],
     },
-
-
-
 
     ///////////////////////////
     // {
@@ -169,8 +194,6 @@ export default defineConfig({
     //   component: './Book/detail.tsx',
     //   hideInMenu: true,
     // },
-
- 
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {

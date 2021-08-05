@@ -38,6 +38,9 @@ export default {
   'menu.checkout':'阎王审核中',
   'menu.chargeback':'退单',
   'menu.tool':'工具管理',
+  'menu.Rein':'投胎管理',
+  'menu.lucky':'投胎大转盘',
+  'menu.create':'已投胎',
 
   'menu.list2.account': '公司管理',
   'menu.list.book': '书籍管理',
@@ -47,7 +50,7 @@ export default {
   'menu.lifebook.live': '阳寿未尽',
   'menu.lifebook.ghost': '阳寿已尽',
   'menu.lifebook.mistake': '已删除',
-  'menu.card-list': '测试',
+  'menu.test': '测试',
   'menu.lifebook': '生死簿',
   'menu.death.book': '生死簿',
   'menu.profile': '详情页',

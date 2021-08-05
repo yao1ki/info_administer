@@ -68,6 +68,7 @@ class UserController extends Controller {
 
   async update() {
     const { ctx, service } = this;
+    
     const id = ctx.params.id;
     const user = await service.user.show(id);
     const { username, password, name, e_mile, address, telephone } =
@@ -91,6 +92,7 @@ class UserController extends Controller {
     const { ctx, service, app } = this;
     const { token } = ctx.request.query;
     let user_id = this.ctx.locals.user.user;
+    console.log("=======》",this.ctx.locals.user)
     const id = ctx.params.id;
     if (user_id != id) {
       const user = await service.user.show(id);
@@ -113,6 +115,7 @@ class UserController extends Controller {
     ctx.body = ctx.success(user);
   }
   async current() {
+    console.log("?????????s")
     const { ctx, app } = this;
     const { token } = ctx.request.query;
     let decoded = await app.jwt.verify(token, app.config.keys);

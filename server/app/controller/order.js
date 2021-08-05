@@ -22,15 +22,6 @@ class OrderController extends Controller {
   //   });
   //   ctx.body = ctx.success(orders);
   // }
-  async list1() {
-    const { ctx } = this;
-    const orders = await ctx.model.Ghost.findAll({
-      where :{ state:"4"},
-      include: [{ model: ctx.model.Order,include:{ model: ctx.model.User } }],
-      //attributes:['id','ghost_id','user_id']{关联部分数据}
-    });
-    ctx.body = ctx.success(orders);
-  }
 
 
 

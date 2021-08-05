@@ -11,18 +11,17 @@ module.exports = app => {
     sort:STRING,
     ghost_id:STRING,
     state:STRING,
-    deathtime:STRING,
-    emissary_id:STRING,
     reason:STRING,
-    returntime:STRING,
-    manager:STRING,
+    user_id:STRING,
+    rein:STRING,
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });
 
   Ghost.associate = function() {
    // app.model.Ghost.belongsToMany(app.model.User, { foreignKey: 'ghost_id',through: 'Order'})
-    
+   app.model.Ghost.hasMany(app.model.Record, { foreignKey: 'ghost_id', targetKey: 'id'})
+   app.model.Ghost.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id',});
     app.model.Ghost.hasMany(app.model.Order, { foreignKey: 'ghost_id', targetKey: 'id'})
   }
  

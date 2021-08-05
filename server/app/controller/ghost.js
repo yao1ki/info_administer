@@ -15,9 +15,11 @@ class GhostController extends Controller {
     }
     async ghostlist() {
         const { ctx, service } = this;
+
         const {params} = ctx.request.query;
         const ghost = await service.ghost.ghostlist(params);
         ctx.body = ctx.success(ghost);
+
     }
     async create() {
         const ctx = this.ctx;
@@ -32,9 +34,10 @@ class GhostController extends Controller {
     async update() {
         const { ctx, service } = this;
         const id = ctx.params.id;
+        let user_id = this.ctx.locals.user.user;
         const ghost = await service.ghost.show(id);
-        const { name,lifetime,cause,sort,state,ghost_id,reason} = ctx.request.body;
-        await ghost.update({ name,lifetime,cause,sort,state,ghost_id,reason });
+        const { name,lifetime,cause,sort,state,ghost_id,reason,rein} = ctx.request.body;
+        await ghost.update({ name,lifetime,cause,sort,state,ghost_id,reason,user_id:user_id,rein });
         ctx.body = ctx.success();
     }
     async show() {
