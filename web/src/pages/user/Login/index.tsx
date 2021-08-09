@@ -110,7 +110,7 @@ const Login: React.FC<{}> = () => {
                 },
               },
             }}
-            onFinish={async (values) => {
+            onFinish={async (values:any) => {
               handleSubmit(values);
             }}
           >

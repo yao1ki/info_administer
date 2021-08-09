@@ -78,7 +78,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
     let res;
     if (id&&state!="3") {
-      res= await service.removeOrder(id);  
+       res = await service.updateGhost(id,{"state":"2"});
       (values.user_id===undefined)?"":values.user_id.map(async (v:any,i:any)=>{
         values = Object.assign({user_id:v},{ghost_id: id});
         await service.createOrder(values);

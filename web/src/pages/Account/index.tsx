@@ -22,10 +22,10 @@ const Personnel: FC<{}> = () => {
       refreshDeps: [opFlag],
     },
   );
-
   const deleteItem = async (id: string) => {
     const res = await service.removeUser(id);
     if (!res.error) {
+      
       message.success('删除成功！');
       setOpFlag(opFlag + 1);
     }

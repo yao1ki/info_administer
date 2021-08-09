@@ -8,7 +8,31 @@ class OrderService extends Service {
     const { ctx } = this;
     const shop = await ctx.model.Order.findByPk(id);
     if (!shop) {
-      ctx.throw(404, ctx.__("账号未找到"));
+      ctx.throw(404, ctx.__("账号??未找到"));
+    }
+    return shop;
+  }
+  async showup(id) {
+    const { ctx } = this;
+    let shop = await ctx.model.Order.findAll({
+      where: {
+        ghost_id:id,
+      },
+    });
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
+    }
+    return shop;
+  }
+  async showupdate(id) {
+    const { ctx } = this;
+    let shop = await ctx.model.Order.findAll({
+      where: {
+        user_id:id,
+      },
+    });
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
     }
     return shop;
   }
@@ -19,7 +43,7 @@ class OrderService extends Service {
       return;
     } catch (e) {
       ctx.logger.warn(e);
-      ctx.throw(500, ctx.__("创建账号失败"));
+      ctx.throw(500, ctx.__("创建失败"));
     }
   }
 
@@ -29,32 +53,10 @@ class OrderService extends Service {
       return await ctx.model.Order.update(data);
     } catch (e) {
       ctx.logger.warn(e);
-      ctx.throw(500, ctx.__("修改账号失败"));
+      ctx.throw(500, ctx.__("修改失败"));
     }
   }
 
-  async ghostlist(params) {
-    const { ctx } = this;
-    let shop;
-
-    if (params) {
-      shop = await ctx.model.Ghost.findAll({
-        where: {
-          state: { [Op.not]: "4" },
-        },
-      });
-    } else {
-      shop = await ctx.model.Ghost.findAll({
-        where: {
-          state: { [Op.not]: "4" },
-        },
-      });
-    }
-    if (!shop) {
-      ctx.throw(404, ctx.__("未找到"));
-    }
-    return shop;
-  }
 
   // ////
   async querystate(state, params) {
@@ -70,7 +72,6 @@ class OrderService extends Service {
               name: {
                 [Op.like]: `%${params}%`,
               },
-              
             },
             {
               ghost_id: {

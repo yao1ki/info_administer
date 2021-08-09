@@ -46,8 +46,8 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      console.log(params)
-      return await service.list(state,params);
+      console.log(params);
+      return await service.list(state, params);
     },
     {
       refreshDeps: [opFlag],
@@ -63,7 +63,7 @@ const Personnel: FC<SearchProps> = (props) => {
     });
   };
   const showEditModal = async (id: any) => {
-    const res = await service.updateGhost(id,{"state":"3"});
+    const res = await service.updateGhost(id, { state: '3' });
     if (!res.error) {
       message.success('确认成功！');
       setOpFlag(opFlag + 1);
@@ -74,7 +74,7 @@ const Personnel: FC<SearchProps> = (props) => {
       title: 'ID',
       dataIndex: 'ghost_id',
       key: 'id',
-      valueType: 'textarea'
+      valueType: 'textarea',
     },
     {
       title: '姓名',
@@ -89,13 +89,12 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
       render: (_: any, record: any) => {
         return record.orders.map((v: any, i: any) => {
-          if (i < record.orders.length - 1) {
-            return v.user.name + '、';
+          if (i) {
+            return v.user.name;
           } else {
             return v.user.name;
           }
         });
-        //return record.ghost.name;
       },
     },
     {
@@ -116,10 +115,7 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   ];
 
-
   /* 编辑框将item传给current */
-;
-
   const handleOk = () => {
     setVisible(false);
     setOpFlag(opFlag + 1);
@@ -142,22 +138,21 @@ const Personnel: FC<SearchProps> = (props) => {
   };
   const handleTabChange = (key: string) => {
     switch (key) {
-        case 'order':
-          history.push(`/Form/index.tsx`);
-          break;
-        case 'process':
-          history.push(`/Form/process.tsx`);
-          break;
-        case 'checkout':
-          history.push(`/Form/checkout.tsx`);
-          break;
-        case 'chargeback':
-          history.push(`/Form/chargeback.tsx`);
-          break;
-        default:
-          break;
-      }
-
+      case 'order':
+        history.push(`/Form/index.tsx`);
+        break;
+      case 'process':
+        history.push(`/Form/process.tsx`);
+        break;
+      case 'checkout':
+        history.push(`/Form/checkout.tsx`);
+        break;
+      case 'chargeback':
+        history.push(`/Form/chargeback.tsx`);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleFormSubmit = (value: string) => {
@@ -203,7 +198,6 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-
     </div>
   );
 };

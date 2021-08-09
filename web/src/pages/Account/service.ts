@@ -25,6 +25,9 @@ async function updateUser(id: number, data: ParamsType) {
 async function removeUser(id: string) {
   return request(`/api/users/${id}`, { method: 'delete' });
 }
+async function removeOrder(id: string) {
+  return request(`/api/orders/${id}`, { method: 'delete' });
+}
 async function showUser(id: string) {
   return request(`/api/users/${id}`);
 }
@@ -40,6 +43,7 @@ async function detail(params: string) {
 export default {
   listUsers,
   createUser,
+  removeOrder,
   currentUser,
   showUser,
   updateUser,

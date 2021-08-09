@@ -30,11 +30,12 @@ class UserController extends Controller {
     const token = app.jwt.sign(
       {
         user: user.id,
+        potence:user.potence
       },
       app.config.jwt.secret,
       { expiresIn: "3d" }
     );
-    ctx.body = ctx.success({ token, id: user.id });
+    ctx.body = ctx.success({ token, id: user.id,potence:user.potence });
   }
 
   async index() {
@@ -43,12 +44,6 @@ class UserController extends Controller {
     const opt = ctx.helper.curd(ctx);
     const ret = await service.user.list(opt);
     ctx.body = ctx.success(ret.rows);
-   // console.log(body)
-   // body.map( (v,i) => console.log(v) );
-
-
-
-
   }
 
   async create() {
@@ -68,7 +63,6 @@ class UserController extends Controller {
 
   async update() {
     const { ctx, service } = this;
-    
     const id = ctx.params.id;
     const user = await service.user.show(id);
     const { username, password, name, e_mile, address, telephone } =
@@ -92,11 +86,16 @@ class UserController extends Controller {
     const { ctx, service, app } = this;
     const { token } = ctx.request.query;
     let user_id = this.ctx.locals.user.user;
-    console.log("=======》",this.ctx.locals.user)
+    let potence = this.ctx.locals.user.user;
+    console.log("///=======>"+potence)
     const id = ctx.params.id;
     if (user_id != id) {
       const user = await service.user.show(id);
       await user.destroy();
+      const order = await service.order.showupdate(id);
+
+
+      order.map((v,i)=>{ v.destroy()})
       ctx.body = ctx.success();
     } else {
       ctx.throw(500, "------");
@@ -115,7 +114,6 @@ class UserController extends Controller {
     ctx.body = ctx.success(user);
   }
   async current() {
-    console.log("?????????s")
     const { ctx, app } = this;
     const { token } = ctx.request.query;
     let decoded = await app.jwt.verify(token, app.config.keys);

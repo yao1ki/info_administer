@@ -13,8 +13,8 @@ module.exports = (app) => {
   router.get("/api/query", controller.ghost.query);
   router.get("/api/ghostlist", controller.ghost.ghostlist);
   router.put("/api/ghosts/move/:id", controller.ghost.move);
-  router.put("/api/orders/moveghost/:id", controller.order.moveghost);
   router.get("/api/list/:state", controller.order.list);
+  
   router.resources("/api/records", controller.record);
   
   router.resources("/api/rein", controller.reincarnate);
@@ -23,7 +23,6 @@ module.exports = (app) => {
   router.resources("/api/users", controller.user);
   router.resources("/api/ghosts", controller.ghost);
   router.resources("/api/orders", controller.order);
-  router.put("/api/orders/move/:id", controller.order.move);
   router.resources("/api/books", controller.book);
   router.get("/api/book", controller.book.current);
  // router.get("/api/order/test", controller.order.test);

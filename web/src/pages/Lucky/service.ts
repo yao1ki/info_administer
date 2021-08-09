@@ -6,9 +6,11 @@ interface ParamsType extends Partial<GhostItem> {}
 
 async function listGhost(params: any) {
   return request(`/api/ghostlist/?params=${params}`, { method: 'GET' });
-
 }
-async function querystate(state: string,params: any) {
+async function orderlist(id: any) {
+  return request(`/api/orders/${id}`, { method: 'GET' });
+}
+async function querystate(state: string, params: any) {
   return request(`/api/querystate/${state}?params=${params}`);
 }
 async function createGhost(data: ParamsType) {
@@ -19,6 +21,9 @@ async function updateGhost(id: number, data: ParamsType) {
   return request(`/api/ghosts/${id}`, { method: 'PUT', data });
 }
 
+async function update(id: number, data: ParamsType) {
+  return request(`/api/orders/${id}`, { method: 'PUT', data });
+}
 async function removeGhost(id: number) {
   return request(`/api/ghosts/move/${id}`, { method: 'PUT' });
 }
@@ -30,14 +35,14 @@ async function showGhost(id: string) {
   return request(`/api/ghosts/${id}`);
 }
 
-
 export default {
   listGhost,
   createGhost,
+  update,
+  orderlist,
   showGhost,
   updateGhost,
   removeGhost,
   querystate,
   edit,
-
 };

@@ -45,7 +45,6 @@ class ToolController extends Controller {
 
 
 
-
 }
 
 module.exports = ToolController;

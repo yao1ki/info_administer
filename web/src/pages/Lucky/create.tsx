@@ -23,7 +23,8 @@ const state = '6';
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
-  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
+  const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
+
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
@@ -67,9 +68,27 @@ const Personnel: FC<SearchProps> = (props) => {
       key: 'rein',
       valueType: 'textarea',
     },
+    {
+      title: '操作',
+      key: 'action',
+      render: (item: GhostItem) => (
+        <span>
+          <a
+            onClick={() => {
+              showEditModal(item);
+            }}
+          >
+            分配命运
+          </a>
+        </span>
+      ),
+    },
   ];
 
-
+  const showEditModal = (item: GhostItem) => {
+    setVisible(true);
+    setCurrent({id:item.id});
+  };
 
   const handleOk = () => {
     setVisible(false);

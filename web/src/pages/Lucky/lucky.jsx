@@ -66,8 +66,6 @@ export default class App extends React.Component {
     let id = this.props.match.params.id
     
     let {data} =  service.showGhost(id);
-    console.log('---->',id)
-    console.log('====》',data)
     return (
       <PageContainer >
         <Row>
