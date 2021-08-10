@@ -4,6 +4,7 @@ const Op = require("sequelize").Op;
 const Service = require("egg").Service;
 
 class OrderService extends Service {
+  
   async show(id) {
     const { ctx } = this;
     const shop = await ctx.model.Order.findByPk(id);
@@ -81,12 +82,48 @@ class OrderService extends Service {
           ],
         },
         include: [
-          { model: ctx.model.Order, include: { model: ctx.model.User } },
+          { model: ctx.model.Order,where:{state:"0"}, include: { model: ctx.model.User } },
         ],
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
         where: { state: state },
+        include: [
+          { model: ctx.model.Order,where:{state:"0"}, include: { model: ctx.model.User } },
+        ],
+      });
+    }
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
+    }
+    return shop;
+  }
+  async recordstate( params) {
+    const { ctx } = this;
+    let shop;
+    if (params) {
+      shop = await ctx.model.Ghost.findAll({
+        where: {
+
+          [Op.or]: [
+            {
+              name: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              ghost_id: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+          ],
+        },
+        include: [
+          { model: ctx.model.Order, include: { model: ctx.model.User } },
+        ],
+      });
+    } else {
+      shop = await ctx.model.Ghost.findAll({
         include: [
           { model: ctx.model.Order, include: { model: ctx.model.User } },
         ],

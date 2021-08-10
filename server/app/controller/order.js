@@ -4,15 +4,22 @@ const Controller = require("egg").Controller;
 const crypto = require("crypto");
 
 class OrderController extends Controller {
+
   async index() {
-    const { ctx } = this;
-    const orders = await ctx.model.Ghost.findAll({
-      where: { state: "2" },
-      include: [{ model: ctx.model.Order, include: { model: ctx.model.User } }],
-      //attributes:['id','ghost_id','user_id']{关联部分数据}
-    });
-    ctx.body = ctx.success(orders);
-  }
+    const { ctx, service } = this;
+    const opt = ctx.helper.curd(ctx);
+    const ret = await ctx.model.Order.findAll(opt);
+    ctx.body = ctx.success(ret);
+}
+  // async index() {
+  //   const { ctx } = this;
+  //   const orders = await ctx.model.Ghost.findAll({
+  //     where: { state: "2" },
+  //     include: [{ model: ctx.model.Order,where:{state:"0"}, include: { model: ctx.model.User } }],
+  //     //attributes:['id','ghost_id','user_id']{关联部分数据}
+  //   });
+  //   ctx.body = ctx.success(orders);
+  // }
   // async list() {
   //   const { ctx } = this;
   //   const orders = await ctx.model.Ghost.findAll({
@@ -28,6 +35,12 @@ class OrderController extends Controller {
     const state = ctx.params.state;
     const { params } = ctx.request.query;
     const order = await service.order.querystate(state, params);
+    ctx.body = ctx.success(order);
+  }
+  async record() {
+    const { ctx, service } = this;
+    const { params } = ctx.request.query;
+    const order = await service.order.recordstate( params);
     ctx.body = ctx.success(order);
   }
   async create() {

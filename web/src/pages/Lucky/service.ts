@@ -34,6 +34,9 @@ async function edit(data: ParamsType) {
 async function showGhost(id: string) {
   return request(`/api/ghosts/${id}`);
 }
+async function Order() {
+  return request(`/api/orders`);
+}
 
 export default {
   listGhost,
@@ -45,4 +48,5 @@ export default {
   removeGhost,
   querystate,
   edit,
+  Order,
 };

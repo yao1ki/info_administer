@@ -32,8 +32,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         lifetime: current.lifetime,
         cause: current.cause,
         sort: current.sort,
-        ghost_id:current.ghost_id,
-        state:current.state,
+        ghost_id: current.ghost_id,
+        state: current.state,
       });
     }
   }, [props.current]);
@@ -45,18 +45,22 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
-    let res,les,tes,fes;
-    tes = await service.orderlist(id);
+    let res, les, tes, fes;
+    tes = await service.Order();
     if (id) {
-    res = await service.updateGhost(id, values);
-    les = await service.updateGhost(id,{state:"1"});
-    (tes.data===undefined)?"":tes.data.map(async (v:any,i:any)=>{
-      fes = await service.update(v.id,{state:"2"})
-    })
+      res = await service.updateGhost(id, values);
+      les = await service.updateGhost(id, { state: '1' });
+      tes.data === undefined
+        ? ''
+        : tes.data.map(async (v: any, i: any) => {
+            v.state = parseInt(v.state);
 
+            v.ghost_id == id
+              ? (fes = await service.update(v.id, { state: v.state+1 }))
+              : console.log('llllll===>');
+          });
     }
-    if (!res.error&&!les.error
-    ) {
+    if (!res.error && !les.error) {
       message.success('操作成功！');
       onOk();
     }
@@ -69,7 +73,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-         <Form.Item
+        <Form.Item
           name="ghost_id"
           label="ID"
           rules={[{ required: true, message: '请输入ID' }]}
@@ -93,23 +97,23 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入阳寿" />
         </Form.Item>
-          <ProFormSelect
-            name="cause"
-            label="死亡方式"
-            rules={[{ required: true, message: '请选择死亡方式' }]}
-            options={[
-              {
-                label: '善终',
-                value: '善终',
-              },
-              
-              {
-                label: '惨死',
-                value: '惨死',
-              },
-            ]}
-            placeholder="请选择死亡方式"
-          />  
+        <ProFormSelect
+          name="cause"
+          label="死亡方式"
+          rules={[{ required: true, message: '请选择死亡方式' }]}
+          options={[
+            {
+              label: '善终',
+              value: '善终',
+            },
+
+            {
+              label: '惨死',
+              value: '惨死',
+            },
+          ]}
+          placeholder="请选择死亡方式"
+        />
         <ProFormSelect
           name="sort"
           label="生肖"
@@ -166,7 +170,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           ]}
           placeholder="请选择生肖"
         />
-
       </Form>
     );
   };

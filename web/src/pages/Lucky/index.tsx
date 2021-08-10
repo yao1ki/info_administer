@@ -66,7 +66,7 @@ const Personnel: FC<SearchProps> = (props) => {
       key: 'action',
       render: (_: any, record: any) => (
         <span>
-            <Link to={`/Lucky/${record.id,record.name}`}>投胎</Link>
+            <Link to={`/Lucky/${record.id}`}>投胎</Link>
         </span>
       ),
     },

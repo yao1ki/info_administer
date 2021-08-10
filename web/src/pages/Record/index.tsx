@@ -1,85 +1,73 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Button, Modal } from 'antd';
-import { UserItem } from './data.d';
+import { Card, Table, message, Divider, Modal } from 'antd';
+import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
-import { useRequest, Link } from 'umi';
+import { useRequest } from 'umi';
 import service from './service';
+import { Input } from 'antd';
+import { history } from 'umi';
 
-const Personnel: FC<{}> = () => {
+type SearchProps = {
+  match: {
+    url: string;
+    path: string;
+  };
+  location: {
+    pathname: string;
+  };
+};
+
+const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
-  const [current, setCurrent] = useState<Partial<UserItem> | undefined>(undefined);
+  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const potence = '1';
+  const [params, setParams] = useState<string>('');
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list(potence);
+      return await service.list(params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
 
-  const deleteItem = async (id: string) => {
-    const res = await service.removeUser(id);
-    if (!res.error) {
-      message.success('删除成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
-
-  const confirmDelete = (current: UserItem) => {
-    Modal.confirm({
-      title: '删除用户',
-      content: '确定删除该用户吗？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(JSON.stringify(current?.id)),
-    });
-  };
 
   const columns = [
-
     {
-      title: '操作员',
-      dataIndex: 'name',
-      key: '',
-      valueType: '',
-    },
-    {
-      title: '操作',
-      dataIndex: '',
-      key: '',
-      valueType: '',
-    },
-    {
-      title: '日期',
-      dataIndex: '',
-      key: '',
-      valueType: '',
+      title: 'ID',
+      dataIndex: 'ghost_id',
+      key: 'id',
+      valueType: 'textarea',
     },
     {
       title: '姓名',
-      dataIndex: '',
-      key: '',
-      valueType: '',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+    },
+    {
+      title: '勾魂使者',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.orders.map((v: any, i: any) => {
+          if (i) {
+            return ","+v.user.name;
+          } else {
+            return v.user.name;
+          }
+        });
+      },
     },
 
   ];
 
-  /* 添加current置空 */
-  const showModal = () => {
-    setVisible(true);
-    setCurrent(undefined);
-  };
   /* 编辑框将item传给current */
-  const showEditModal = (item: UserItem) => {
-    setVisible(true);
-    setCurrent({ ...item });
-  };
   const handleOk = () => {
     setVisible(false);
     setOpFlag(opFlag + 1);
@@ -101,23 +89,40 @@ const Personnel: FC<{}> = () => {
     onChange: handleJump,
   };
 
-  const action = (
-    <>
-      <Button onClick={showModal}>添加差吏</Button>
-    </>
-  );
+
+  const handleFormSubmit = (value: string) => {
+    // eslint-disable-next-line no-console
+    setParams(value);
+    setOpFlag(opFlag + 1);
+  };
+
+
 
   return (
-    <PageContainer>
-      <Card title="差吏列表" extra={action}>
-        <Table
-          columns={columns}
-          dataSource={data}
-          rowKey={(record: UserItem): number => record.id as number}
-        />
-      </Card>
+    <div>
+      <PageContainer
+        content={
+          <div style={{ textAlign: 'center' }}>
+            <Input.Search
+              placeholder="请输入"
+              enterButton="搜索"
+              size="large"
+              onSearch={handleFormSubmit}
+              style={{ maxWidth: 522, width: '100%' }}
+            />
+          </div>
+        }
+      >
+        <Card>
+          <Table
+            columns={columns}
+            dataSource={data}
+            rowKey={(record: GhostItem): number => record.id as number}
+          />
+        </Card>
+      </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-    </PageContainer>
+    </div>
   );
 };
 
