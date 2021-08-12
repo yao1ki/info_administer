@@ -8,6 +8,7 @@ module.exports = app => {
     user_id:STRING,
     ghost_id:STRING,
     state:STRING,
+    name:STRING,
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });

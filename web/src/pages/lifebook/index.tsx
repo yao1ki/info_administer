@@ -75,11 +75,17 @@ const Personnel: FC<SearchProps> = (props) => {
   };
 
   const columns = [
+
     {
       title: 'ID',
-      dataIndex: 'ghost_id',
       key: 'ghost_id',
-      valueType: 'textarea',
+      render: (_: any, record: any) => (
+        <span>
+          <span>
+            <Link to={`/lifebook.detail/${record.id}`}>{record.ghost_id}</Link>
+          </span>
+        </span>
+      ),
     },
     {
       title: '姓名',

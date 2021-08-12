@@ -47,7 +47,12 @@ export default defineConfig({
         },
       ],
     },
-
+    {
+      path: '/Settings',
+      name: 'welcome',
+      icon: 'smile',
+      component: './Settings',
+    },
     {
       path: '/welcome',
       name: 'welcome',
@@ -99,7 +104,13 @@ export default defineConfig({
       component: './Account/detail.tsx',
       hideInMenu: true,
     },
-
+    {
+      name: 'detail.lifebook',
+      icon: 'table',
+      path: '/lifebook.detail/:id',
+      component: './lifebook/detail.tsx',
+      hideInMenu: true,
+    },
     {
       name: 'death.book',
       icon: 'table',

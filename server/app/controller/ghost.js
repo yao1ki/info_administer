@@ -9,7 +9,6 @@ class GhostController extends Controller {
     async index() {
         const { ctx, service } = this;
         const opt = ctx.helper.curd(ctx);
-
         const ret = await service.ghost.list(opt);
         ctx.body = ctx.success(ret.rows, { total: ret.count });
     }

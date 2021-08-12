@@ -90,7 +90,7 @@ const Personnel: FC<SearchProps> = (props) => {
       render: (_: any, record: any) => {
         return record.orders.map((v: any, i: any) => {
           if (i) {
-            return v.user.name;
+            return "、"+v.user.name;
           } else {
             return v.user.name;
           }

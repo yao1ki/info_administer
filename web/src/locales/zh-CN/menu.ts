@@ -46,6 +46,8 @@ export default {
   'menu.list.book': '书籍管理',
   'menu.detail.book': '书籍详情',
   'menu.detail.user': '用户详情',
+  'menu.detail.lifebook': '详情',
+
   'menu.lifebook.birth': '转世投胎',
   'menu.lifebook.live': '阳寿未尽',
   'menu.lifebook.ghost': '阳寿已尽',

@@ -98,12 +98,13 @@ class OrderService extends Service {
     }
     return shop;
   }
-  async recordstate( params) {
+  async recordstate(id, params) {
     const { ctx } = this;
     let shop;
     if (params) {
       shop = await ctx.model.Ghost.findAll({
         where: {
+          id:id,
 
           [Op.or]: [
             {
@@ -124,6 +125,8 @@ class OrderService extends Service {
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
+        where: { id: id },
+
         include: [
           { model: ctx.model.Order, include: { model: ctx.model.User } },
         ],

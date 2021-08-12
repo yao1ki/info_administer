@@ -14,7 +14,6 @@ async function querystate(state: string,params: any) {
 async function createGhost(data: ParamsType) {
   return request(`/api/ghosts`, { method: 'POST', data });
 }
-
 async function updateGhost(id: number, data: ParamsType) {
   return request(`/api/ghosts/${id}`, { method: 'PUT', data });
 }
@@ -29,6 +28,9 @@ async function edit(data: ParamsType) {
 async function showGhost(id: string) {
   return request(`/api/ghosts/${id}`);
 }
+async function showorder(id: string) {
+  return request(`/api/order/record/${id}`);
+}
 
 
 export default {
@@ -39,5 +41,5 @@ export default {
   removeGhost,
   querystate,
   edit,
-
+  showorder,
 };
