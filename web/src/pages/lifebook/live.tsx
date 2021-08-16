@@ -89,8 +89,13 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '寿命',
-      dataIndex: 'lifetime',
+      title: '出生日期',
+      dataIndex: 'time_start',
+      key: 'lifetime',
+      valueType: 'textarea',
+    },    {
+      title: '死亡日期',
+      dataIndex: 'time_end',
       key: 'lifetime',
       valueType: 'textarea',
     },

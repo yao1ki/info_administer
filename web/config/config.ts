@@ -1,7 +1,6 @@
 // https://umijs.org/config/
 import { defineConfig } from 'umi';
 import { join } from 'path';
-
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
@@ -47,19 +46,21 @@ export default defineConfig({
         },
       ],
     },
-    {
-      path: '/Settings',
-      name: 'welcome',
-      icon: 'smile',
-      component: './Settings',
-    },
+
     {
       path: '/welcome',
       name: 'welcome',
       icon: 'smile',
       component: './Welcome',
     },
-
+    {
+      path: '/Settings/components/base',
+      name: 'welcome',
+      icon: 'smile',
+      component: './Settings/components/base',
+      access:'user'
+    },
+    
     {
       path: '/Record',
       name: 'test',

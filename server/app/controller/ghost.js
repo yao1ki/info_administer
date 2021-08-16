@@ -25,7 +25,7 @@ class GhostController extends Controller {
 
         const { name,lifetime,cause,sort,state,ghost_id} = ctx.request.body;
         const ghost = await ctx.service.ghost.create({
-            name,lifetime,cause,sort,state,ghost_id
+            name,lifetime,cause,sort,state,ghost_id,time_start,time_end
         });
         ctx.body = ctx.success(ghost);
     }
@@ -35,8 +35,8 @@ class GhostController extends Controller {
         const id = ctx.params.id;
         let user_id = this.ctx.locals.user.user;
         const ghost = await service.ghost.show(id);
-        const { name,lifetime,cause,sort,state,ghost_id,reason,rein} = ctx.request.body;
-        await ghost.update({ name,lifetime,cause,sort,state,ghost_id,reason,user_id:user_id,rein });
+        const { name,lifetime,cause,sort,state,ghost_id,reason,rein,time_start,time_end} = ctx.request.body;
+        await ghost.update({ name,lifetime,cause,sort,state,ghost_id,reason,user_id:user_id,rein,time_start,time_end });
         ctx.body = ctx.success();
     }
     async show() {

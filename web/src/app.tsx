@@ -140,7 +140,6 @@ const autoAuthRequestInterceptor : RequestInterceptor = (url, options) => {
     options,
   };
 }
-
 export const request: RequestConfig = {
   errorHandler,
   errorConfig: {

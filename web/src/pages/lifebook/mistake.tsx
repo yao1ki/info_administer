@@ -8,6 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
+import moment from 'moment';
 
 type SearchProps = {
   match: {
@@ -89,10 +90,21 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '寿命',
-      dataIndex: 'lifetime',
+      title: '出生日期',
+      dataIndex: 'time_start',
       key: 'lifetime',
       valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return moment(record.time_start).format('YYYY年MM月DD日');
+      },
+    },
+    {
+      title: '死亡日期',
+      key: 'lifetime',
+      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return moment(record.time_end).format('YYYY年MM月DD日');
+      },
     },
     {
       title: '死亡方式 ',

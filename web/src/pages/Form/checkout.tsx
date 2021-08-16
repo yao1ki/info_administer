@@ -1,8 +1,8 @@
-import  { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
-import Back from'./components/chargeback';
+import Back from './components/chargeback';
 import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
@@ -34,7 +34,7 @@ const tabList = [
     tab: '退单',
   },
 ];
-const state = "3"
+const state = '3';
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
@@ -61,7 +61,7 @@ const Personnel: FC<SearchProps> = (props) => {
     });
   };
   const deleteItem = async (id: any) => {
-    const res = await service.updateGhost(id,{"state":"5"});
+    const res = await service.updateGhost(id, { state: '5' });
     if (!res.error) {
       message.success('确认成功！');
       setOpFlag(opFlag + 1);
@@ -73,14 +73,12 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'ghost_id',
       key: 'id',
       valueType: 'textarea',
-
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
-
     },
     {
       title: '勾魂使者',
@@ -90,9 +88,9 @@ const Personnel: FC<SearchProps> = (props) => {
       render: (_: any, record: any) => {
         return record.orders.map((v: any, i: any) => {
           if (i < record.orders.length - 1) {
-            return v.user.name + '、'
+            return v.user.name + '、';
           } else {
-            return v.user.name
+            return v.user.name;
           }
         });
       },
@@ -149,21 +147,21 @@ const Personnel: FC<SearchProps> = (props) => {
   };
   const handleTabChange = (key: string) => {
     switch (key) {
-        case 'order':
-          history.push(`/Form/index.tsx`);
-          break;
-        case 'process':
-          history.push(`/Form/process.tsx`);
-          break;
-        case 'checkout':
-          history.push(`/Form/checkout.tsx`);
-          break;
-        case 'chargeback':
-          history.push(`/Form/chargeback.tsx`);
-          break;
-        default:
-          break;
-      }
+      case 'order':
+        history.push(`/Form/index.tsx`);
+        break;
+      case 'process':
+        history.push(`/Form/process.tsx`);
+        break;
+      case 'checkout':
+        history.push(`/Form/checkout.tsx`);
+        break;
+      case 'chargeback':
+        history.push(`/Form/chargeback.tsx`);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleFormSubmit = (value: string) => {
@@ -208,7 +206,6 @@ const Personnel: FC<SearchProps> = (props) => {
         </Card>
       </PageContainer>
       <Back current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
-
     </div>
   );
 };

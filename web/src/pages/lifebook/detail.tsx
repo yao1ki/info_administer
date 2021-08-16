@@ -5,6 +5,8 @@ import service from './service';
 import { Descriptions, Button, Card } from 'antd';
 import { GhostItem } from './data.d';
 import OperationModal from './components/OperationModal';
+import moment from 'moment';
+
 interface params {
   id: string;
 }
@@ -38,6 +40,7 @@ const Test: FC<{}> = () => {
   );
   const shop = data === undefined ? '' : data[0];
   var aa = 0;
+
   {
     shop.orders === undefined
       ? ''
@@ -46,8 +49,7 @@ const Test: FC<{}> = () => {
         });
   }
   aa = Number(aa);
-  console.log('}}}}}}}}}}}', aa);
-
+  var bb=aa+1;
   return (
     <PageContainer>
       <Descriptions title="详情"></Descriptions> 
@@ -58,9 +60,9 @@ const Test: FC<{}> = () => {
       {shop.orders === undefined
         ? ''
         : shop.orders.map((v: any, i: any) =>
-            aa == v.state && aa != 0 ? (
+           aa==v.state&&aa>0 ? (
               <Descriptions layout="vertical">
-                <Descriptions.Item label={'前' + aa-- + '世的姓名'}>{v.name}</Descriptions.Item>
+                <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>{v.name}</Descriptions.Item>
                 <Descriptions.Item label="勾魂使者">
                   {shop.orders === undefined
                     ? ''

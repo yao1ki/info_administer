@@ -46,7 +46,6 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      console.log(params);
       return await service.list(state, params);
     },
     {

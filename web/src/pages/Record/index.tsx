@@ -26,14 +26,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
   //获取数据
-  let { data } = useRequest(
-    async () => {
-      return await service.list(params);
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
+
 
 
   const columns = [
@@ -116,7 +109,6 @@ const Personnel: FC<SearchProps> = (props) => {
         <Card>
           <Table
             columns={columns}
-            dataSource={data}
             rowKey={(record: GhostItem): number => record.id as number}
           />
         </Card>

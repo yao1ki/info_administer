@@ -16,6 +16,7 @@
     name: 'welcome',
     icon: 'smile',
     component: './Welcome',
+    authority:['aa']
   },
   {
     name: 'leader',

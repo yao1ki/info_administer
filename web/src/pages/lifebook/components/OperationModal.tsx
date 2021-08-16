@@ -2,6 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
+import ProForm, {
+  ProFormDateRangePicker,
+  ProFormText,
+  ProFormTimePicker,
+} from '@ant-design/pro-form';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
@@ -45,14 +50,16 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
-    let res;
+    let res,les;
     if (id) {
       res = await service.updateGhost(id, values);
+      const aa = Object.assign({time_start:values.time[0]._d},{time_end: values.time[1]._d});
+      les = await service.updateGhost(id, aa);
+
     } else {
-      values = Object.assign(values);
       res = await service.createGhost(values);
     }
-    if (!res.error) {
+    if (!res.error&&!les.error) {
       message.success('操作成功！');
       onOk();
     }
@@ -81,31 +88,23 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
+        <ProFormDateRangePicker
+                label="死亡时间"
+                name="time"
+                fieldProps={{
+                  style: {
+                    width: '100%',
+                  },
+                }}
+                rules={[{ required: true, message: '请选择生效日期' }]}
+              />
         <Form.Item
-          name="lifetime"
-          label="阳寿"
-          rules={[{ required: true, message: '请输入阳寿' }]}
-          key="3"
+          name="cause"
+          label="姓名"
+          rules={[{ required: true, message: '请输入死亡方式' }]}
         >
-          <Input placeholder="请输入阳寿" />
+          <Input placeholder="请输入死因" />
         </Form.Item>
-          <ProFormSelect
-            name="cause"
-            label="死亡方式"
-            rules={[{ required: true, message: '请选择死亡方式' }]}
-            options={[
-              {
-                label: '善终',
-                value: '善终',
-              },
-              
-              {
-                label: '惨死',
-                value: '惨死',
-              },
-            ]}
-            placeholder="请选择死亡方式"
-          />  
         <ProFormSelect
           name="sort"
           label="生肖"

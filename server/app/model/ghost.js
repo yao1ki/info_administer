@@ -14,6 +14,8 @@ module.exports = app => {
     reason:STRING,
     user_id:STRING,
     rein:STRING,
+    time_end:app.Sequelize.DATE,
+    time_start:app.Sequelize.DATE,
     created_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
     updated_at: { type: app.Sequelize.DATE, defaultValue: app.Sequelize.fn('NOW') },
   });
