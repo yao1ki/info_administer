@@ -39,11 +39,20 @@ async function Order() {
 }
 async function list() {
   return request(`/api/material`);
-}async function updateMaterial(id:number,data: ParamsType) {
+}
+async function updateMaterial(id:number,data: ParamsType) {
   return request(`/api/material/${id}`, { method: 'PUT', data });
+
 }
 
+async function experience(data: ParamsType) {
+  return request(`/api/journals`, { method: 'POST', data });
+}
+async function recordlist() {
+  return request(`/api/journals`);}
 export default {
+  experience,
+  recordlist,
   listGhost,
   createGhost,
   update,

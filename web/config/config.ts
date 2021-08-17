@@ -188,7 +188,13 @@ export default defineConfig({
       component: './Lucky/material.tsx',
       access: 'userRouteFilter',
     },
-    
+    {
+      path: '/Lucky',
+      name: 'record1',
+      icon: 'table',
+      component: './Lucky/record.tsx',
+      access: 'userRouteFilter',
+    },
     {
       name: 'lifebook',
       icon: 'table',

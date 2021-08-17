@@ -42,7 +42,6 @@ class OrderController extends Controller {
     const { ctx, service } = this;
     const id = ctx.params.id;
     const { params } = ctx.request.query;
-    console.log("===============>")
     const order = await service.order.recordstate(id,params);
     ctx.body = ctx.success(order);
   }
@@ -79,7 +78,6 @@ class OrderController extends Controller {
     const { ctx, service } = this;
     const id = ctx.params.id;
     const order = await service.order.showup(id);
-    console.log(order)
     ctx.body = ctx.success(order);
   }
   async ghostlist() {

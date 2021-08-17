@@ -45,11 +45,10 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-  const confirmDelete = async (id: any) => {
-    let res;
+  const confirmDelete = async (id: any,gnosis:any) => {
+    let res,les;
     // const res = await service.removeGhost(id);
     aa.data === undefined ? '' : aa.data.map((v: any, i: any) => (v.quantity >= i + 1)?'':res=0);
-    console.log("==========>",res)
 
     if (res!=0) {
       res =
@@ -61,6 +60,8 @@ const Personnel: FC<SearchProps> = (props) => {
              )
             );
       !res.error ? history.push(`/Lucky/${id}`) : '';
+      les = await service.experience({"experience":gnosis})
+
     }else{
       message.success('孟婆汤原料不足，请补充');
     }
@@ -96,7 +97,7 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              confirmDelete(item.id);
+              confirmDelete(item.id,item.gnosis);
             }}
           >
             投胎

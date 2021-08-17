@@ -37,22 +37,19 @@ const Personnel: FC<{}> = () => {
                       className={styles.aa}
                       cover={<img src={v.picture} />}
                       title={
-                        <div>
-                          <Row style={{fontSize:'200%'}} >
-                            <Col span={12}></Col>
+                        <div style={{fontSize:'200%',textAlign: 'center'}}>
 
-                            <Col span={12}>{v.name}</Col>
-                          </Row>
+                           {v.name}
                         </div>
                       }
                     >
                       {
                         <Row style={{ textAlign: 'center',fontSize:'150%'}}>
-                          <Col span={12}>{v.quantity+v.unit}</Col>
+                          <Col span={12}>库存：{v.quantity+v.unit}</Col>
                           <Col span={12}>
                             {
                               <a
-                                style={{ fontSize: '150%' }}
+                                style={{ fontSize: '100%' }}
                                 onClick={() => {
                                   updateItem(v.id);
                                 }}

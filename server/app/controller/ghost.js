@@ -29,6 +29,7 @@ class GhostController extends Controller {
       ghost_id,
       time_start,
       time_end,
+      gnosis,
       constellation,
     } = ctx.request.body;
     const ghost = await ctx.service.ghost.create({
@@ -36,6 +37,7 @@ class GhostController extends Controller {
       lifetime,
       cause,
       sort,
+      gnosis,
       state,
       ghost_id,
       time_start,
@@ -60,6 +62,7 @@ class GhostController extends Controller {
       state,
       ghost_id,
       reason,
+      gnosis,
       rein,
       time_start,
       time_end,
@@ -73,6 +76,7 @@ class GhostController extends Controller {
       state,
       ghost_id,
       reason,
+      gnosis,
       user_id: user_id,
       rein,
       time_start,

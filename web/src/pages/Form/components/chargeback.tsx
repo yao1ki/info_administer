@@ -2,6 +2,7 @@ import  { FC, useEffect } from 'react';
 import { Modal, Form, Input,message } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
+import { Radio } from 'antd';
 interface BackProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
@@ -10,7 +11,7 @@ interface BackProps {
 }
 
 
-
+var state = '';
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
@@ -51,13 +52,18 @@ const Back: FC<BackProps> = (props) => {
     if (!form) return;
     form.submit();
   };
-
+  const onChange = async (e: { [key: string]: any }) => {
+    console.log('radio checked', e.target.value);
+    state = e.target.value
+    //setValue(e.target.value);
+  };
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
-
     let res;
+
     if (id) {
-      values={"reason":values.reason , "state":"4"}
+      console.log("=======>",values)
+      values={"reason":values.reason ,"gnosis":values.gnosis, "state":state}
       res= await service.updateGhost(id,values);
     }
     if (!res.error) {
@@ -73,15 +79,26 @@ const Back: FC<BackProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-  <Form.Item
+      <Form.Item
           name="reason"
-          label="退单理由"
-          rules={[{ required: true, message: '请输入理由' }]}
+          label="审判记录"
+          rules={[{ required: true, message: '请输入生平' }]}
 
         >
-          <Input placeholder="请输入理由" />
+          <Input placeholder="请输入生平" />
         </Form.Item>
+        <Form.Item
+          name="gnosis"
+          label="人生感悟"
+          rules={[{ required: true, message: '请输入感悟' }]}
 
+        >
+          <Input placeholder="请输入感悟" />
+        </Form.Item>
+        <Radio.Group    name='state' onChange={onChange} >
+      <Radio style={{left: '80%'}} value={5}>允许投胎</Radio>
+      <Radio style={{left: '120%'}} value={4}>逐出六道</Radio>
+    </Radio.Group>
       </Form>
     );
   };

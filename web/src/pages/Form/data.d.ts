@@ -7,6 +7,7 @@ export interface GhostItem {
     sort:STRING,
     state:STRING,
     reason:STRING,
+    gnosis:String,
     manager:STRING,
     emissary_id:String,
     created_at?: string;

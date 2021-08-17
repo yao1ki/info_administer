@@ -31,7 +31,7 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '退单',
+    tab: '流放',
   },
 ];
 const state = '3';
@@ -99,22 +99,15 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
-        <span>
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            确认
-          </a>
-          <Divider type="vertical" />
+        <span >
+      
 
           <a
             onClick={() => {
               showEditModal(item);
             }}
           >
-            退单
+           阎王审判
           </a>
         </span>
       ),

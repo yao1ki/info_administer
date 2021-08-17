@@ -35,7 +35,7 @@ export default {
   'menu.order': '待处理',
   'menu.process': '勾魂中',
   'menu.checkout': '阎王审核中',
-  'menu.chargeback': '退单',
+  'menu.chargeback': '流放',
   'menu.tool': '工具管理',
   'menu.Rein': '投胎管理',
   'menu.lucky': '投胎大转盘',
@@ -51,6 +51,8 @@ export default {
   'menu.lifebook.mistake': '已删除',
   'menu.test': '测试',
   'menu.material': '孟婆汤',
+  'menu.record1': '奈何桥',
+
   'menu.lifebook': '生死簿',
   'menu.death.book': '生死簿',
   'menu.profile': '详情页',

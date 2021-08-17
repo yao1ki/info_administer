@@ -87,7 +87,6 @@ class UserController extends Controller {
     const { token } = ctx.request.query;
     let user_id = this.ctx.locals.user.user;
     let potence = this.ctx.locals.user.user;
-    console.log("///=======>"+potence)
     const id = ctx.params.id;
     if (user_id != id) {
       const user = await service.user.show(id);

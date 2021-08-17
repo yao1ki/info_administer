@@ -55,7 +55,6 @@ class UserService extends Service {
     async update(data) {
         const { ctx } = this;
         try {
-      console.log("==========>======>",data)
 
             return await ctx.model.User.update(data);
         } catch (e) {

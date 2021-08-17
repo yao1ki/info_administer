@@ -11,6 +11,7 @@ module.exports = app => {
     sort:STRING,
     ghost_id:STRING,
     state:STRING,
+    gnosis:STRING,
     reason:STRING,
     user_id:STRING,
     rein:STRING,

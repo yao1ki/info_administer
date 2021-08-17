@@ -97,20 +97,8 @@ const Personnel: FC<SearchProps> = (props) => {
         return moment(record.time_start).format('YYYY年MM月DD日');
       },
     },
-    {
-      title: '死亡日期',
-      key: 'lifetime',
-      valueType: 'textarea',
-      render: (_: any, record: any) => {
-        return moment(record.time_end).format('YYYY年MM月DD日');
-      },
-    },
-    {
-      title: '死亡方式 ',
-      dataIndex: 'cause',
-      key: 'cause',
-      valueType: 'textarea',
-    },
+
+
     {
       title: '生肖',
       dataIndex: 'sort',

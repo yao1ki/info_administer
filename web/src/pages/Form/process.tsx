@@ -33,7 +33,7 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '退单',
+    tab: '流放',
   },
 ];
 const Personnel: FC<SearchProps> = (props) => {

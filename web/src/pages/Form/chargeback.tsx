@@ -31,7 +31,7 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '退单',
+    tab: '流放',
   },
 ];
 const state = "4"
@@ -89,7 +89,7 @@ const Personnel: FC<SearchProps> = (props) => {
       },
     },
     {
-      title: '退单理由',
+      title: '审判记录',
       dataIndex: 'reason',
       key: 'reason',
       valueType: 'textarea',
