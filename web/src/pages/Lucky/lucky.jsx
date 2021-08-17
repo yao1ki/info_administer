@@ -97,6 +97,9 @@ export default class App extends React.Component {
                   service.updateGhost(id,{rein:prize.title,state:6});
                   alert('恭喜投胎进入:' + prize.title);
                   
+
+
+                  
                   history.push(`/Rein`)
                   
 

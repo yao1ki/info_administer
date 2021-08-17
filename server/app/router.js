@@ -19,7 +19,7 @@ module.exports = (app) => {
   router.resources("/api/records", controller.record);
   
   router.resources("/api/rein", controller.reincarnate);
-
+  router.resources("/api/material", controller.material);
   router.resources("/api/tools", controller.tool);
   router.resources("/api/users", controller.user);
   router.resources("/api/ghosts", controller.ghost);

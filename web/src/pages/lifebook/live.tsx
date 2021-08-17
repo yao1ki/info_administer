@@ -8,6 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
+import moment from 'moment';
 
 type SearchProps = {
   match: {
@@ -36,7 +37,7 @@ const tabList = [
     tab: '永世不得轮回',
   },
 ];
-const state ="1";
+const state = '1';
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -49,13 +50,13 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state,params);
+      return await service.querystate(state, params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  
+
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -73,7 +74,6 @@ const Personnel: FC<SearchProps> = (props) => {
       onOk: () => deleteItem(currentItem.id as number),
     });
   };
-
 
   const columns = [
     {
@@ -93,11 +93,17 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'time_start',
       key: 'lifetime',
       valueType: 'textarea',
-    },    {
+      render: (_: any, record: any) => {
+        return moment(record.time_start).format('YYYY年MM月DD日');
+      },
+    },
+    {
       title: '死亡日期',
-      dataIndex: 'time_end',
       key: 'lifetime',
       valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return moment(record.time_end).format('YYYY年MM月DD日');
+      },
     },
     {
       title: '死亡方式 ',
@@ -109,6 +115,12 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '生肖',
       dataIndex: 'sort',
       key: 'sort',
+      valueType: 'textarea',
+    },
+    {
+      title: '星座',
+      dataIndex: 'constellation',
+      key: 'constellation',
       valueType: 'textarea',
     },
     {
@@ -168,7 +180,6 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
-
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
@@ -189,12 +200,10 @@ const Personnel: FC<SearchProps> = (props) => {
     }
   };
 
-
-
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     setParams(value);
-    setOpFlag(opFlag+1);
+    setOpFlag(opFlag + 1);
   };
 
   const getTabKey = () => {
@@ -215,7 +224,7 @@ const Personnel: FC<SearchProps> = (props) => {
               placeholder="请输入"
               enterButton="搜索"
               size="large"
-            onSearch={handleFormSubmit}
+              onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
           </div>
@@ -223,9 +232,8 @@ const Personnel: FC<SearchProps> = (props) => {
         tabList={tabList}
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
-        
       >
-        <Card >
+        <Card>
           <Table
             columns={columns}
             dataSource={data}

@@ -52,15 +52,16 @@ export default defineConfig({
       name: 'welcome',
       icon: 'smile',
       component: './Welcome',
+      access: 'adminRouteFilter',
     },
     {
       path: '/Settings/components/base',
       name: 'welcome',
       icon: 'smile',
       component: './Settings/components/base',
-      access:'user'
+      access: 'user',
     },
-    
+
     {
       path: '/Record',
       name: 'test',
@@ -81,7 +82,6 @@ export default defineConfig({
       icon: 'table',
       component: './Lucky/create',
       hideInMenu: true,
-
     },
 
     {
@@ -89,6 +89,8 @@ export default defineConfig({
       icon: 'table',
       path: '/account/leader.tsx',
       component: './Account/leader.tsx',
+      access: 'adminRouteFilter',
+
     },
 
     {
@@ -96,6 +98,7 @@ export default defineConfig({
       icon: 'table',
       path: '/account/index.tsx',
       component: './Account/index.tsx',
+      access: 'adminRouteFilter',
     },
 
     {
@@ -117,12 +120,17 @@ export default defineConfig({
       icon: 'table',
       path: '/lifebook',
       component: './lifebook/index.tsx',
+      access: 'adminRouteFilter',
+
     },
     {
       name: 'orderform',
       icon: 'table',
       path: '/Form/index.tsx',
       component: './Form/index.tsx',
+      
+      access: 'guestRouteFilter',
+
     },
     {
       name: 'checkout',
@@ -130,6 +138,8 @@ export default defineConfig({
       path: '/Form/checkout.tsx',
       component: './Form/checkout.tsx',
       hideInMenu: true,
+      access: 'adminRouteFilter',
+
     },
     {
       name: 'process',
@@ -142,6 +152,8 @@ export default defineConfig({
       name: 'chargeback',
       icon: 'table',
       path: '/Form/chargeback.tsx',
+      access: 'adminRouteFilter',
+
       component: './Form/chargeback.tsx',
       hideInMenu: true,
     },
@@ -157,14 +169,26 @@ export default defineConfig({
       name: 'tool',
       icon: 'table',
       component: './Tool',
+      access: 'guestRouteFilter',
+
+      
+
     },
     {
       path: '/Rein',
       name: 'Rein',
       icon: 'table',
       component: './Lucky/index.tsx',
+      access: 'userRouteFilter',
     },
-
+    {
+      path: '/material',
+      name: 'material',
+      icon: 'table',
+      component: './Lucky/material.tsx',
+      access: 'userRouteFilter',
+    },
+    
     {
       name: 'lifebook',
       icon: 'table',

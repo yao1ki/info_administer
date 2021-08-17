@@ -122,6 +122,7 @@ class UserController extends Controller {
       ctx.body = ctx.success({
         id: user.id,
         name: user.name,
+        auth:user.auth,
       });
     } else {
       ctx.status = 401;

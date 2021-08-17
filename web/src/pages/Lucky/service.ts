@@ -37,6 +37,11 @@ async function showGhost(id: string) {
 async function Order() {
   return request(`/api/orders`);
 }
+async function list() {
+  return request(`/api/material`);
+}async function updateMaterial(id:number,data: ParamsType) {
+  return request(`/api/material/${id}`, { method: 'PUT', data });
+}
 
 export default {
   listGhost,
@@ -49,4 +54,6 @@ export default {
   querystate,
   edit,
   Order,
+  list,
+  updateMaterial,
 };

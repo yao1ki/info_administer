@@ -7,6 +7,9 @@ export interface GhostItem {
     cause:STRING,
     sort:STRING,
     state:STRING,
+    quantity:Number,
+    unit:STRING,
+    picture:String,
     created_at?: string;
     updated_at?: string;
 }

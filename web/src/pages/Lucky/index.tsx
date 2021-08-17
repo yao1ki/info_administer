@@ -1,6 +1,6 @@
-import  { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table} from 'antd';
+import { Card, Table,message } from 'antd';
 import { GhostItem } from './data';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
@@ -37,6 +37,35 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
+  let aa = useRequest(
+    async () => {
+      return await service.list();
+    },
+    {
+      refreshDeps: [opFlag],
+    },
+  );
+  const confirmDelete = async (id: any) => {
+    let res;
+    // const res = await service.removeGhost(id);
+    aa.data === undefined ? '' : aa.data.map((v: any, i: any) => (v.quantity >= i + 1)?'':res=0);
+    console.log("==========>",res)
+
+    if (res!=0) {
+      res =
+        aa.data === undefined
+          ? ''
+          : aa.data.map((v: any, i: any) =>(
+             service.updateMaterial(v.id, { quantity: (v.quantity -i- 1) })
+             
+             )
+            );
+      !res.error ? history.push(`/Lucky/${id}`) : '';
+    }else{
+      message.success('孟婆汤原料不足，请补充');
+    }
+  };
+  //<Link to={`/Lucky/${record.id}`}>投胎</Link>
   const tabList = [
     {
       key: 'rein',
@@ -46,7 +75,6 @@ const Personnel: FC<SearchProps> = (props) => {
       key: 'create',
       tab: '已投胎',
     },
- 
   ];
   const columns = [
     {
@@ -64,15 +92,19 @@ const Personnel: FC<SearchProps> = (props) => {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (item: GhostItem) => (
         <span>
-            <Link to={`/Lucky/${record.id}`}>投胎</Link>
+          <a
+            onClick={() => {
+              confirmDelete(item.id);
+            }}
+          >
+            投胎
+          </a>
         </span>
       ),
     },
   ];
-
-
 
   const handleOk = () => {
     setVisible(false);
@@ -135,11 +167,11 @@ const Personnel: FC<SearchProps> = (props) => {
               onSearch={handleFormSubmit}
               style={{ maxWidth: 522, width: '100%' }}
             />
-            </div>
-          }
-          tabList={tabList}
-          tabActiveKey={getTabKey()}
-          onTabChange={handleTabChange}
+          </div>
+        }
+        tabList={tabList}
+        tabActiveKey={getTabKey()}
+        onTabChange={handleTabChange}
       >
         <Card>
           <Table

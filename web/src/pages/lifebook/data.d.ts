@@ -9,5 +9,6 @@ export interface GhostItem {
     time_start:string,
     time_end:string,
     created_at?: string;
+    constellation:string;
     updated_at?: string;
 }

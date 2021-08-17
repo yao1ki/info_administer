@@ -119,6 +119,12 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
+      title: '星座',
+      dataIndex: 'constellation',
+      key: 'constellation',
+      valueType: 'textarea',
+    },
+    {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
