@@ -48,7 +48,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const confirmDelete = async (id: any,gnosis:any) => {
     let res,les;
     // const res = await service.removeGhost(id);
-    aa.data === undefined ? '' : aa.data.map((v: any, i: any) => (v.quantity >= i + 1)?'':res=0);
+    aa.data === undefined ? '' : aa.data.map((v: any, i: any) => (v.quantity >= i + 1)?'':(res=0,les=v.name));
 
     if (res!=0) {
       res =
@@ -63,7 +63,7 @@ const Personnel: FC<SearchProps> = (props) => {
       les = await service.experience({"experience":gnosis})
 
     }else{
-      message.success('孟婆汤原料不足，请补充');
+      message.success('孟婆汤原料:'+les+'库存不足，请补充');
     }
   };
   //<Link to={`/Lucky/${record.id}`}>投胎</Link>

@@ -11,7 +11,6 @@ import { Alert, Space, message, Tabs, Modal } from 'antd';
 import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang } from 'umi';
-import Footer from '@/components/Footer';
 import { login, getFakeCaptcha, LoginParamsType } from '@/services/login';
 
 import styles from './index.less';
@@ -75,7 +74,7 @@ const Login: React.FC<{}> = () => {
   const { status, type: loginType } = userLoginState;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} >
       {/* <div className={styles.lang}>{SelectLang && <SelectLang />}</div> */}
       <div className={styles.lang}>{null}</div>
       <div className={styles.content}>
@@ -275,7 +274,6 @@ const Login: React.FC<{}> = () => {
           </Space> */}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

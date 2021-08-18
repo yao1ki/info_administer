@@ -1,4 +1,5 @@
 import { Settings as LayoutSettings } from '@ant-design/pro-layout';
+import { reduce } from 'lodash';
 
 const Settings: LayoutSettings & {
   pwa?: boolean;
@@ -12,9 +13,9 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: '地狱管理系统',
   pwa: false,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: 'https://cdn.pixabay.com/photo/2016/11/28/21/40/pentagram-1866115__340.png',
   iconfontUrl: '',
 };
 

@@ -1,26 +1,46 @@
 import React from 'react';
 import { useAccess, Access } from 'umi';
-import { Radio } from 'antd';
+import { Modal, Button, Space } from 'antd';
 
 const PageA = (props:any) => {
-  const { foo } = props;
-  const access = useAccess(); // access 实例的成员: canReadFoo, canUpdateFoo, canDeleteFoo
-  const onChange = e => {
-    console.log('radio checked', e.target.value);
-    //setValue(e.target.value);
-  };
+
+  function info() {
+    Modal.info({
+      title: 'This is a notification message',
+      content: (
+        <div>
+          <p>some messages...some messages...</p>
+          <p>some messages...some messages...</p>
+        </div>
+      ),
+      onOk() {},
+    });
+  }
   
-
-
-
-  return (
-    <Radio.Group onChange={onChange} >
-      <Radio value={1}>A</Radio>
-      <Radio value={2}>B</Radio>
-      <Radio value={3}>C</Radio>
-      <Radio value={4}>D</Radio>
-    </Radio.Group>
+  function success() {
+    Modal.success({
+      content: 'some messages...some messages...',
+    });
+  }
+  
+  function error() {
+    Modal.error({
+      title: 'This is an error message',
+      content: 'some messages...some messages...',
+    });
+  }
+  
+  function warning() {
+<Modal>aaaa</Modal>
+  }
+  
+  return(
+    <Space>
+      <Button onClick={info}>Info</Button>
+      <Button onClick={success}>Success</Button>
+      <Button onClick={error}>Error</Button>
+      <Button onClick={warning}>Warning</Button>
+    </Space>
   );
-};
-
- export default PageA;
+}
+export default PageA;

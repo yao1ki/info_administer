@@ -28,17 +28,17 @@ const Personnel: FC<{}> = () => {
     }
   };
   return (
-    <PageContainer>
+    <PageContainer >
       {
         <Row>
           {data === undefined
             ? ''
             : data.map((v: any, i: any) => (
-                <Col span={6}>
+                <Col span={6} >
                   {
                     <Card
                       className={styles.aa}
-                      cover={<img src={v.covers} />}
+                      cover={<img src={v.titles==1?v.covers:'https://img2.baidu.com/it/u=4273932495,1345879263&fm=26&fmt=auto&gp=0.jpg'} />}
                       title={
                         <div>
                           <Row className={styles.bb}>

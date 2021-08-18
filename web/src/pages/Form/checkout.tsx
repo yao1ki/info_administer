@@ -51,22 +51,8 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-  const confirmDelete = (current: GhostItem) => {
-    Modal.confirm({
-      title: '确认资格',
-      content: '确定它有资格投胎吗？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => deleteItem(JSON.stringify(current?.id)),
-    });
-  };
-  const deleteItem = async (id: any) => {
-    const res = await service.updateGhost(id, { state: '5' });
-    if (!res.error) {
-      message.success('确认成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
+
+
   const columns = [
     {
       title: 'ID',

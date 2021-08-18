@@ -189,7 +189,7 @@ export default defineConfig({
       access: 'userRouteFilter',
     },
     {
-      path: '/Lucky',
+      path: '/record1',
       name: 'record1',
       icon: 'table',
       component: './Lucky/record.tsx',

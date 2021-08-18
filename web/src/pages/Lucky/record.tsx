@@ -28,9 +28,7 @@ const Personnel: FC<{}> = () => {
                   {
                     <a
                       onClick={() => {
-                        Modal.confirm({
-                          title: '生平',
-
+                        Modal.success({
                           content: v.experience,
                         });
                       }}
