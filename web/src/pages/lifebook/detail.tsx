@@ -53,8 +53,8 @@ const Test: FC<{}> = () => {
   return (
     <PageContainer>
       <Descriptions title="详情"></Descriptions> 
-      <Descriptions layout="vertical" style={{backgroundColor:"	GhostWhite"}}>
-        <Descriptions.Item label="ID" >{shop.ghost_id}</Descriptions.Item>
+      <Descriptions layout="vertical" style={{backgroundColor:"	GhostWhite",fontSize:"150%"}}>
+        <Descriptions.Item label="ID" style={{fontSize:"150%"}}>{shop.ghost_id}</Descriptions.Item>
         <Descriptions.Item label="Name">{shop.name}</Descriptions.Item>
       </Descriptions>
       {shop.orders === undefined

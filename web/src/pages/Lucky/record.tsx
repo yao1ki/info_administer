@@ -52,8 +52,10 @@ const Personnel: FC<{}> = () => {
               ))}
         </Row>
       }
-      <Modal   visible={visiable} width={'50%'} onCancel={() => setVisible(false)} footer={null} closeIcon={null}  >
-        <div style={{fontSize: '30px',color:'red',background:'',textAlign:'center',height:'200%'}}>{current}</div>
+       
+
+      <Modal   visible={visiable} width={'0%'} onCancel={() => setVisible(false)}  closable={false} footer={null} closeIcon={null}  >
+        <div style={{fontSize: '30px',color:'red',background:'',textAlign:'center',height:'200%',}}>{current}</div>
       </Modal>
 
     </PageContainer>

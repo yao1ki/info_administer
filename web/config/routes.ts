@@ -1,120 +1,65 @@
-﻿export default [
+﻿export default[
+
   {
-    path: '/user',
-    layout: false,
+    name: 'orderform',
+    icon: 'table',
     routes: [
       {
-        name: 'login',
-        path: '/user/login',
-        component: './user/login',
+        name: 'Form',
+        path: '/Form/index.tsx',
+        component: './Form/index.tsx',
+        access: 'guestRouteFilter',
       },
+      {
+        name: 'checkout',
+        path: '/Form/checkout.tsx',
+        component: './Form/checkout.tsx',
+        access: 'adminRouteFilter',
+      },
+      {
+        name: 'process',
+        path: '/Form/process.tsx',
+        component: './Form/process.tsx',
+      },
+      {
+        name: 'chargeback',
+        path: '/Form/chargeback.tsx',
+        component: './Form/chargeback.tsx',
+      },
+
+      ////////////////////////////
+
+
+
     ],
   },
-
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-    authority:['aa']
-  },
-  {
-    name: 'leader',
-    icon: 'table',
-    path: '/account/leader.tsx',
-    component: './Account/leader.tsx',
-  },
- 
-  {
-    name: 'list.account',
-    icon: 'table',
-    path: '/account/index.tsx',
-    component: './Account/index.tsx',
-  },
-
-  {
-    name: 'detail.user',
-    icon: 'table',
-    path: '/Account.detail/:id',
-    component: './Account/detail.tsx',
-    hideInMenu: true,
-  },
-
-  {
-    name: 'death.book',
-    icon: 'table',
-    path: '/lifebook',
-    component: './lifebook/index.tsx',
-  },
-  {
-    name:'orderform',
-    icon:'table',
-   path:'/Form/index.tsx',
-   component:'./Form/index.tsx' 
-  },
-  {
-    name:'checkout',
-    icon:'table',
-   path:'/Form/checkout.tsx',
-   component:'./Form/checkout.tsx' ,
-   hideInMenu: true,
-  },
-  {
-    name:'process',
-    icon:'table',
-   path:'/Form/process.tsx',
-   component:'./Form/process.tsx' ,
-   hideInMenu: true,
-  },
-  {
-    name:'chargeback',
-    icon:'table',
-   path:'/Form/chargeback.tsx',
-   component:'./Form/chargeback.tsx' ,
-   hideInMenu: true,
-  },
-  {
-    name:'order',
-    icon:'table',
-   path:'/Form/index.tsx',
-   component:'./Form/index.tsx' ,
-   hideInMenu: true,
-  },
-
   {
     name: 'lifebook',
     icon: 'table',
-    hideInMenu: true,
     routes: [
       {
         name: 'birth',
         path: '/lifebook/birth',
         component: './lifebook/birth',
-        hideInMenu: true,
       },
       {
         name: 'ghost',
         path: '/lifebook/ghost',
         component: './lifebook/ghost',
-        hideInMenu: true,
       },
       {
         name: 'live',
         path: '/lifebook/live',
         component: './lifebook/live',
-        hideInMenu: true,
       },
       {
         name: 'mistake',
         path: '/lifebook/mistake',
         component: './lifebook/mistake',
-        hideInMenu: true,
       },
-////////////////////////////
+      ////////////////////////////
     ],
   },
-
-
 
 
   ///////////////////////////
@@ -125,11 +70,4 @@
   //   component: './Book/detail.tsx',
   //   hideInMenu: true,
   // },
-
-  {
-    name: 'card-list',
-    icon: 'table',
-    path: '/card-list/index',
-    component: './card-list/index',
-  },
 ]

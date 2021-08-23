@@ -3,8 +3,9 @@ import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
 import moment from 'moment';
+import { PageContainer } from '@ant-design/pro-layout';
 
-import { ModalForm, ProFormSelect,ProFormDateRangePicker } from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect, ProFormDateRangePicker } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
@@ -18,6 +19,10 @@ const formLayout = {
 };
 
 const OperationModal: FC<OperationModalProps> = (props) => {
+  const [visiable, setVisible] = useState<boolean>(false);
+  const [visiable1, getVisible] = useState<boolean>(false);
+
+
   const [form] = Form.useForm();
   const { visible, current, onOk, onCancel } = props;
 
@@ -45,17 +50,15 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     form.submit();
   };
 
-  
   const handleFinish = async (values: { [key: string]: any }) => {
     let res, les, tes, fes;
     tes = await service.Order();
     const id = current ? current.id : '';
 
-    const ee = current ?current.rein:'';
-    const aa = 'aaaaaaaaa'
-    console.log("---------->",aa.charAt(0))
-    ee===undefined?'': console.log("=============》",ee.charAt(0))
-
+    const ee = current ? current.rein : '';
+    const aa = 'aaaaaaaaa';
+    console.log('---------->', aa.charAt(0));
+    ee === undefined ? '' : console.log('=============》', ee.charAt(0));
 
     let a = moment(values.time[0]._d).format('YYYY');
     let b = parseInt(moment(values.time[0]._d).format('MM'));
@@ -109,40 +112,35 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         : (b == 11 && c <= 22) || (b == 10 && c >= 24)
         ? '天蝎座'
         : '射手座';
-        console.log("_________>",cc)
-        console.log("_________>",dd)
 
     if (id) {
       res = await service.updateGhost(id, values);
-      les = await service.updateGhost(id, { state: '1' });
+
       tes.data === undefined
         ? ''
         : tes.data.map(async (v: any, i: any) => {
             v.state = parseInt(v.state);
 
-            v.ghost_id == id
-              ? (fes = await service.update(v.id, { state: v.state+1 }))
-              : '';
+            v.ghost_id == id ? (fes = await service.update(v.id, { state: v.state + 1 })) : '';
           });
       const aa = Object.assign(
         { time_start: values.time[0]._d },
         { time_end: values.time[1]._d },
         { sort: cc },
-        {constellation:dd}
+        { constellation: dd },
       );
       les = await service.updateGhost(id, aa);
-    } else {
-      res = await service.createGhost(values);
+      les = await service.updateGhost(id, { state: '1', reason: '' });
     }
     if (!res.error && !les.error) {
       message.success('操作成功！');
+      setVisible(true);
       onOk();
     }
   };
   const handleCancel = () => {
     onCancel();
   };
-
 
   const getModalContent = () => {
     return (
@@ -205,7 +203,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     );
   };
   return (
-    <Modal
+<PageContainer>
+  <Modal
       title={'分配命运'}
       width={640}
       bodyStyle={{ padding: '28px 0 0' }}
@@ -216,7 +215,20 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       onCancel={handleCancel}
     >
       {getModalContent()}
+ 
     </Modal>
+    <Modal
+        visible={visiable}
+        width={'50%'}
+        onCancel={() => setVisible(false)}
+        footer={null}
+        closeIcon={null}
+      >
+        <img src={`https://img1.baidu.com/it/u=4262778161,3449122068&fm=26&fmt=auto&gp=0.jpg`} />{}
+      </Modal>
+</PageContainer>
+
+    
   );
 };
 

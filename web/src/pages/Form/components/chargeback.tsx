@@ -1,4 +1,5 @@
-import  { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+
 import { Modal, Form, Input,message } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
@@ -24,6 +25,7 @@ const formLayout = {
 
 const Back: FC<BackProps> = (props) => {
 
+  const [visiable, setVisible] = useState<boolean>(false);
 
   
   const [form] = Form.useForm();
@@ -62,11 +64,11 @@ const Back: FC<BackProps> = (props) => {
     let res;
 
     if (id) {
-      console.log("=======>",values)
       values={"reason":values.reason ,"gnosis":values.gnosis, "state":state}
       res= await service.updateGhost(id,values);
     }
     if (!res.error) {
+      setVisible(true);
       message.success('操作成功！');
       onOk();
     }
@@ -104,7 +106,8 @@ const Back: FC<BackProps> = (props) => {
   };
 
   return (
-    <Modal
+    <div>
+      <Modal
       title={`${current ? '编辑' : '添加'}`}
       width={640}
       bodyStyle={{ padding: '28px 0 0' }}
@@ -116,6 +119,19 @@ const Back: FC<BackProps> = (props) => {
     >
       {getModalContent()}
     </Modal>
+    <Modal
+        visible={visiable}
+        width={'0%'}
+        onCancel={() => setVisible(false)}
+        footer={null}
+        closable={false}
+        closeIcon={null}
+      >
+        
+        <img style={{}} src={`https://cdn.pixabay.com/photo/2014/04/03/10/20/scales-310131__340.png`} />{}
+      </Modal>
+    </div>
+    
   );
 };
 

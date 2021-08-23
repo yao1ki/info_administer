@@ -90,7 +90,6 @@ export default defineConfig({
       path: '/account/leader.tsx',
       component: './Account/leader.tsx',
       access: 'adminRouteFilter',
-
     },
 
     {
@@ -121,48 +120,14 @@ export default defineConfig({
       path: '/lifebook',
       component: './lifebook/index.tsx',
       access: 'adminRouteFilter',
-
     },
     {
-      name: 'orderform',
+      name: 'Form',
       icon: 'table',
-      path: '/Form/index.tsx',
+      path: '/Form',
       component: './Form/index.tsx',
-      
+
       access: 'guestRouteFilter',
-
-    },
-    {
-      name: 'checkout',
-      icon: 'table',
-      path: '/Form/checkout.tsx',
-      component: './Form/checkout.tsx',
-      hideInMenu: true,
-      access: 'adminRouteFilter',
-
-    },
-    {
-      name: 'process',
-      icon: 'table',
-      path: '/Form/process.tsx',
-      component: './Form/process.tsx',
-      hideInMenu: true,
-    },
-    {
-      name: 'chargeback',
-      icon: 'table',
-      path: '/Form/chargeback.tsx',
-      access: 'adminRouteFilter',
-
-      component: './Form/chargeback.tsx',
-      hideInMenu: true,
-    },
-    {
-      name: 'order',
-      icon: 'table',
-      path: '/Form/index.tsx',
-      component: './Form/index.tsx',
-      hideInMenu: true,
     },
     {
       path: '/Tool',
@@ -170,9 +135,6 @@ export default defineConfig({
       icon: 'table',
       component: './Tool',
       access: 'guestRouteFilter',
-
-      
-
     },
     {
       path: '/Rein',
@@ -196,37 +158,69 @@ export default defineConfig({
       access: 'userRouteFilter',
     },
     {
+      name: 'Form',
+      icon: 'table',
+      path: '/Form',
+      hideInMenu: true,
+
+      routes: [
+        {
+          name: 'orderform',
+          path: '/Form/index.tsx',
+          component: './Form/index.tsx',
+          access: 'guestRouteFilter',
+        },
+        {
+          name: 'checkout',
+          path: '/Form/checkout.tsx',
+          component: './Form/checkout.tsx',
+          access: 'adminRouteFilter',
+        },
+        {
+          name: 'process',
+          path: '/Form/process.tsx',
+          component: './Form/process.tsx',
+        },
+        {
+          name: 'chargeback',
+          path: '/Form/chargeback.tsx',
+          component: './Form/chargeback.tsx',
+        },
+
+        ////////////////////////////
+      ],
+    },
+    {
       name: 'lifebook',
       icon: 'table',
+      path: 'lifebook',
       hideInMenu: true,
+
       routes: [
         {
           name: 'birth',
           path: '/lifebook/birth',
           component: './lifebook/birth',
-          hideInMenu: true,
         },
         {
           name: 'ghost',
           path: '/lifebook/ghost',
           component: './lifebook/ghost',
-          hideInMenu: true,
         },
         {
           name: 'live',
           path: '/lifebook/live',
           component: './lifebook/live',
-          hideInMenu: true,
         },
         {
           name: 'mistake',
           path: '/lifebook/mistake',
           component: './lifebook/mistake',
-          hideInMenu: true,
         },
         ////////////////////////////
       ],
     },
+    
 
     ///////////////////////////
     // {
