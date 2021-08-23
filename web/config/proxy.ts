@@ -12,11 +12,7 @@
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
-    '/static/': {
-      target: 'http://localhost:7001',
-      changeOrigin: true,
-      pathRewrite: { '^': '' },
-    },
+
   },
   test: {
     '/api/': {

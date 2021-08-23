@@ -23,7 +23,7 @@ const Personnel: FC<{}> = () => {
         ? await service.updateTool(id, { titles: '1' })
         : await service.updateTool(id, { titles: '0' });
     if (!res.error) {
-      message.success('修改成功！');
+      message.success(title==0?'重启成功':'暂定成功');
       setOpFlag(opFlag + 1);
     }
   };

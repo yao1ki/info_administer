@@ -12,7 +12,7 @@ const Personnel: FC<{}> = () => {
   const [current, setCurrent] = useState<Partial<UserItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const potence="1";
+  const potence = '1';
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -25,7 +25,6 @@ const Personnel: FC<{}> = () => {
   const deleteItem = async (id: string) => {
     const res = await service.removeUser(id);
     if (!res.error) {
-      
       message.success('删除成功！');
       setOpFlag(opFlag + 1);
     }
@@ -33,8 +32,8 @@ const Personnel: FC<{}> = () => {
 
   const confirmDelete = (current: UserItem) => {
     Modal.confirm({
-      title: '删除用户',
-      content: '确定删除该用户吗？',
+      title: '删除差吏',
+      content: '确定删除该差吏吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => deleteItem(JSON.stringify(current?.id)),

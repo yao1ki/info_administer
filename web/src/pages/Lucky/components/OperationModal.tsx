@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal, Form, Input, message, Select } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
+import moment from 'moment';
+
 import { ModalForm, ProFormSelect,ProFormDateRangePicker } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
@@ -43,10 +45,73 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     form.submit();
   };
 
+  
   const handleFinish = async (values: { [key: string]: any }) => {
-    const id = current ? current.id : '';
     let res, les, tes, fes;
     tes = await service.Order();
+    const id = current ? current.id : '';
+
+    const ee = current ?current.rein:'';
+    const aa = 'aaaaaaaaa'
+    console.log("---------->",aa.charAt(0))
+    ee===undefined?'': console.log("=============》",ee.charAt(0))
+
+
+    let a = moment(values.time[0]._d).format('YYYY');
+    let b = parseInt(moment(values.time[0]._d).format('MM'));
+    let c = parseInt(moment(values.time[0]._d).format('DD'));
+    let bb = parseInt(a) % 12;
+    let cc =
+      bb == 0
+        ? '猴'
+        : bb == 1
+        ? '鸡'
+        : bb == 2
+        ? '狗'
+        : bb == 3
+        ? '猪'
+        : bb == 4
+        ? '鼠'
+        : bb == 5
+        ? '牛'
+        : bb == 6
+        ? '虎'
+        : bb == 7
+        ? '兔'
+        : bb == 8
+        ? '龙'
+        : bb == 9
+        ? '蛇'
+        : bb == 10
+        ? '马'
+        : '羊';
+    let dd =
+      (b == 1 && c <= 19) || (b == 12 && c >= 22)
+        ? '摩羯座'
+        : (b == 2 && c <= 18) || (b == 1 && c >= 20)
+        ? '水瓶座'
+        : (b == 3 && c <= 20) || (b == 2 && c >= 19)
+        ? '双鱼座'
+        : (b == 4 && c <= 19) || (b == 3 && c >= 21)
+        ? '白羊座'
+        : (b == 5 && c <= 20) || (b == 4 && c >= 20)
+        ? '金牛座'
+        : (b == 6 && c <= 21) || (b == 5 && c >= 21)
+        ? '双子座'
+        : (b == 7 && c <= 22) || (b == 6 && c >= 22)
+        ? '巨蟹座'
+        : (b == 8 && c <= 22) || (b == 7 && c >= 23)
+        ? '狮子座'
+        : (b == 9 && c <= 22) || (b == 8 && c >= 23)
+        ? '处女座'
+        : (b == 10 && c <= 23) || (b == 9 && c >= 23)
+        ? '天秤座'
+        : (b == 11 && c <= 22) || (b == 10 && c >= 24)
+        ? '天蝎座'
+        : '射手座';
+        console.log("_________>",cc)
+        console.log("_________>",dd)
+
     if (id) {
       res = await service.updateGhost(id, values);
       les = await service.updateGhost(id, { state: '1' });
@@ -59,16 +124,25 @@ const OperationModal: FC<OperationModalProps> = (props) => {
               ? (fes = await service.update(v.id, { state: v.state+1 }))
               : '';
           });
+      const aa = Object.assign(
+        { time_start: values.time[0]._d },
+        { time_end: values.time[1]._d },
+        { sort: cc },
+        {constellation:dd}
+      );
+      les = await service.updateGhost(id, aa);
+    } else {
+      res = await service.createGhost(values);
     }
     if (!res.error && !les.error) {
       message.success('操作成功！');
       onOk();
     }
   };
-
   const handleCancel = () => {
     onCancel();
   };
+
 
   const getModalContent = () => {
     return (
@@ -90,92 +164,46 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入姓名" />
         </Form.Item>
         <ProFormDateRangePicker
-                label="死亡时间"
-                name="time"
-                fieldProps={{
-                  style: {
-                    width: '100%',
-                  },
-                }}
-                rules={[{ required: true, message: '请选择生效日期' }]}
-              />
-        <ProFormSelect
+          label="死亡时间"
+          name="time"
+          fieldProps={{
+            style: {
+              width: '100%',
+            },
+          }}
+          rules={[{ required: true, message: '请选择生效日期' }]}
+        />
+        <Form.Item
           name="cause"
-          label="死亡方式"
-          rules={[{ required: true, message: '请选择死亡方式' }]}
-          options={[
-            {
-              label: '善终',
-              value: '善终',
-            },
+          label="死因"
+          rules={[{ required: true, message: '请输入死亡方式' }]}
+        >
+          <Input placeholder="请输入死因" />
+        </Form.Item>
 
-            {
-              label: '惨死',
-              value: '惨死',
-            },
-          ]}
-          placeholder="请选择死亡方式"
-        />
-        <ProFormSelect
-          name="sort"
-          label="生肖"
-          rules={[{ required: true, message: '请选择生肖' }]}
+        {/* <ProFormSelect
+          name="state"
+          label="类别"
+          rules={[{ required: true, message: '请选择类别' }]}
           options={[
             {
-              label: '鼠',
-              value: '鼠',
+              label: '阳寿未尽',
+              value: '1',
             },
             {
-              label: '牛',
-              value: '牛',
+              label: '阳寿已尽',
+              value: '2',
             },
             {
-              label: '虎',
-              value: '虎',
-            },
-            {
-              label: '兔',
-              value: '兔',
-            },
-            {
-              label: '龙',
-              value: '龙',
-            },
-            {
-              label: '蛇',
-              value: '蛇',
-            },
-            {
-              label: '马',
-              value: '马',
-            },
-            {
-              label: '羊',
-              value: '羊',
-            },
-            {
-              label: '猴',
-              value: '猴',
-            },
-            {
-              label: '鸡',
-              value: '鸡',
-            },
-            {
-              label: '狗',
-              value: '狗',
-            },
-            {
-              label: '猪',
-              value: '猪',
+              label: '投胎转世',
+              value: '3',
             },
           ]}
-          placeholder="请选择生肖"
-        />
+          placeholder="请选择类别"
+        /> */}
       </Form>
     );
   };
-
   return (
     <Modal
       title={'分配命运'}

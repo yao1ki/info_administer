@@ -87,7 +87,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const showEditModal = (item: GhostItem) => {
     setVisible(true);
-    setCurrent({id:item.id});
+    setCurrent({id:item.id,rein:item.rein});
   };
 
   const handleOk = () => {
