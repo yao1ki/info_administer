@@ -3,7 +3,7 @@
 module.exports = app => {
   const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
 
-  const Order = app.model.define('order', {
+  const Order = app.model.define("order", {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     user_id:STRING,
     ghost_id:STRING,

@@ -165,7 +165,7 @@ const Personnel: FC<SearchProps> = (props) => {
           />
         </Card>
       </PageContainer>
-      <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+    <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );
 };

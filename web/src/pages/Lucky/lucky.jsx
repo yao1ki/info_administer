@@ -2,14 +2,12 @@ import React from 'react';
 import { LuckyWheel } from 'react-luck-draw';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Col, Row } from 'antd';
-import { useRequest, Link,history } from 'umi';
+import { useRequest, Link, history } from 'umi';
 import service from './service';
 import { GhostItem } from './data.d';
 
 export default class App extends React.Component {
-  
   constructor() {
-
     super();
     this.myLucky = React.createRef();
     this.state = {
@@ -63,11 +61,11 @@ export default class App extends React.Component {
     };
   }
   render() {
-    let id = this.props.match.params.id
-    
-    let {data} =  service.showGhost(id);
+    let id = this.props.match.params.id;
+
+    let { data } = service.showGhost(id);
     return (
-      <PageContainer >
+      <PageContainer>
         <Row>
           <Col span={8}></Col>
           <Col span={8}>
@@ -94,16 +92,9 @@ export default class App extends React.Component {
                 }}
                 onEnd={(prize) => {
                   // 抽奖结束会触发end回调
-                  service.updateGhost(id,{rein:prize.title,state:6});
+                  service.updateGhost(id, { rein: prize.title, state: 6 });
                   alert('恭喜投胎进入:' + prize.title);
-                  
-
-
-                  
-                  history.push(`/Rein`)
-                  
-
-                  
+                  history.push(`/Rein`);
                 }}
               ></LuckyWheel>
             }

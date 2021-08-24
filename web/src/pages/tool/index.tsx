@@ -5,9 +5,17 @@ import { PageContainer } from '@ant-design/pro-layout';
 import service from './service';
 import { useRequest } from 'umi';
 import styles from './style.less';
+import moment from 'moment';
 
 const Personnel: FC<{}> = () => {
   const [opFlag, setOpFlag] = useState<number>(0);
+  let times = new Date().toLocaleString();
+  let b= 0  ;
+  let bb = parseInt(times);
+  console.log('=====>',times)
+  console.log('=====>',bb)
+
+
 
   let { data } = useRequest(
     async () => {
@@ -20,10 +28,11 @@ const Personnel: FC<{}> = () => {
   const updateItem = async (id: number, title: any) => {
     const res =
       title == 0
-        ? await service.updateTool(id, { titles: '1' })
-        : await service.updateTool(id, { titles: '0' });
+        ? await service.updateTool(id, { titles: '1' }):title==1?
+         await service.updateTool(id, { titles: '0' }):
+         await service.updateTool(id, { year: title });
     if (!res.error) {
-      message.success(title==0?'重启成功':'暂定成功');
+      message.success(title==9?'更换成功':title==0?'重启成功':'暂停成功');
       setOpFlag(opFlag + 1);
     }
   };
@@ -53,15 +62,16 @@ const Personnel: FC<{}> = () => {
                               </Col>
                             )}
 
-                            <Col span={12}>{'操纵员:' + v.user}</Col>
-                            <Col span={12}>{'使用时间' + v.year + '年'}</Col>
+                            <Col span={12}>{'操纵员:' + (v.user===undefined?"暂无" :v.user.username)}</Col>
+                            <Col span={12}>{'使用时间' +(bb-v.year-parseInt(moment(v.created_at).format('YYYY')))+
+                              '年'}</Col>
                           </Row>
                         </div>
                       }
                     >
                       {
                         <Row style={{ textAlign: 'center' }}>
-                          <Col span={12}>
+                          <Col span={24}>
                             {
                               <a
                                 style={{ fontSize: '150%' }}
@@ -73,7 +83,7 @@ const Personnel: FC<{}> = () => {
                               </a>
                             }
                           </Col>
-                          <Col span={12}>{<a style={{ fontSize: '150%' }}>查看记录</a>}</Col>
+                          
                         </Row>
                       }
                     </Card>

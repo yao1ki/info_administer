@@ -43,7 +43,7 @@ class UserController extends Controller {
 
     const opt = ctx.helper.curd(ctx);
     const ret = await service.user.list(opt);
-    ctx.body = ctx.success(ret.rows);
+    ctx.body = ctx.success(ret.rows, { total: ret.count });
   }
 
   async create() {

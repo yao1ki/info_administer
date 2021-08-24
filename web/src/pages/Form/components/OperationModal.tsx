@@ -44,7 +44,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     options.push({label: data.data[i].name,value: data.data[i].id});
   }
 
-  
   const [form] = Form.useForm();
   const { visible, current, onOk, onCancel } = props;
 

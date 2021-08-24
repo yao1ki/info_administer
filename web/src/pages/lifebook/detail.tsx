@@ -61,7 +61,7 @@ const Test: FC<{}> = () => {
         ? ''
         : shop.orders.map((v: any, i: any) =>
            aa==v.state&&aa>0 ? (
-              <Descriptions layout="vertical">
+              <Descriptions layout="vertical"style={{color:'red'}}>
                 <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>{v.name}</Descriptions.Item>
                 <Descriptions.Item label="勾魂使者">
                   {shop.orders === undefined

@@ -21,6 +21,8 @@ module.exports = app => {
    // app.model.User.belongsToMany(app.model.Ghost, { foreignKey: 'user_id', through: 'Order'});
    app.model.User.hasMany(app.model.Record, { foreignKey: 'user_id', targetKey: 'id'})
    app.model.User.hasMany(app.model.Ghost, { foreignKey: 'user_id', targetKey: 'id'})
+   app.model.User.hasMany(app.model.Tool, { foreignKey: 'user_id', targetKey: 'id'})
+
 
 
   }

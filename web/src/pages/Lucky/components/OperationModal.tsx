@@ -19,8 +19,6 @@ const formLayout = {
 };
 
 const OperationModal: FC<OperationModalProps> = (props) => {
-  const [visiable, setVisible] = useState<boolean>(false);
-  const [visiable1, getVisible] = useState<boolean>(false);
 
 
   const [form] = Form.useForm();
@@ -134,7 +132,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     }
     if (!res.error && !les.error) {
       message.success('操作成功！');
-      setVisible(true);
       onOk();
     }
   };
@@ -203,7 +200,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     );
   };
   return (
-<PageContainer>
+<div>
   <Modal
       title={'分配命运'}
       width={640}
@@ -217,16 +214,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       {getModalContent()}
  
     </Modal>
-    <Modal
-        visible={visiable}
-        width={'50%'}
-        onCancel={() => setVisible(false)}
-        footer={null}
-        closeIcon={null}
-      >
-        <img src={`https://img1.baidu.com/it/u=4262778161,3449122068&fm=26&fmt=auto&gp=0.jpg`} />{}
-      </Modal>
-</PageContainer>
+</div>
 
     
   );

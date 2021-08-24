@@ -24,6 +24,14 @@ const formLayout = {
 // const arr = [{id: '1',name:'唐玄奘'},{id: '2',name:'孙悟空'},{id: '3',name:'猪悟能'},{id: '4',name:'沙悟净'}];
 
 const Back: FC<BackProps> = (props) => {
+  var nIntervId:any,intervalID;
+
+  function myCallback()
+  {
+    setVisible(false);
+    clearInterval(nIntervId)
+
+  }
 
   const [visiable, setVisible] = useState<boolean>(false);
 
@@ -68,7 +76,9 @@ const Back: FC<BackProps> = (props) => {
       res= await service.updateGhost(id,values);
     }
     if (!res.error) {
-      setVisible(true);
+      state=='4'?
+      (setVisible(true),
+      nIntervId = setInterval(myCallback, 500)):''
       message.success('操作成功！');
       onOk();
     }
@@ -92,7 +102,7 @@ const Back: FC<BackProps> = (props) => {
         <Form.Item
           name="gnosis"
           label="人生感悟"
-          rules={[{ required: true, message: '请输入感悟' }]}
+          rules={[{ required: false, message: '请输入感悟' }]}
 
         >
           <Input placeholder="请输入感悟" />
@@ -128,7 +138,7 @@ const Back: FC<BackProps> = (props) => {
         closeIcon={null}
       >
         
-        <img style={{}} src={`https://cdn.pixabay.com/photo/2014/04/03/10/20/scales-310131__340.png`} />{}
+        <img style={{}} src={`https://cdn.pixabay.com/photo/2016/04/01/10/26/allergy-1299884__340.png`} />{}
       </Modal>
     </div>
     

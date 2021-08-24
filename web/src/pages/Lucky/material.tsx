@@ -1,12 +1,23 @@
 import { FC, useState } from 'react';
 import { Row, Card, Col, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
+import { Modal } from 'antd';
 
 import service from './service';
 import { useRequest } from 'umi';
 import styles from './style.less';
 
 const Personnel: FC<{}> = () => {
+  
+  var nIntervId: any, intervalID;
+
+  function myCallback() {
+    setVisible(false);
+    console.log('+======', nIntervId);
+    clearInterval(nIntervId);
+  }
+  const [visiable, setVisible] = useState<boolean>(false);
+
   const [opFlag, setOpFlag] = useState<number>(0);
 
   let { data } = useRequest(
@@ -19,11 +30,17 @@ const Personnel: FC<{}> = () => {
   );
   const updateItem = async (id: any) => {
     const res = await service.updateMaterial(id, { quantity: 100 });
+
     if (!res.error) {
-      message.success('补充成功！');
+      setVisible(true);
+
+      nIntervId = setInterval(myCallback, 1000);
+
       setOpFlag(opFlag + 1);
     }
   };
+  setOpFlag(opFlag + 1);
+
   return (
     <PageContainer>
       {
@@ -36,16 +53,11 @@ const Personnel: FC<{}> = () => {
                     <Card
                       className={styles.aa}
                       cover={<img src={v.picture} />}
-                      title={
-                        <div style={{fontSize:'200%',textAlign: 'center'}}>
-
-                           {v.name}
-                        </div>
-                      }
+                      title={<div style={{ fontSize: '200%', textAlign: 'center' }}>{v.name}</div>}
                     >
                       {
-                        <Row style={{ textAlign: 'center',fontSize:'150%'}}>
-                          <Col span={12}>库存：{v.quantity+v.unit}</Col>
+                        <Row style={{ textAlign: 'center', fontSize: '150%' }}>
+                          <Col span={12}>库存：{v.quantity + v.unit}</Col>
                           <Col span={12}>
                             {
                               <a
@@ -66,6 +78,17 @@ const Personnel: FC<{}> = () => {
               ))}
         </Row>
       }
+      <Modal
+        visible={visiable}
+        width={'0%'}
+        onCancel={() => setVisible(false)}
+        footer={null}
+        closable={false}
+        closeIcon={null}
+      >
+        <img src={`https://cdn.pixabay.com/photo/2014/03/24/17/21/water-295492__340.png`} />
+        {}
+      </Modal>
     </PageContainer>
   );
 };

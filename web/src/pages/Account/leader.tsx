@@ -72,14 +72,7 @@ const Personnel: FC<{}> = () => {
           >
             编辑
           </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+         
         </span>
       ),
     },

@@ -52,14 +52,15 @@ export default defineConfig({
       name: 'welcome',
       icon: 'smile',
       component: './Welcome',
-      access: 'adminRouteFilter',
+      access: 'supadmin',
     },
     {
       path: '/Settings/components/base',
       name: 'welcome',
       icon: 'smile',
       component: './Settings/components/base',
-      access: 'user',
+      access: 'supadmin',
+
     },
 
     {
@@ -67,6 +68,8 @@ export default defineConfig({
       name: 'test',
       icon: 'smile',
       component: './Record',
+      access: 'supadmin',
+
     },
 
     {
