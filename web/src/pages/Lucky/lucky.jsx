@@ -14,31 +14,40 @@ export default class App extends React.Component {
       blocks: [{ padding: '26px', background: '#d64737' }],
       prizes: [
         {
-          title: '天神道',
+          key:'1',
+          title: '天人道',
           background: '#f9e3bb',
-          fonts: [{ text: '天神道', top: '30%', fontSize: '30px' }],
+          fonts: [{ text: '天人道', top: '30%', fontSize: '30px' }],
         },
         {
+          key:'2',
           title: '修罗道',
           background: '#f8d384',
           fonts: [{ text: '修罗道', top: '30%', fontSize: '30px' }],
         },
         {
+          key:'3',
           title: '畜牲道',
           background: '#f9e3bb',
           fonts: [{ text: '畜牲道', top: '30%', fontSize: '30px' }],
         },
         {
+          key:'4',
+
           title: '饿鬼道',
           background: '#f8d384',
           fonts: [{ text: '饿鬼道', top: '30%', fontSize: '30px' }],
         },
         {
+          key:'5',
+
           title: '地狱道',
           background: '#f9e3bb',
           fonts: [{ text: '地狱道', top: '30%', fontSize: '30px' }],
         },
         {
+          key:'6',
+
           title: '人间道',
           background: '#f8d384',
           fonts: [{ text: '人间道', top: '30%', fontSize: '30px' }],
@@ -92,7 +101,7 @@ export default class App extends React.Component {
                 }}
                 onEnd={(prize) => {
                   // 抽奖结束会触发end回调
-                  service.updateGhost(id, { rein: prize.title, state: 6 });
+                  service.updateGhost(id, { rein_id: prize.key, state: 6 });
                   alert('恭喜投胎进入:' + prize.title);
                   history.push(`/Rein`);
                 }}

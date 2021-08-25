@@ -8,12 +8,10 @@ import { useRequest } from 'umi';
 import styles from './style.less';
 
 const Personnel: FC<{}> = () => {
-  
   var nIntervId: any, intervalID;
 
   function myCallback() {
     setVisible(false);
-    console.log('+======', nIntervId);
     clearInterval(nIntervId);
   }
   const [visiable, setVisible] = useState<boolean>(false);
@@ -39,8 +37,6 @@ const Personnel: FC<{}> = () => {
       setOpFlag(opFlag + 1);
     }
   };
-  setOpFlag(opFlag + 1);
-
   return (
     <PageContainer>
       {

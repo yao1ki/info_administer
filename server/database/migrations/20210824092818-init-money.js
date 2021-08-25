@@ -3,12 +3,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const { INTEGER, DATE, STRING, TEXT } = Sequelize;
-    await queryInterface.createTable('money', {
+    await queryInterface.createTable('reins', {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      remittor: STRING,
-      number:STRING,
-      comment:STRING,
-      address: STRING,
+      name:STRING,
       created_at: { type: DATE, defaultValue: Sequelize.fn('NOW') },
       updated_at: { type: DATE, defaultValue: Sequelize.fn('NOW') },
     });

@@ -2,6 +2,7 @@ import  { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table} from 'antd';
 import { GhostItem } from './data';
+import GodModal from './components/GodModal';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
 import service from './service';
@@ -28,6 +29,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
+  var aa;
 
   //获取数据
   let { data } = useRequest(
@@ -67,6 +69,9 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'rein',
       key: 'rein',
       valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.rein.name
+      },
     },
     {
       title: '操作',
@@ -75,6 +80,7 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
+              aa=item.rein_id;
               showEditModal(item);
             }}
           >
@@ -87,7 +93,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const showEditModal = (item: GhostItem) => {
     setVisible(true);
-    setCurrent({id:item.id,rein:item.rein});
+    setCurrent({id:item.id,rein_id:item.rein_id});
   };
 
   const handleOk = () => {

@@ -22,15 +22,9 @@ module.exports = (app) => {
     },
   });
   Tool.associate = function() {
-    // 一对多
-    //app.model.Order.hasMany(app.model.Ghost, { foreignKey: 'ghost_id', targetKey: 'id'});
-  //  app.model.Order.belongsToMany(app.model.Ghost, { foreignKey: 'ghost_id', through: 'Orde',targetKey: 'id',});
 
-    /**
-     * Order.belongsTo(关联的模型, { foreignKey: '使用什么字段关联', targetKey: '与关联的模型那个字段关联', as: '别名' });
-    */
-    // 一对一
    app.model.Tool.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id',});
+
   }
 
 

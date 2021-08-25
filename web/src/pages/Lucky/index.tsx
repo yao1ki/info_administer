@@ -2,7 +2,9 @@ import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table,message } from 'antd';
 import { GhostItem } from './data';
+import GodModal from './components/GodModal';
 import OperationModal from './components/OperationModal';
+
 import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
@@ -28,7 +30,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
 
-  
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -157,6 +158,7 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+
   return (
     <div>
       <PageContainer
@@ -182,6 +184,7 @@ const Personnel: FC<SearchProps> = (props) => {
             rowKey={(record: GhostItem): number => record.id as number}
           />
         </Card>
+        
       </PageContainer>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>

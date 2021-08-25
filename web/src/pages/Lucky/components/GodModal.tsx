@@ -19,11 +19,11 @@ const formLayout = {
 };
 
 const OperationModal: FC<OperationModalProps> = (props) => {
+
+
   const [form] = Form.useForm();
   const { visible, current, onOk, onCancel } = props;
-  console.log('???????/', current?.rein_id);
-  const ee = current?.rein_id;
-  console.log('---=====+++', ee);
+
   useEffect(() => {
     if (form && !visible) {
       form.resetFields();
@@ -52,6 +52,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     let res, les, tes, fes;
     tes = await service.Order();
     const id = current ? current.id : '';
+
+    const ee = current ? current.rein_id : '';
+    const aa = 'aaaaaaaaa';
+    console.log('---------->', aa.charAt(0));
+    ee === undefined ? '' : console.log('=============》', ee.charAt(0));
 
     let a = moment(values.time[0]._d).format('YYYY');
     let b = parseInt(moment(values.time[0]._d).format('MM'));
@@ -133,74 +138,18 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const handleCancel = () => {
     onCancel();
   };
-  const getanimalModalContent = () => {
+
+  const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-
         <Form.Item
-          name="name"
-          label="种族"
-          rules={[{ required: true, message: '请输入种族' }]}
-          key="2"
+          name="ghost_id"
+          label="ID"
+          rules={[{ required: true, message: '请输入ID' }]}
+          key="1"
         >
-          <Input placeholder="请输入种族" />
+          <Input placeholder="请输入ID" />
         </Form.Item>
-        <ProFormDateRangePicker
-          label="出生/死亡时间"
-          name="time"
-          fieldProps={{
-            style: {
-              width: '100%',
-            },
-          }}
-          rules={[{ required: true, message: '请选择日期' }]}
-        />
-        <Form.Item
-          name="cause"
-          label="死因"
-          rules={[{ required: true, message: '请输入死亡方式' }]}
-        >
-          <Input placeholder="请输入死因" />
-        </Form.Item>
-      </Form>
-    );
-  };
-  const getgodModalContent = () => {
-    return (
-      <Form {...formLayout} form={form} onFinish={handleFinish}>
-
-        <Form.Item
-          name="name"
-          label="称号"
-          rules={[{ required: true, message: '请输入称号' }]}
-          key="2"
-        >
-          <Input placeholder="请输入称号" />
-        </Form.Item>
-        <ProFormDateRangePicker
-          label="飞升/陨落时间"
-          name="time"
-          fieldProps={{
-            style: {
-              width: '100%',
-            },
-          }}
-          rules={[{ required: true, message: '请选择日期' }]}
-        />
-                <Form.Item
-          name="cause"
-          label="陨落原因"
-          rules={[{ required: true, message: '请输入陨落方式' }]}
-        >
-          <Input placeholder="请输入陨落原因" />
-        </Form.Item>
-      </Form>
-    );
-  };
-  const getpeopleModalContent = () => {
-    return (
-      <Form {...formLayout} form={form} onFinish={handleFinish}>
-
         <Form.Item
           name="name"
           label="姓名"
@@ -210,14 +159,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入姓名" />
         </Form.Item>
         <ProFormDateRangePicker
-          label="出生/死亡时间"
+          label="死亡时间"
           name="time"
           fieldProps={{
             style: {
               width: '100%',
             },
           }}
-          rules={[{ required: true, message: '请选择日期' }]}
+          rules={[{ required: true, message: '请选择生效日期' }]}
         />
         <Form.Item
           name="cause"
@@ -227,24 +176,47 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入死因" />
         </Form.Item>
 
+        {/* <ProFormSelect
+          name="state"
+          label="类别"
+          rules={[{ required: true, message: '请选择类别' }]}
+          options={[
+            {
+              label: '阳寿未尽',
+              value: '1',
+            },
+            {
+              label: '阳寿已尽',
+              value: '2',
+            },
+            {
+              label: '投胎转世',
+              value: '3',
+            },
+          ]}
+          placeholder="请选择类别"
+        /> */}
       </Form>
     );
   };
   return (
-    <div>
-      <Modal
-        title={'分配命运'}
-        width={640}
-        bodyStyle={{ padding: '28px 0 0' }}
-        destroyOnClose
-        visible={visible}
-        okText="保存"
-        onOk={handleSubmit}
-        onCancel={handleCancel}
-      >
-        {ee == '1' ? getgodModalContent():ee=="2"? getpeopleModalContent():ee=="3"? getanimalModalContent(): getpeopleModalContent()}
-      </Modal>
-    </div>
+<div>
+  <Modal
+      title={'分配命运'}
+      width={640}
+      bodyStyle={{ padding: '28px 0 0' }}
+      destroyOnClose
+      visible={visible}
+      okText="保存"
+      onOk={handleSubmit}
+      onCancel={handleCancel}
+    >
+      {getModalContent()}
+ 
+    </Modal>
+</div>
+
+    
   );
 };
 

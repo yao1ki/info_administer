@@ -35,7 +35,6 @@ class ToolController extends Controller {
         const { ctx, service } = this;
         const id = ctx.params.id;
         let user= this.ctx.locals.user.user;
-        console.log("===========>",user)
         const tool = await service.tool.show(id);
         const {name, titles,covers,desc,user_id,year,created_at} = ctx.request.body;
         await tool.update({name, titles,covers,desc,user_id:user,year,created_at });

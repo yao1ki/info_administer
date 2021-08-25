@@ -8,8 +8,8 @@ class RecordController extends Controller {
     const { ctx } = this;
     const records = await ctx.model.Record.findAll({
       include: { model: ctx.model.Ghost, },
- 
-        
+
+      
         include:{ model: ctx.model.User }
       //attributes:['id','ghost_id','user_id']{关联部分数据}
     });

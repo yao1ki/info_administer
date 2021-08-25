@@ -82,13 +82,13 @@ class GhostService extends Service {
             },
           ],
 
-        },
+        },include: { model: ctx.model.Rein, },
         
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
         where: {
-          state:{[Op.not]:"4"},}}
+          state:{[Op.not]:"4"},},include: { model: ctx.model.Rein, },}
       );
     }
     if (!shop) {
@@ -125,11 +125,11 @@ class GhostService extends Service {
               },
             },
           ],
-        },
+        },include: { model: ctx.model.Rein, },
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
-        where: { state: state },
+        where: { state: state },include: { model: ctx.model.Rein, },
       });
     }
     if (!shop) {

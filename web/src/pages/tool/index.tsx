@@ -9,14 +9,21 @@ import moment from 'moment';
 
 const Personnel: FC<{}> = () => {
   const [opFlag, setOpFlag] = useState<number>(0);
-  let times = new Date().toLocaleString();
-  let b= 0  ;
-  let bb = parseInt(times);
-  console.log('=====>',times)
-  console.log('=====>',bb)
+
+  let times = moment().format("YYYY-MM-DD HH:mm:ss"); 
+  console.log("]]]]]]]]]]]]", moment(times).endOf('day').fromNow())
 
 
 
+
+  let bb = parseInt(new Date().toLocaleString());
+  console.log('===times==>',times)
+  parseInt(moment(times).format('YYYY'))
+  moment(times).startOf('hour').fromNow(); 
+
+
+
+  
   let { data } = useRequest(
     async () => {
       return await service.list();
@@ -62,7 +69,7 @@ const Personnel: FC<{}> = () => {
                               </Col>
                             )}
 
-                            <Col span={12}>{'操纵员:' + (v.user===undefined?"暂无" :v.user.username)}</Col>
+                            <Col span={12}>{'操纵员:' + (v.user===undefined?"暂无" :v.user.name)}</Col>
                             <Col span={12}>{'使用时间' +(bb-v.year-parseInt(moment(v.created_at).format('YYYY')))+
                               '年'}</Col>
                           </Row>
