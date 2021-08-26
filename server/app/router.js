@@ -15,6 +15,9 @@ module.exports = (app) => {
   router.put("/api/ghosts/move/:id", controller.ghost.move);
   router.get("/api/list/:state", controller.order.list);
   router.get("/api/order/record/:id", controller.order.record);
+  router.get("/api/order/list/:state", controller.order.list1);
+  
+  router.get("/api/ghost/list/:state", controller.ghost.list);
 
   router.resources("/api/moneys", controller.money);
   router.resources("/api/records", controller.record);

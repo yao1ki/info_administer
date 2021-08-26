@@ -96,6 +96,52 @@ class GhostService extends Service {
     }
     return shop;
   }
+  async ghoststate(state, params) {
+    const { ctx } = this;
+    let shop;
+    if (params) {
+      shop = await ctx.model.Ghost.findAll({
+        where: {
+          rein_id: state,
+          [Op.or]: [
+            {
+              name: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              id: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              lifetime: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              sort: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              cause: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+          ],
+        },include: { model: ctx.model.Rein, },
+      });
+    } else {
+      shop = await ctx.model.Ghost.findAll({
+        where: { rein_id: state },include: { model: ctx.model.Rein, },
+      });
+    }
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
+    }
+    return shop;
+  }
   async querystate(state, params) {
     const { ctx } = this;
     let shop;
@@ -110,7 +156,7 @@ class GhostService extends Service {
               },
             },
             {
-              ghost_id: {
+              id: {
                 [Op.like]: `%${params}%`,
               },
             },

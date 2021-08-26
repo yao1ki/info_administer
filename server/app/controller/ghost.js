@@ -22,6 +22,7 @@ class GhostController extends Controller {
 
     const {
       name,
+      dead,
       lifetime,
       cause,
       sort,
@@ -39,6 +40,8 @@ class GhostController extends Controller {
       sort,
       gnosis,
       state,
+      dead,
+
       ghost_id,
       time_start,
       time_end,
@@ -56,6 +59,8 @@ class GhostController extends Controller {
     const ghost = await service.ghost.show(id);
     const {
       name,
+      dead,
+
       lifetime,
       cause,
       sort,
@@ -78,6 +83,8 @@ class GhostController extends Controller {
       reason,
       gnosis,
       user_id: user_id,
+      dead,
+
       rein_id,
       time_start,
       time_end,
@@ -99,6 +106,22 @@ class GhostController extends Controller {
     const ghost = await service.ghost.querystate(state, params);
     ctx.body = ctx.success(ghost);
   }
+  async list() {
+    console.log("============")
+    const { ctx, service } = this;
+    const state = ctx.params.state;
+    const { params } = ctx.request.query;
+    const ghost = await service.ghost.ghoststate(state, params);
+    ctx.body = ctx.success(ghost);
+  }
+// async list(){
+//   const{ctx , service } = this;
+//   const state = ctx.request.query;
+//   const { params } = ctx.request.query;
+
+//   const ghost = await service.ghost.ghoststate(state,params);
+//   ctx.body = ctx.success(ghost)
+// }
   async query() {
     const { ctx, service } = this;
     const { name } = ctx.request.query;

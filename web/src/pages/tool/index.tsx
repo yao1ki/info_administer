@@ -11,13 +11,12 @@ const Personnel: FC<{}> = () => {
   const [opFlag, setOpFlag] = useState<number>(0);
 
   let times = moment().format("YYYY-MM-DD HH:mm:ss"); 
-  console.log("]]]]]]]]]]]]", moment(times).endOf('day').fromNow())
+  //console.log("]]]]]]]]]]]]", moment(times).endOf('day').fromNow())
 
 
 
 
   let bb = parseInt(new Date().toLocaleString());
-  console.log('===times==>',times)
   parseInt(moment(times).format('YYYY'))
   moment(times).startOf('hour').fromNow(); 
 

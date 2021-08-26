@@ -53,24 +53,19 @@ const Personnel: FC<SearchProps> = (props) => {
   ];
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      title: '灵魂ID',
+      dataIndex: 'id',
+      key: 'id',
       valueType: 'textarea',
     },
-    {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
-      valueType: 'textarea',
-    },
+
     {
       title: '投胎转世',
       dataIndex: 'rein',
       key: 'rein',
       valueType: 'textarea',
       render: (_: any, record: any) => {
-        return record.rein.name
+        return record.rein==null?'':record.rein.name+'道' ;
       },
     },
     {

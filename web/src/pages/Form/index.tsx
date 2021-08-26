@@ -10,6 +10,10 @@ import { history } from 'umi';
 import { values } from 'lodash';
 import styles from './index.less';
 import { Select } from 'antd';
+import moment from 'moment';
+
+let times = moment().format('YYYY-MM-DD HH:mm:ss');
+//console.log(']]]]]]]]]]]]', moment(times).endOf('day').fromNow());
 const state = '1';
 const { Option } = Select;
 type SearchProps = {
@@ -36,7 +40,7 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '退单',
+    tab: '受刑中',
   },
 ];
 
@@ -59,15 +63,32 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      title: '灵魂ID',
+      dataIndex: 'id',
+      key: 'id',
       valueType: 'textarea',
     },
     {
-      title: '姓名',
+      title: '姓名/种类',
       dataIndex: 'name',
+      key: 'id',
+      valueType: 'textarea',
+    },
+    {
+      title: '种族',
       key: 'name',
+      valueType: 'textarea',
+
+      render: (_: any, record: any)=> {
+        return record.rein==null?'':record.rein.name ;
+
+      },
+    },
+
+    {
+      title: '死亡方式',
+      dataIndex: 'cause',
+      key: 'id',
       valueType: 'textarea',
     },
     {
@@ -148,7 +169,7 @@ const Personnel: FC<SearchProps> = (props) => {
   // };
 
   return (
-    <div >
+    <div>
       <PageContainer
         content={
           <div style={{ textAlign: 'center' }}>
@@ -162,7 +183,7 @@ const Personnel: FC<SearchProps> = (props) => {
           </div>
         }
         tabList={tabList}
-       // tabActiveKey={getTabKey()}
+        // tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
         <Card>

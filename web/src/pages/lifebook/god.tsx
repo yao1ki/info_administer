@@ -1,14 +1,15 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table, message, Divider, Modal } from 'antd';
-import { GhostItem } from './data.d';
+import { Card, Table, message, Divider, Button, Modal } from 'antd';
+import { GhostItem } from './data';
 import OperationModal from './components/OperationModal';
-import { useRequest } from 'umi';
+import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-
-const state = '2';
+import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
+import { values } from 'lodash';
+import moment from 'moment';
 type SearchProps = {
   match: {
     url: string;
@@ -20,101 +21,161 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'order',
-    tab: '未处理',
+    key: 'god',
+    tab: '天人',
   },
   {
-    key: 'process',
-    tab: '勾魂中',
+    key: 'people',
+    tab: '人间',
   },
   {
-    key: 'checkout',
-    tab: '阎王验收',
+    key: 'shura',
+    tab: '修罗',
   },
   {
-    key: 'chargeback',
-    tab: '受刑中',
+    key: 'animal',
+    tab: '畜生',
+  },
+  {
+    key: 'ghoul',
+    tab: '恶鬼',
+  },
+  {
+    key: 'hell',
+    tab: '地狱',
   },
 ];
+
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
-  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
+  const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
+  var aa = 0 ;
+const state = '1';
+
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list(state, params);
+      return await service.querystate(state, params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-  const confirmDelete = (current: GhostItem) => {
-    Modal.confirm({
-      title: '确认勾魂',
-      content: '确定勾对人了吗？',
-      okText: '确认',
-      cancelText: '取消',
-      onOk: () => showEditModal(JSON.stringify(current?.id)),
-    });
-  };
-  const showEditModal = async (id: any) => {
-    const res = await service.updateGhost(id, { state: '3' });
+
+
+  const deleteItem = async (id: number) => {
+    const res = await service.removeGhost(id);
     if (!res.error) {
-      message.success('确认成功！');
+      message.success('放逐成功！');
       setOpFlag(opFlag + 1);
     }
   };
+
+  const confirmDelete = (currentItem: GhostItem) => {
+    Modal.confirm({
+      title: '放逐',
+      content: '确定放逐？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => deleteItem(currentItem.id as number),
+    });
+  };
+
   const columns = [
     {
       title: '灵魂ID',
-      dataIndex: 'id',
       key: 'id',
-      valueType: 'textarea',
+      render: (_: any, record: any) => (
+        <span>
+          <span>
+            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+          </span>
+        </span>
+      ),
     },
     {
-      title: '姓名/种类',
+      title: '姓名',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
     },
+
     {
-      title: '勾魂使者',
-      dataIndex: 'name',
-      key: 'name',
+      title: '出生日期',
+      key: 'lifetime',
       valueType: 'textarea',
       render: (_: any, record: any) => {
-        return record.orders.map((v: any, i: any) => {
-          if (i) {
-            return "、"+v.user.name;
-          } else {
-            return v.user.name;
-          }
-        });
+        return moment(record.time_start).format('YYYY年MM月DD日');
       },
     },
+    {
+      title: '死亡日期',
+      key: 'lifetime',
+      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return moment(record.time_end).format('YYYY年MM月DD日');
+      },
+    },
+    {
+      title: '死亡方式 ',
+      dataIndex: 'cause',
+      key: 'cause',
+      valueType: 'textarea',
+    },
+    {
+      title: '寿命/日',
+      render: (_: any, record: any) => {
+        
+       return moment(record.time_end).diff(moment(record.time_start), 'days')
+        //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
+      },
+      key: 'sort',
+      valueType: 'textarea',
+    },
+    {
+      title: '剩余寿命/日',
+      render: (_: any, record: any) => {
+         aa =moment(record.time_end).diff(moment(moment().format()), 'days');
+        return aa <= 0 ? ("阳寿已尽" ): aa;
+      },
+      key: 'sort',
+      valueType: 'textarea',
+    },
+
     {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
+        aa<=0?'已死亡':
         <span>
           <a
             onClick={() => {
-              confirmDelete(item);
+              showEditModal(item);
             }}
           >
-            确认已勾魂
+            编辑
           </a>
-          <Divider type="vertical" />
+         
         </span>
       ),
     },
   ];
+  /* 添加current置空 */
+  const showModal = () => {
+    setVisible(true);
+    setCurrent(undefined);
+  };
 
   /* 编辑框将item传给current */
+  const showEditModal = (item: GhostItem) => {
+    setVisible(true);
+    setCurrent({ ...item });
+  };
+
   const handleOk = () => {
     setVisible(false);
     setOpFlag(opFlag + 1);
@@ -136,19 +197,27 @@ const Personnel: FC<SearchProps> = (props) => {
     onChange: handleJump,
   };
   const handleTabChange = (key: string) => {
+    const { match } = props;
+    const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'order':
-        history.push(`/Form/index.tsx`);
+      case 'god':
+        history.push(`/lifebook/god`);
         break;
-      case 'process':
-        history.push(`/Form/process.tsx`);
+      case 'people':
+        history.push(`/lifebook/people`);
         break;
-      case 'checkout':
-        history.push(`/Form/checkout.tsx`);
+      case 'shura':
+        history.push(`/lifebook/shura`);
         break;
-      case 'chargeback':
-        history.push(`/Form/chargeback.tsx`);
+      case 'animal':
+        history.push(`/lifebook/animal`);
         break;
+        case 'ghoul':
+         history.push(`/lifebook/ghoul`);
+          break;
+          case 'hell':
+           history.push(`/lifebook/hell`);
+            break;
       default:
         break;
     }
@@ -170,6 +239,7 @@ const Personnel: FC<SearchProps> = (props) => {
     return 'articles';
   };
 
+
   return (
     <div>
       <PageContainer
@@ -188,7 +258,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card>
+        <Card title="列表" >
           <Table
             columns={columns}
             dataSource={data}

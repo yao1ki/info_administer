@@ -6,6 +6,7 @@ export interface GhostItem {
     cause:STRING,
     sort:STRING,
     state:STRING,
+    dead:String,
     time_start:string,
     time_end:string,
     created_at?: string;

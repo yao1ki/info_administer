@@ -37,7 +37,13 @@ class OrderController extends Controller {
     const order = await service.order.querystate(state, params);
     ctx.body = ctx.success(order);
   }
-
+  async list1() {
+    const { ctx, service } = this;
+    const state = ctx.params.state;
+    const { params } = ctx.request.query;
+    const order = await service.order.querystate1(state, params);
+    ctx.body = ctx.success(order);
+  }
   async record() {
     const { ctx, service } = this;
     const id = ctx.params.id;
@@ -47,11 +53,14 @@ class OrderController extends Controller {
   }
   async create() {
     const ctx = this.ctx;
-    const { ghost_id, user_id,name } = ctx.request.body;
+    const { ghost_id, user_id,name,rein_name } = ctx.request.body;
+    console.log("=rein_name==++++++======>>>>>",rein_name)
+
     const order = await ctx.service.order.create({
       ghost_id,
       user_id,
       name,
+      rein_name
     });
     ctx.body = ctx.success(order);
   }
@@ -60,8 +69,8 @@ class OrderController extends Controller {
     const { ctx, service } = this;
     const id = ctx.params.id;
     const order = await service.order.show(id);
-    const { ghost_id, user_id, state,name } = ctx.request.body;
-    await order.update({ ghost_id, user_id, state,name });
+    const { ghost_id, user_id,rein_name, state,name } = ctx.request.body;
+    await order.update({ ghost_id,rein_name, user_id, state,name });
     ctx.body = ctx.success();
   }
   async destroy() {

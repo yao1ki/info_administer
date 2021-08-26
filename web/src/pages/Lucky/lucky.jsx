@@ -101,8 +101,8 @@ export default class App extends React.Component {
                 }}
                 onEnd={(prize) => {
                   // 抽奖结束会触发end回调
-                  service.updateGhost(id, { rein_id: prize.key, state: 6 });
-                  alert('恭喜投胎进入:' + prize.title);
+                  service.updateGhost(id, { rein_id: prize.key }).error?alert("投胎失败"):
+                  alert('恭喜投胎进入:' + prize.title)
                   history.push(`/Rein`);
                 }}
               ></LuckyWheel>

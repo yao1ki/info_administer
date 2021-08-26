@@ -55,8 +55,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
     const ee = current ? current.rein_id : '';
     const aa = 'aaaaaaaaa';
-    console.log('---------->', aa.charAt(0));
-    ee === undefined ? '' : console.log('=============》', ee.charAt(0));
+    ee === undefined ? '' :ee.charAt(0);
 
     let a = moment(values.time[0]._d).format('YYYY');
     let b = parseInt(moment(values.time[0]._d).format('MM'));

@@ -11,7 +11,7 @@ async function userlist(potence: string) {
 
 }
 async function querystate(state: string,params: any) {
-  return request(`/api/querystate/${state}?params=${params}`);
+  return request(`/api/order/list/${state}?params=${params}`);
 }
 async function createOrder(data: ParamsType) {
   return request(`/api/orders`, { method: 'POST', data });

@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Table} from 'antd';
+import { Card, Table,Divider} from 'antd';
 import { GhostItem } from './data.d';
-import OperationModal from './components/OperationModal';
+import Back from './components/chargeback';
 import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import moment from 'moment'
 type SearchProps = {
   match: {
     url: string;
@@ -31,14 +32,15 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '流放',
+    tab: '受刑中',
   },
 ];
 const state = "4"
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
+
   /* current作为修改值可能存在部分属性 */
-  const [current] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
@@ -52,11 +54,25 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   );
 
+  const updateGhost = (item: GhostItem) => {
+    setVisible(true);
+    setCurrent({ ...item });
+    setOpFlag(opFlag + 1);
+   // await service.updateGhost(id,{lifetime:lifetime-1})
+    //setOpFlag(opFlag + 1);
+  };
 
+
+  const updatelifetime =async (id: any) => {
+    (await service.updateGhost(id,{state:'5',lifetime:'0'})).error?'':(
+    setOpFlag(opFlag + 1)
+      
+    )
+  };
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
+      title: '灵魂ID',
+      dataIndex: 'id',
       key: 'id',
       valueType: 'textarea',
       // render: (_:any, record:any) => {
@@ -64,38 +80,45 @@ const Personnel: FC<SearchProps> = (props) => {
       // }
     },
     {
-      title: '姓名',
-      dataIndex: 'name',
+      title: '受刑时间/日',
+      dataIndex: 'lifetime',
       key: 'name',
       valueType: 'textarea',
       // render: (_: any, record: any) => {
       //   return record.ghost.name;
       // },
     },
+
     {
-      title: '勾魂使者',
-      dataIndex: 'name',
-      key: 'name',
+      title: '剩余受刑时间/日',
       valueType: 'textarea',
       render: (_: any, record: any) => {
-        return record.orders.map((v: any, i: any) => {
-          if (i < record.orders.length - 1) {
-            return v.user.name + '、';
-          } else {
-            return v.user.name;
-          }
-        });
-        //return record.ghost.name;
+        const aa = parseInt(record.lifetime)- moment(moment().format()).diff(moment(record.time_end), 'days');
+        return aa<=0?updatelifetime(record.id):aa+'日'
       },
     },
     {
-      title: '审判记录',
-      dataIndex: 'reason',
-      key: 'reason',
-      valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
+      title: '操作',
+      key: 'action',
+      render: (item: GhostItem) => (
+        <span >
+          <a
+            onClick={() => {
+              updateGhost(item)
+             
+            }}
+          >
+           更改刑期
+          </a>
+          <Divider type="vertical" />
+          <a
+            onClick={() => {
+            }}
+          >
+            使用刑具
+          </a>
+        </span>
+      ),
     },
 
   ];
@@ -182,7 +205,7 @@ const Personnel: FC<SearchProps> = (props) => {
           />
         </Card>
       </PageContainer>
-      <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
+      <Back current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
 
     </div>
   );

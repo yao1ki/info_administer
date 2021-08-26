@@ -201,24 +201,34 @@ export default defineConfig({
 
       routes: [
         {
-          name: 'birth',
-          path: '/lifebook/birth',
-          component: './lifebook/birth',
+          name: 'god',
+          path: '/lifebook/god',
+          component: './lifebook/god',
         },
         {
-          name: 'ghost',
-          path: '/lifebook/ghost',
-          component: './lifebook/ghost',
+          name: 'people',
+          path: '/lifebook/people',
+          component: './lifebook/people',
         },
         {
-          name: 'live',
-          path: '/lifebook/live',
-          component: './lifebook/live',
+          name: 'ghoul',
+          path: '/lifebook/ghoul',
+          component: './lifebook/ghoul',
         },
         {
-          name: 'mistake',
-          path: '/lifebook/mistake',
-          component: './lifebook/mistake',
+          name: 'animal',
+          path: '/lifebook/animal',
+          component: './lifebook/animal',
+        },
+        {
+          name: 'shura',
+          path: '/lifebook/shura',
+          component: './lifebook/shura',
+        },
+        {
+          name: 'hell',
+          path: '/lifebook/hell',
+          component: './lifebook/hell',
         },
         ////////////////////////////
       ],

@@ -1,15 +1,15 @@
 import React, { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
-import { GhostItem } from './data.d';
+import { GhostItem } from './data';
 import OperationModal from './components/OperationModal';
 import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
-
 type SearchProps = {
   match: {
     url: string;
@@ -21,23 +21,30 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'live',
-    tab: '阳寿未尽',
+    key: 'god',
+    tab: '天人',
   },
   {
-    key: 'ghost',
-    tab: '阳寿已尽',
+    key: 'people',
+    tab: '人间',
   },
   {
-    key: 'birth',
-    tab: '投胎转世',
+    key: 'shura',
+    tab: '修罗',
   },
   {
-    key: 'mistake',
-    tab: '永世不得轮回',
+    key: 'animal',
+    tab: '畜生',
+  },
+  {
+    key: 'ghoul',
+    tab: '恶鬼',
+  },
+  {
+    key: 'hell',
+    tab: '地狱',
   },
 ];
-const state = '1';
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -46,6 +53,8 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
+  var aa = 0 ;
+const state = '4';
 
   //获取数据
   let { data } = useRequest(
@@ -56,6 +65,7 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
+
 
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
@@ -77,20 +87,25 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
-      valueType: 'textarea',
+      title: '灵魂ID',
+      key: 'id',
+      render: (_: any, record: any) => (
+        <span>
+          <span>
+            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+          </span>
+        </span>
+      ),
     },
     {
-      title: '姓名',
+      title: '种类',
       dataIndex: 'name',
       key: 'name',
       valueType: 'textarea',
     },
+
     {
       title: '出生日期',
-      dataIndex: 'time_start',
       key: 'lifetime',
       valueType: 'textarea',
       render: (_: any, record: any) => {
@@ -112,21 +127,30 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '生肖',
-      dataIndex: 'sort',
+      title: '寿命/日',
+      render: (_: any, record: any) => {
+        
+       return moment(record.time_end).diff(moment(record.time_start), 'days')
+        //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
+      },
       key: 'sort',
       valueType: 'textarea',
     },
     {
-      title: '星座',
-      dataIndex: 'constellation',
-      key: 'constellation',
+      title: '剩余寿命/日',
+      render: (_: any, record: any) => {
+         aa =moment(record.time_end).diff(moment(moment().format()), 'days');
+        return aa <= 0 ? ("阳寿已尽" ): aa;
+      },
+      key: 'sort',
       valueType: 'textarea',
     },
+
     {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
+        aa<=0?'已死亡':
         <span>
           <a
             onClick={() => {
@@ -135,14 +159,7 @@ const Personnel: FC<SearchProps> = (props) => {
           >
             编辑
           </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+         
         </span>
       ),
     },
@@ -183,18 +200,24 @@ const Personnel: FC<SearchProps> = (props) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'live':
-        history.push(`/lifebook/live`);
+      case 'god':
+        history.push(`/lifebook/god`);
         break;
-      case 'birth':
-        history.push(`/lifebook/birth`);
+      case 'people':
+        history.push(`/lifebook/people`);
         break;
-      case 'ghost':
-        history.push(`/lifebook/ghost`);
+      case 'shura':
+        history.push(`/lifebook/shura`);
         break;
-      case 'mistake':
-        history.push(`/lifebook/mistake`);
+      case 'animal':
+        history.push(`/lifebook/animal`);
         break;
+        case 'ghoul':
+         history.push(`/lifebook/ghoul`);
+          break;
+          case 'hell':
+           history.push(`/lifebook/hell`);
+            break;
       default:
         break;
     }
@@ -215,6 +238,8 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
+
+
   return (
     <div>
       <PageContainer
@@ -233,7 +258,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card>
+        <Card title="列表" >
           <Table
             columns={columns}
             dataSource={data}

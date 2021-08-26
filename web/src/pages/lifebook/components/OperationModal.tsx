@@ -9,14 +9,14 @@ import ProForm, {
   ProFormText,
   ProFormTimePicker,
 } from '@ant-design/pro-form';
-import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect,ProFormDatePicker } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
 }
-
+let times = moment().format("YYYY-MM-DD HH:mm:ss"); 
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
@@ -53,69 +53,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
     let res, les;
-
-    let a = moment(values.time[0]._d).format('YYYY');
-    let b = parseInt(moment(values.time[0]._d).format('MM'));
-    let c = parseInt(moment(values.time[0]._d).format('DD'));
-    let bb = parseInt(a) % 12;
-    let cc =
-      bb == 0
-        ? '猴'
-        : bb == 1
-        ? '鸡'
-        : bb == 2
-        ? '狗'
-        : bb == 3
-        ? '猪'
-        : bb == 4
-        ? '鼠'
-        : bb == 5
-        ? '牛'
-        : bb == 6
-        ? '虎'
-        : bb == 7
-        ? '兔'
-        : bb == 8
-        ? '龙'
-        : bb == 9
-        ? '蛇'
-        : bb == 10
-        ? '马'
-        : '羊';
-    let dd =
-      (b == 1 && c <= 19) || (b == 12 && c >= 22)
-        ? '摩羯座'
-        : (b == 2 && c <= 18) || (b == 1 && c >= 20)
-        ? '水瓶座'
-        : (b == 3 && c <= 20) || (b == 2 && c >= 19)
-        ? '双鱼座'
-        : (b == 4 && c <= 19) || (b == 3 && c >= 21)
-        ? '白羊座'
-        : (b == 5 && c <= 20) || (b == 4 && c >= 20)
-        ? '金牛座'
-        : (b == 6 && c <= 21) || (b == 5 && c >= 21)
-        ? '双子座'
-        : (b == 7 && c <= 22) || (b == 6 && c >= 22)
-        ? '巨蟹座'
-        : (b == 8 && c <= 22) || (b == 7 && c >= 23)
-        ? '狮子座'
-        : (b == 9 && c <= 22) || (b == 8 && c >= 23)
-        ? '处女座'
-        : (b == 10 && c <= 23) || (b == 9 && c >= 23)
-        ? '天秤座'
-        : (b == 11 && c <= 22) || (b == 10 && c >= 24)
-        ? '天蝎座'
-        : '射手座';
-        console.log("_________>",cc)
-        console.log("_________>",dd)
-
+ 
     if (id) {
       res = await service.updateGhost(id, values);
       const aa = Object.assign(
-        { time_start: values.time[0]._d },
-        { time_end: values.time[1]._d },
-        { sort: cc },
-        {constellation:dd}
+        { time_end: values.time_end._d },
       );
       les = await service.updateGhost(id, aa);
     } else {
@@ -134,25 +76,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-        <Form.Item
-          name="ghost_id"
-          label="ID"
-          rules={[{ required: true, message: '请输入ID' }]}
-          key="1"
-        >
-          <Input placeholder="请输入ID" />
-        </Form.Item>
-        <Form.Item
-          name="name"
-          label="姓名"
-          rules={[{ required: true, message: '请输入姓名' }]}
-          key="2"
-        >
-          <Input placeholder="请输入姓名" />
-        </Form.Item>
-        <ProFormDateRangePicker
+        <ProFormDatePicker
           label="死亡时间"
-          name="time"
+          name="time_end"
           fieldProps={{
             style: {
               width: '100%',
@@ -167,27 +93,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入死因" />
         </Form.Item>
-
-        {/* <ProFormSelect
-          name="state"
-          label="类别"
-          rules={[{ required: true, message: '请选择类别' }]}
-          options={[
-            {
-              label: '阳寿未尽',
-              value: '1',
-            },
-            {
-              label: '阳寿已尽',
-              value: '2',
-            },
-            {
-              label: '投胎转世',
-              value: '3',
-            },
-          ]}
-          placeholder="请选择类别"
-        /> */}
       </Form>
     );
   };

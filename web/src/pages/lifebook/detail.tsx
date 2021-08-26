@@ -52,10 +52,14 @@ const Test: FC<{}> = () => {
   var bb=aa+1;
   return (
     <PageContainer>
-      <Descriptions title="详情"></Descriptions> 
-      <Descriptions layout="vertical" style={{backgroundColor:"	GhostWhite",fontSize:"150%"}}>
-        <Descriptions.Item label="ID" style={{fontSize:"150%"}}>{shop.ghost_id}</Descriptions.Item>
-        <Descriptions.Item label="Name">{shop.name}</Descriptions.Item>
+      <Descriptions title="详情"></Descriptions>
+      <div style={{color:'red',fontSize:'32px',textAlign:'center'}}>灵魂ID:  {shop.id}</div>
+      <Descriptions layout="vertical"size='default' style={{backgroundColor:"	GhostWhite"}}>
+       
+        <Descriptions.Item label="当前姓名">{shop.name}</Descriptions.Item>
+        <Descriptions.Item label="死因">{shop.cause}</Descriptions.Item>
+        <Descriptions.Item label="死亡时间">{moment(shop.time_end).format('YYYY年MM月DD号ah:mm:ss')}</Descriptions.Item>
+        
       </Descriptions>
       {shop.orders === undefined
         ? ''
@@ -66,8 +70,10 @@ const Test: FC<{}> = () => {
                 <Descriptions.Item label="勾魂使者">
                   {shop.orders === undefined
                     ? ''
-                    : shop.orders.map((v: any, i: any) => (v.state == aa ? v.user.name + ' ' : ''))}
+                    : shop.orders.map((v: any, i: any) => (v.state == aa+1 ? v.user.name + ' ' : ''))}
                 </Descriptions.Item>
+                <Descriptions.Item label={'第' + (bb-aa-1) + '世的轮回'}>{v.rein_name}道</Descriptions.Item>
+
               </Descriptions>
             ) : (
               ''

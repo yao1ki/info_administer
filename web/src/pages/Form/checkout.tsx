@@ -2,11 +2,12 @@ import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Modal } from 'antd';
 import { GhostItem } from './data.d';
-import Back from './components/chargeback';
+import Back from './components/checkout';
 import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
+import { values } from 'lodash';
 type SearchProps = {
   match: {
     url: string;
@@ -31,7 +32,7 @@ const tabList = [
   },
   {
     key: 'chargeback',
-    tab: '流放',
+    tab: '受刑中',
   },
 ];
 const state = '3';
@@ -55,17 +56,12 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
+      title: '灵魂ID',
+      dataIndex: 'id',
       key: 'id',
       valueType: 'textarea',
     },
-    {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
-      valueType: 'textarea',
-    },
+
     {
       title: '勾魂使者',
       dataIndex: 'name',

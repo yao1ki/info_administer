@@ -15,6 +15,8 @@ module.exports = (app) => {
     reason: STRING,
     user_id: STRING,
     rein_id: STRING,
+dead: STRING,
+
     constellation: STRING,
     time_end: app.Sequelize.DATE,
     time_start: app.Sequelize.DATE,

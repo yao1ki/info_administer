@@ -58,12 +58,12 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const columns = [
     {
-      title: 'ID',
-      key: 'ghost_id',
+      title: '灵魂ID',
+      key: 'id',
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.ghost_id}</Link>
+            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),

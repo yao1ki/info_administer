@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table,message } from 'antd';
 import { GhostItem } from './data';
-import GodModal from './components/GodModal';
 import OperationModal from './components/OperationModal';
 
 import { useRequest, Link } from 'umi';
@@ -31,14 +30,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [params, setParams] = useState<string>('');
 
   //获取数据
-  let { data } = useRequest(
-    async () => {
-      return await service.querystate(state, params);
-    },
-    {
-      refreshDeps: [opFlag],
-    },
-  );
   let aa = useRequest(
     async () => {
       return await service.list();
@@ -47,7 +38,16 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-  const confirmDelete = async (id: any,gnosis:any) => {
+  let { data } = useRequest(
+    async () => {
+      return await service.querystate(state, params);
+    },
+    {
+      refreshDeps: [opFlag],
+    },
+  );
+
+  const confirmDelete = async (id: any,gnosis:any,ghost_id:any) => {
     let res,les;
     // const res = await service.removeGhost(id);
     aa.data === undefined ? '' : aa.data.map((v: any, i: any) => (v.quantity >= i + 1)?'':(res=0,les=v.name));
@@ -62,6 +62,7 @@ const Personnel: FC<SearchProps> = (props) => {
              )
             );
       !res.error ? history.push(`/Lucky/${id}`) : '';
+      await service.updateGhost(id, {  ghost_id: parseInt(ghost_id)+1 ,state:"6"})
       les = await service.experience({"experience":gnosis})
 
     }else{
@@ -81,15 +82,15 @@ const Personnel: FC<SearchProps> = (props) => {
   ];
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'ghost_id',
-      key: 'ghost_id',
+      title: '灵魂ID',
+      dataIndex: 'id',
+      key: 'id',
       valueType: 'textarea',
     },
     {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
+      title: '投胎次数',
+      dataIndex: 'ghost_id',
+      key: 'id',
       valueType: 'textarea',
     },
     {
@@ -99,7 +100,7 @@ const Personnel: FC<SearchProps> = (props) => {
         <span>
           <a
             onClick={() => {
-              confirmDelete(item.id,item.gnosis);
+              confirmDelete(item.id,item.gnosis,item.ghost_id);
             }}
           >
             投胎

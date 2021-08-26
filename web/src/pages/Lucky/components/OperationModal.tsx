@@ -5,14 +5,14 @@ import { GhostItem } from '../data.d';
 import moment from 'moment';
 import { PageContainer } from '@ant-design/pro-layout';
 
-import { ModalForm, ProFormSelect, ProFormDateRangePicker } from '@ant-design/pro-form';
+import { ModalForm, ProFormSelect, ProFormDatePicker } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
 }
-
+let times = moment().format(); 
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
@@ -21,9 +21,7 @@ const formLayout = {
 const OperationModal: FC<OperationModalProps> = (props) => {
   const [form] = Form.useForm();
   const { visible, current, onOk, onCancel } = props;
-  console.log('???????/', current?.rein_id);
   const ee = current?.rein_id;
-  console.log('---=====+++', ee);
   useEffect(() => {
     if (form && !visible) {
       form.resetFields();
@@ -53,9 +51,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     tes = await service.Order();
     const id = current ? current.id : '';
 
-    let a = moment(values.time[0]._d).format('YYYY');
-    let b = parseInt(moment(values.time[0]._d).format('MM'));
-    let c = parseInt(moment(values.time[0]._d).format('DD'));
+    let a = moment(values.times).format('YYYY');
+    let b = parseInt(moment(values.times).format('MM'));
+    let c = parseInt(moment(values.times).format('DD'));
     let bb = parseInt(a) % 12;
     let cc =
       bb == 0
@@ -117,8 +115,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             v.ghost_id == id ? (fes = await service.update(v.id, { state: v.state + 1 })) : '';
           });
       const aa = Object.assign(
-        { time_start: values.time[0]._d },
-        { time_end: values.time[1]._d },
+        { time_start: times },
+        { time_end: values.time._d },
         { sort: cc },
         { constellation: dd },
       );
@@ -145,7 +143,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入种族" />
         </Form.Item>
-        <ProFormDateRangePicker
+        <ProFormDatePicker
           label="出生/死亡时间"
           name="time"
           fieldProps={{
@@ -177,8 +175,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入称号" />
         </Form.Item>
-        <ProFormDateRangePicker
-          label="飞升/陨落时间"
+        <ProFormDatePicker
+          label="陨落时间"
           name="time"
           fieldProps={{
             style: {
@@ -209,7 +207,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         >
           <Input placeholder="请输入姓名" />
         </Form.Item>
-        <ProFormDateRangePicker
+        <ProFormDatePicker
           label="出生/死亡时间"
           name="time"
           fieldProps={{

@@ -74,11 +74,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
     const name = current ? current.name : '';
+    const rein = current?.rein.name;
+
+
     let res;
     if (id) {
        res = await service.updateGhost(id,{"state":"2"});
       (values.user_id===undefined)?"":values.user_id.map(async (v:any,i:any)=>{
-        values = Object.assign({user_id:v},{ghost_id: id},{name:name});
+        values = Object.assign({user_id:v},{ghost_id: id},{name:name},{rein_name:rein});
         await service.createOrder(values);
       })
       

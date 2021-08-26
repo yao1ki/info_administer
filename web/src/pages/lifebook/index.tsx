@@ -21,20 +21,28 @@ type SearchProps = {
 };
 const tabList = [
   {
-    key: 'live',
-    tab: '阳寿未尽',
+    key: 'god',
+    tab: '天人',
   },
   {
-    key: 'ghost',
-    tab: '阳寿已尽',
+    key: 'people',
+    tab: '人间',
   },
   {
-    key: 'birth',
-    tab: '投胎转世',
+    key: 'shura',
+    tab: '修罗',
   },
   {
-    key: 'mistake',
-    tab: '永世不得轮回',
+    key: 'animal',
+    tab: '畜生',
+  },
+  {
+    key: 'ghoul',
+    tab: '恶鬼',
+  },
+  {
+    key: 'hell',
+    tab: '地狱',
   },
 ];
 
@@ -44,8 +52,10 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
 
+  const [params, setParams] = useState<string>('');
+  var aa = 0 ;
+  var bb ;
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -63,7 +73,12 @@ const Personnel: FC<SearchProps> = (props) => {
       setOpFlag(opFlag + 1);
     }
   };
-
+    const updateItem = async(id:number) =>{
+      const res = await service.updateGhost(id, {dead:'1'})
+      if(!res.error){
+        setOpFlag(opFlag +1)
+      }
+    }
   const confirmDelete = (currentItem: GhostItem) => {
     Modal.confirm({
       title: '放逐',
@@ -76,12 +91,12 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const columns = [
     {
-      title: 'ID',
-      key: 'ghost_id',
+      title: '灵魂ID',
+      key: 'id',
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.ghost_id}</Link>
+            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),
@@ -93,8 +108,15 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
+      title: '种族',
+      key: 'rein',
+      valueType: 'textarea',
+      render: (_: any, record: any) => {
+        return record.rein==null?'':record.rein.name ;
+      },
+    },
+    {
       title: '出生日期',
-      dataIndex: 'time_start',
       key: 'lifetime',
       valueType: 'textarea',
       render: (_: any, record: any) => {
@@ -116,21 +138,31 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
-      title: '生肖',
-      dataIndex: 'sort',
+      title: '寿命/日',
+      render: (_: any, record: any) => {
+        
+       return moment(record.time_end).diff(moment(record.time_start), 'days')
+        //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
+      },
       key: 'sort',
       valueType: 'textarea',
     },
     {
-      title: '星座',
-      dataIndex: 'constellation',
-      key: 'constellation',
+      title: '剩余寿命/日',
+      render: (_: any, record: any) => {
+         aa =(moment(record.time_end).diff(moment(moment().format()), 'days'));
+         return aa<=0&&record.dead==0?(updateItem(record.id),'阳寿已尽'):aa;
+        //return aa <= 0 ? (service.updateGhost(record.id, {dead:'1'}),"阳寿已尽" ): aa;
+      },
+      key: 'sort',
       valueType: 'textarea',
     },
+
     {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
+        aa<=0?'已死亡':
         <span>
           <a
             onClick={() => {
@@ -139,14 +171,7 @@ const Personnel: FC<SearchProps> = (props) => {
           >
             编辑
           </a>
-          <Divider type="vertical" />
-          <a
-            onClick={() => {
-              confirmDelete(item);
-            }}
-          >
-            删除
-          </a>
+         
         </span>
       ),
     },
@@ -187,18 +212,24 @@ const Personnel: FC<SearchProps> = (props) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
-      case 'live':
-        history.push(`/lifebook/live`);
+      case 'god':
+        history.push(`/lifebook/god`);
         break;
-      case 'birth':
-        history.push(`/lifebook/birth`);
+      case 'people':
+        history.push(`/lifebook/people`);
         break;
-      case 'ghost':
-        history.push(`/lifebook/ghost`);
+      case 'shura':
+        history.push(`/lifebook/shura`);
         break;
-      case 'mistake':
-        history.push(`/lifebook/mistake`);
+      case 'animal':
+        history.push(`/lifebook/animal`);
         break;
+        case 'ghoul':
+         history.push(`/lifebook/ghoul`);
+          break;
+          case 'hell':
+           history.push(`/lifebook/hell`);
+            break;
       default:
         break;
     }
@@ -219,11 +250,7 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
-  const action = (
-    <>
-      <Button onClick={showModal}>添加目标</Button>
-    </>
-  );
+
 
   return (
     <div>
@@ -243,7 +270,7 @@ const Personnel: FC<SearchProps> = (props) => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <Card title="列表" extra={action}>
+        <Card title="列表" >
           <Table
             columns={columns}
             dataSource={data}

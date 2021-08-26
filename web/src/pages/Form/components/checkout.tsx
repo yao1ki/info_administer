@@ -92,13 +92,33 @@ const Back: FC<BackProps> = (props) => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
       <Form.Item
-          name="lifetime"
-          label="受刑时间"
-          rules={[{ required: true, message: '受刑时间' }]}
+          name="reason"
+          label="审判记录"
+          rules={[{ required: true, message: '请输入生平' }]}
 
         >
-          <Input placeholder="受刑时间" />
+          <Input placeholder="请输入生平" />
         </Form.Item>
+        <Form.Item
+          name="gnosis"
+          label="人生感悟"
+          rules={[{ required: false, message: '请输入感悟' }]}
+
+        >
+          <Input placeholder="请输入感悟" />
+        </Form.Item>
+        <Form.Item
+          name="lifetime"
+          label="受刑时间/日"
+          rules={[{ required: false, message: '请输入受刑时间' }]}
+
+        >
+          <Input placeholder="请输入受刑时间" />
+        </Form.Item>
+        {/* <Radio.Group    name='state' onChange={onChange} >
+      <Radio style={{left: '80%'}} value={5}>允许投胎</Radio>
+      <Radio style={{left: '120%'}} value={4}>逐出六道</Radio>
+    </Radio.Group> */}
       </Form>
     );
   };
@@ -106,7 +126,7 @@ const Back: FC<BackProps> = (props) => {
   return (
     <div>
       <Modal
-      title={`${current ? '更改刑期' : '添加'}`}
+      title={`${current ? '编辑' : '添加'}`}
       width={640}
       bodyStyle={{ padding: '28px 0 0' }}
       destroyOnClose
@@ -117,6 +137,17 @@ const Back: FC<BackProps> = (props) => {
     >
       {getModalContent()}
     </Modal>
+    <Modal
+        visible={visiable}
+        width={'0%'}
+        onCancel={() => setVisible(false)}
+        footer={null}
+        closable={false}
+        closeIcon={null}
+      >
+        
+        <img style={{}} src={`https://cdn.pixabay.com/photo/2016/04/01/10/26/allergy-1299884__340.png`} />{}
+      </Modal>
     </div>
     
   );

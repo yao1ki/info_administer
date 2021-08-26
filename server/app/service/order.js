@@ -67,6 +67,7 @@ class OrderService extends Service {
       shop = await ctx.model.Ghost.findAll({
         where: {
           state: state,
+          dead : "1",
 
           [Op.or]: [
             {
@@ -87,7 +88,7 @@ class OrderService extends Service {
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
-        where: { state: state },
+        where: { state: state, dead : "1" },
         include: [
           { model: ctx.model.Order,where:{state:"0"}, include: { model: ctx.model.User } },
         ],
@@ -98,6 +99,43 @@ class OrderService extends Service {
     }
     return shop;
   }
+  async querystate1(state, params) {
+    const { ctx } = this;
+    let shop;
+    if (params) {
+      shop = await ctx.model.Ghost.findAll({
+        where: {
+          state: state,
+          dead : "1",
+
+          [Op.or]: [
+            {
+              name: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              ghost_id: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+          ],
+        },
+      include: { model: ctx.model.Rein, },
+  
+      });
+    } else {
+      shop = await ctx.model.Ghost.findAll({
+        where: { state: state, dead : "1" },
+        include: { model: ctx.model.Rein, },
+      });
+    }
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
+    }
+    return shop;
+  }
+  
   async recordstate(id, params) {
     const { ctx } = this;
     let shop;
