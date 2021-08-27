@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Modal, Form, Input,message } from 'antd';
+import { Modal, Form, Input, message } from 'antd';
 import service from '../service';
 import { GhostItem } from '../data.d';
 import { Radio } from 'antd';
-
+import moment from 'moment'
 interface BackProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
@@ -12,31 +12,26 @@ interface BackProps {
   onCancel: () => void;
 }
 
-
 var state = '';
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
 };
 
-
 // const { Option } = Select;
 
 // const arr = [{id: '1',name:'唐玄奘'},{id: '2',name:'孙悟空'},{id: '3',name:'猪悟能'},{id: '4',name:'沙悟净'}];
 
 const Back: FC<BackProps> = (props) => {
-  var nIntervId:any,intervalID;
+  var nIntervId: any, intervalID;
 
-  function myCallback()
-  {
+  function myCallback() {
     setVisible(false);
-    clearInterval(nIntervId)
-
+    clearInterval(nIntervId);
   }
 
   const [visiable, setVisible] = useState<boolean>(false);
 
-  
   const [form] = Form.useForm();
   const { visible, current, onOk, onCancel } = props;
 
@@ -53,8 +48,8 @@ const Back: FC<BackProps> = (props) => {
         lifetime: current.lifetime,
         cause: current.cause,
         sort: current.sort,
-        reason:current.reason,
-        state:current.state,
+        reason: current.reason,
+        state: current.state,
       });
     }
   }, [props.current]);
@@ -64,22 +59,21 @@ const Back: FC<BackProps> = (props) => {
     form.submit();
   };
   const onChange = async (e: { [key: string]: any }) => {
-    state = e.target.value
+    state = e.target.value;
     //setValue(e.target.value);
   };
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
-    let res;
-
+    const name = current ? current.name : '';
+    let res,les;
+console.log("::::::::::",current?.name)
     if (id) {
-      values=values.lifetime?{"reason":values.reason ,"gnosis":values.gnosis, "state":"4","lifetime":values.lifetime}:{"reason":values.reason ,"gnosis":values.gnosis, "state":"5"}
-      res= await service.updateGhost(id,values);
+     const lifetime = values.lifetime
+      res = await service.updateGhost(id, {"lifetime":lifetime});
+      les =( parseInt(lifetime)- moment(moment().format()).diff(moment(values.time_end), 'days'))<=0? await service.updateGhost(id,{state:'5',lifetime:'0'}):"aa"
     }
     if (!res.error) {
-      state=='4'?
-      (setVisible(true),
-      nIntervId = setInterval(myCallback, 500)):''
-      message.success('操作成功！');
+      les=="aa"? message.success(name+'修改刑期成功！'+les):message.success(name+"刑满释放")
       onOk();
     }
   };
@@ -91,11 +85,10 @@ const Back: FC<BackProps> = (props) => {
   const getModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-      <Form.Item
+        <Form.Item
           name="lifetime"
           label="受刑时间"
           rules={[{ required: true, message: '受刑时间' }]}
-
         >
           <Input placeholder="受刑时间" />
         </Form.Item>
@@ -106,19 +99,18 @@ const Back: FC<BackProps> = (props) => {
   return (
     <div>
       <Modal
-      title={`${current ? '更改刑期' : '添加'}`}
-      width={640}
-      bodyStyle={{ padding: '28px 0 0' }}
-      destroyOnClose
-      visible={visible}
-      okText="保存"
-      onOk={handleSubmit}
-      onCancel={handleCancel}
-    >
-      {getModalContent()}
-    </Modal>
+        title={`${current ? '更改刑期' : '添加'}`}
+        width={640}
+        bodyStyle={{ padding: '28px 0 0' }}
+        destroyOnClose
+        visible={visible}
+        okText="保存"
+        onOk={handleSubmit}
+        onCancel={handleCancel}
+      >
+        {getModalContent()}
+      </Modal>
     </div>
-    
   );
 };
 

@@ -57,7 +57,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const updateGhost = (item: GhostItem) => {
     setVisible(true);
     setCurrent({ ...item });
-    setOpFlag(opFlag + 1);
    // await service.updateGhost(id,{lifetime:lifetime-1})
     //setOpFlag(opFlag + 1);
   };
@@ -75,18 +74,12 @@ const Personnel: FC<SearchProps> = (props) => {
       dataIndex: 'id',
       key: 'id',
       valueType: 'textarea',
-      // render: (_:any, record:any) => {
-      //   return record.ghost.name;
-      // }
     },
     {
       title: '受刑时间/日',
       dataIndex: 'lifetime',
       key: 'name',
       valueType: 'textarea',
-      // render: (_: any, record: any) => {
-      //   return record.ghost.name;
-      // },
     },
 
     {

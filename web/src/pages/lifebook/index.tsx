@@ -162,7 +162,7 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
-        aa<=0?'已死亡':
+        aa<=0?(item.state==6?"等待分配命运":item.state==5?"等待投胎" :'已死亡'):
         <span>
           <a
             onClick={() => {
