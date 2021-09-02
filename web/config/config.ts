@@ -123,14 +123,14 @@ export default defineConfig({
     //   component: './lifebook/index.tsx',
     //   access: 'adminRouteFilter',
     // },
-    {
-      name: 'Form',
-      icon: 'table',
-      path: '/Form',
-      component: './Form/index.tsx',
+    // {
+    //   name: 'Form',
+    //   icon: 'table',
+    //   path: '/Form',
+    //   component: './Form/index.tsx',
 
-      access: 'guestRouteFilter',
-    },
+    //   access: 'guestRouteFilter',
+    // },
     {
       name: 'soul',
       icon: 'table',
@@ -138,6 +138,14 @@ export default defineConfig({
       component: './soul/all.tsx',
       access: 'adminRouteFilter',
    
+    },
+    {
+      name: 'erotic',
+      icon: 'table',
+      path: '/erotic',
+      component: './erotic/all.tsx',
+
+      access: 'guestRouteFilter',
     },
     {
       path: '/Tool',
@@ -241,7 +249,36 @@ export default defineConfig({
         ////////////////////////////
       ],
     },
+    {
+      name: 'erotic',
+      icon: 'table',
+      path: 'erotic',
+      component: './erotic',
+      routes: [
+        {
+          name: 'checkout',
+          path: '/erotic/checkout',
+          component: './erotic/checkout',
+        },
+        {
+          name: 'process',
+          path: '/erotic/process',
+          component: './erotic/process',
+        },
+        {
+          name: 'punishment',
+          path: '/erotic/punishment',
+          component: './erotic/punishment',
+        },
+        {
+          name: 'undispose',
+          path: '/erotic/undispose',
+          component: './erotic/undispose',
+        },
 
+        ////////////////////////////
+      ],
+    },
     ///////////////////////////
     // {
     //   name: 'detail.book',
