@@ -61,6 +61,12 @@ const Personnel: FC<SearchProps> = (props) => {
       key: 'id',
       valueType: 'textarea',
     },
+    {
+      title: '姓名/种类',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+    },
 
     {
       title: '勾魂使者',

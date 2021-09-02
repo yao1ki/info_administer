@@ -3,6 +3,7 @@
 module.exports = (app) => {
   const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
 
+
   const Ghost = app.model.define("ghost", {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     name: STRING,
@@ -15,7 +16,7 @@ module.exports = (app) => {
     reason: STRING,
     user_id: STRING,
     rein_id: STRING,
-dead: STRING,
+    dead: STRING,
 
     constellation: STRING,
     time_end: app.Sequelize.DATE,

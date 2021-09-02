@@ -141,7 +141,7 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '寿命/日',
       render: (_: any, record: any) => {
         
-       return moment(record.time_end).diff(moment(record.time_start), 'days')
+       return moment(record.time_end).diff(moment(record.time_start), 'days')+1
         //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
       },
       key: 'sort',
@@ -150,8 +150,8 @@ const Personnel: FC<SearchProps> = (props) => {
     {
       title: '剩余寿命/日',
       render: (_: any, record: any) => {
-         aa =(moment(record.time_end).diff(moment(moment().format()), 'days'));
-         return aa<=0&&record.dead==0?(updateItem(record.id),'阳寿已尽'):aa;
+         aa =(moment(record.time_end).diff(moment(moment().format()), 'hour'));
+         return aa<=0&&record.dead==0?(updateItem(record.id),'阳寿已尽'):record.dead==1?'阳寿已尽': aa;
         //return aa <= 0 ? (service.updateGhost(record.id, {dead:'1'}),"阳寿已尽" ): aa;
       },
       key: 'sort',
@@ -162,7 +162,7 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '操作',
       key: 'action',
       render: (item: GhostItem) => (
-        aa<=0?(item.state==6?"等待分配命运":item.state==5?"等待投胎" :'已死亡'):
+        aa<=0?(item.state==6?"等待分配命运":item.state==4?'受刑中':item.state==5?"等待投胎" :'已死亡'):
         <span>
           <a
             onClick={() => {

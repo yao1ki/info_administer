@@ -52,8 +52,7 @@ const Test: FC<{}> = () => {
   var bb=aa+1;
   return (
     <PageContainer>
-      <Descriptions title="详情"></Descriptions>
-      <div style={{color:'red',fontSize:'32px',textAlign:'center'}}>灵魂ID:  {shop.id}</div>
+      <div style={{color:'red',fontSize:'32px',marginLeft:'556px'}}>灵魂ID:  {shop.id}</div>
       <Descriptions layout="vertical"size='default' style={{backgroundColor:"	GhostWhite"}}>
        
         <Descriptions.Item label="当前姓名">{shop.name}</Descriptions.Item>
@@ -65,8 +64,8 @@ const Test: FC<{}> = () => {
         ? ''
         : shop.orders.map((v: any, i: any) =>
            aa==v.state&&aa>0 ? (
-              <Descriptions layout="vertical"style={{color:'red'}}>
-                <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>{v.name}</Descriptions.Item>
+            aa%2==1? <Descriptions layout="vertical"  style={{backgroundColor:'red'}}>
+                <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>i%2======{aa}</Descriptions.Item>
                 <Descriptions.Item label="勾魂使者">
                   {shop.orders === undefined
                     ? ''
@@ -74,7 +73,17 @@ const Test: FC<{}> = () => {
                 </Descriptions.Item>
                 <Descriptions.Item label={'第' + (bb-aa-1) + '世的轮回'}>{v.rein_name}道</Descriptions.Item>
 
-              </Descriptions>
+              </Descriptions>:
+              <Descriptions layout="vertical"  style={{backgroundColor:'green'}}>
+              <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>i%2======{aa}</Descriptions.Item>
+              <Descriptions.Item label="勾魂使者">
+                {shop.orders === undefined
+                  ? ''
+                  : shop.orders.map((v: any, i: any) => (v.state == aa+1 ? v.user.name + ' ' : ''))}
+              </Descriptions.Item>
+              <Descriptions.Item label={'第' + (bb-aa-1) + '世的轮回'}>{v.rein_name}道</Descriptions.Item>
+
+            </Descriptions>
             ) : (
               ''
             ),

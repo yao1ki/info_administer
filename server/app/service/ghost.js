@@ -1,6 +1,6 @@
 "use strict";
-
 const Service = require("egg").Service;
+const moment = require("moment");
 const Op = require("sequelize").Op;
 class GhostService extends Service {
   async show(id) {
@@ -11,8 +11,21 @@ class GhostService extends Service {
     }
     return shop;
   }
+  async aa() {
+    const { ctx } = this;
+    let ret = await ctx.model.Ghost.findAll({
+      where: { lifetime: 0 },
+    });
+    ret === undefined
+      ? ""
+      : ret.map((v, i) =>
+          moment(v.time_end).diff(moment(moment().format()), "days")<0?console.log(v.name,v.time_end):''
+        );
+    console.log("aaaaaaaaaaaaaaaaaa");
+  }
   async list(arg) {
     const { ctx } = this;
+    console.log("=======>",ctx)
     const opt = {};
     if (arg.offset) {
       opt.offset = arg.offset;
@@ -31,7 +44,6 @@ class GhostService extends Service {
   }
 
   async create(data) {
-
     const { ctx } = this;
     try {
       await ctx.model.Ghost.create(data);
@@ -58,7 +70,6 @@ class GhostService extends Service {
     if (params) {
       shop = await ctx.model.Ghost.findAll({
         where: {
-          state:{[Op.not]:"4"},
           [Op.or]: [
             {
               name: {
@@ -81,15 +92,14 @@ class GhostService extends Service {
               },
             },
           ],
-
-        },include: { model: ctx.model.Rein, },
-        
+        },
+        include: { model: ctx.model.Rein },
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
-        where: {
-          state:{[Op.not]:"4"},},include: { model: ctx.model.Rein, },}
-      );
+
+        include: { model: ctx.model.Rein },
+      });
     }
     if (!shop) {
       ctx.throw(404, ctx.__("未找到"));
@@ -130,11 +140,13 @@ class GhostService extends Service {
               },
             },
           ],
-        },include: { model: ctx.model.Rein, },
+        },
+        include: { model: ctx.model.Rein },
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
-        where: { rein_id: state },include: { model: ctx.model.Rein, },
+        where: { rein_id: state },
+        include: { model: ctx.model.Rein },
       });
     }
     if (!shop) {
@@ -171,11 +183,13 @@ class GhostService extends Service {
               },
             },
           ],
-        },include: { model: ctx.model.Rein, },
+        },
+        include: { model: ctx.model.Rein },
       });
     } else {
       shop = await ctx.model.Ghost.findAll({
-        where: { state: state },include: { model: ctx.model.Rein, },
+        where: { state: state },
+        include: { model: ctx.model.Rein },
       });
     }
     if (!shop) {

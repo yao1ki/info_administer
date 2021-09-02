@@ -1,15 +1,49 @@
 "use strict";
 const Controller = require("egg").Controller;
-
 const Op = require("sequelize").Op;
+const schedule = require("node-schedule");
+const moment = require("moment");
 
+// 定义规则
+let rule = new schedule.RecurrenceRule();
+rule.second = 0;
+//每分钟 0 秒执行一次
+// 启动任务
+
+/////
 class GhostController extends Controller {
+  async aa() {
+    console.log("bbbbbbbbbb");
+    var  ret 
+
+    schedule.scheduleJob ( rule, async() => {
+      const { ctx, service } = this;
+      ret =await ctx.model.Ghost.findAll({
+        where: { dead: 0 },
+      });
+      ret === undefined
+        ? ""
+        : ret.map(async (v, i) =>
+            moment(v.time_end).diff(moment(moment().format()), "hour") <=0
+              ? (await v.update({dead:'1'}))
+              : ""
+          );
+      console.log("----Controller.this------>", moment().format());
+    });
+
+
+
+
+  }
   async index() {
     const { ctx, service } = this;
     const opt = ctx.helper.curd(ctx);
     const ret = await service.ghost.list(opt);
+    await service.ghost.aa();
     ctx.body = ctx.success(ret.rows, { total: ret.count });
+
   }
+
   async ghostlist() {
     const { ctx, service } = this;
 
@@ -107,21 +141,21 @@ class GhostController extends Controller {
     ctx.body = ctx.success(ghost);
   }
   async list() {
-    console.log("============")
+    console.log("============");
     const { ctx, service } = this;
     const state = ctx.params.state;
     const { params } = ctx.request.query;
     const ghost = await service.ghost.ghoststate(state, params);
     ctx.body = ctx.success(ghost);
   }
-// async list(){
-//   const{ctx , service } = this;
-//   const state = ctx.request.query;
-//   const { params } = ctx.request.query;
+  // async list(){
+  //   const{ctx , service } = this;
+  //   const state = ctx.request.query;
+  //   const { params } = ctx.request.query;
 
-//   const ghost = await service.ghost.ghoststate(state,params);
-//   ctx.body = ctx.success(ghost)
-// }
+  //   const ghost = await service.ghost.ghoststate(state,params);
+  //   ctx.body = ctx.success(ghost)
+  // }
   async query() {
     const { ctx, service } = this;
     const { name } = ctx.request.query;

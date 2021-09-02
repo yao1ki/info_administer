@@ -78,7 +78,17 @@ const Personnel: FC<SearchProps> = (props) => {
     {
       title: '受刑时间/日',
       dataIndex: 'lifetime',
+      valueType: 'textarea',
+    },
+    {
+      title: '姓名',
+      dataIndex: 'name',
       key: 'name',
+      valueType: 'textarea',
+    },
+    {
+      title: '审判记录',
+      dataIndex: 'reason',
       valueType: 'textarea',
     },
 
@@ -103,13 +113,13 @@ const Personnel: FC<SearchProps> = (props) => {
           >
            更改刑期
           </a>
-          <Divider type="vertical" />
+          {/* <Divider type="vertical" />
           <a
             onClick={() => {
             }}
           >
             使用刑具
-          </a>
+          </a> */}
         </span>
       ),
     },

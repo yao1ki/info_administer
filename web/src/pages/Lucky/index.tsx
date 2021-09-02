@@ -88,6 +88,12 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
     },
     {
+      title: '姓名/种类',
+      dataIndex: 'name',
+      key: 'name',
+      valueType: 'textarea',
+    },
+    {
       title: '投胎次数',
       dataIndex: 'ghost_id',
       key: 'id',

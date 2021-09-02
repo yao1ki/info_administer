@@ -144,7 +144,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入种族" />
         </Form.Item>
         <ProFormDatePicker
-          label="出生/死亡时间"
+          label="死亡时间"
           name="time"
           fieldProps={{
             style: {
@@ -208,7 +208,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入姓名" />
         </Form.Item>
         <ProFormDatePicker
-          label="出生/死亡时间"
+          label="死亡时间"
           name="time"
           fieldProps={{
             style: {
