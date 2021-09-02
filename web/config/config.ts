@@ -253,6 +253,8 @@ export default defineConfig({
       name: 'erotic',
       icon: 'table',
       path: 'erotic',
+      hideInMenu: true,
+
       component: './erotic',
       routes: [
         {

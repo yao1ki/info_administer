@@ -2,6 +2,12 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Input } from 'antd';
 import type { FC } from 'react';
 import { history } from 'umi';
+import { useRequest } from 'umi';
+import {  useState } from 'react';
+
+import { Badge, Avatar } from 'antd';
+import moment from 'moment';
+import service from './service';
 
 type SearchProps = {
   match: {
@@ -13,26 +19,48 @@ type SearchProps = {
   };
 };
 
+
+
+const Search: FC<SearchProps> = (props) => {
+
+
+  var a =0
+var b =0
+var c = 0
+var d = 0
+const [params, setParams] = useState<string>('');
+
+let { data } = useRequest(
+  async () => {
+    return await service.listGhost(params);
+  },
+);
+
+data===undefined?'':data.map((v:any,i:any)=>v.dead==0?'':v.state==1?a++:v.state==2?b++:v.state==3?c++:v.state==4?d++:'')
+console.log("_________aaaaa>",a)
+console.log("_________bbbbb>",b)
+console.log("_________ccccc>",c)
+console.log("_________ddddd>",d)
 const tabList = [
   {
     key: 'undispose',
-    tab: '未处理',
+    tab: <Badge count={a}>未处理</Badge>,
   },
   {
     key: 'process',
-    tab: '勾魂中',
+    tab: <Badge count={b}>勾魂中</Badge>,
   },
   {
     key: 'checkout',
-    tab: '阎王验收',
+    tab: <Badge count={c}>阎王验收</Badge>,
   },
   {
     key: 'punishment',
-    tab: '受刑中',
+    tab: <Badge count={d}>受刑中</Badge>,
   },
 ];
 
-const Search: FC<SearchProps> = (props) => {
+
   const handleTabChange = (key: string) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
@@ -46,9 +74,9 @@ const Search: FC<SearchProps> = (props) => {
       case 'checkout':
         history.push(`${url}/checkout`);
         break;
-        case 'punishment':
-          history.push(`${url}/punishment`);
-          break;
+      case 'punishment':
+        history.push(`${url}/punishment`);
+        break;
       default:
         break;
     }

@@ -10,6 +10,10 @@ async function userlist(potence: string) {
   return request(`/api/userlist/${potence}`, { method: 'GET'});
 
 }
+async function listGhost(params: any) {
+  return request(`/api/ghostlist/?params=${params}`, { method: 'GET' });
+
+}
 async function querystate(state: string,params: any) {
   return request(`/api/order/list/${state}?params=${params}`);
 }
@@ -30,6 +34,7 @@ async function list(state: string,params: any) {
 
 
 export default {
+  listGhost,
   updateGhost,
   querystate,
   userlist,
