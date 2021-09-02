@@ -60,7 +60,6 @@ export default defineConfig({
       icon: 'smile',
       component: './Settings/components/base',
       access: 'supadmin',
-
     },
 
     {
@@ -69,8 +68,8 @@ export default defineConfig({
       icon: 'smile',
       component: './Record',
       access: 'supadmin',
-
     },
+
 
     {
       path: '/Lucky/:id',
@@ -117,13 +116,13 @@ export default defineConfig({
       component: './lifebook/detail.tsx',
       hideInMenu: true,
     },
-    {
-      name: 'death.book',
-      icon: 'table',
-      path: '/lifebook',
-      component: './lifebook/index.tsx',
-      access: 'adminRouteFilter',
-    },
+    // {
+    //   name: 'death.book',
+    //   icon: 'table',
+    //   path: '/lifebook',
+    //   component: './lifebook/index.tsx',
+    //   access: 'adminRouteFilter',
+    // },
     {
       name: 'Form',
       icon: 'table',
@@ -131,6 +130,14 @@ export default defineConfig({
       component: './Form/index.tsx',
 
       access: 'guestRouteFilter',
+    },
+    {
+      name: 'soul',
+      icon: 'table',
+      path: '/soul',
+      component: './soul/all.tsx',
+      access: 'adminRouteFilter',
+   
     },
     {
       path: '/Tool',
@@ -194,46 +201,46 @@ export default defineConfig({
       ],
     },
     {
-      name: 'lifebook',
+      name: 'soul',
       icon: 'table',
-      path: 'lifebook',
+      path: 'soul',
+      component: './soul',
       hideInMenu: true,
 
       routes: [
         {
           name: 'god',
-          path: '/lifebook/god',
-          component: './lifebook/god',
+          path: '/soul/god',
+          component: './soul/god',
         },
         {
           name: 'people',
-          path: '/lifebook/people',
-          component: './lifebook/people',
+          path: '/soul/people',
+          component: './soul/people',
         },
         {
           name: 'ghoul',
-          path: '/lifebook/ghoul',
-          component: './lifebook/ghoul',
+          path: '/soul/ghoul',
+          component: './soul/ghoul',
         },
         {
           name: 'animal',
-          path: '/lifebook/animal',
-          component: './lifebook/animal',
+          path: '/soul/animal',
+          component: './soul/animal',
         },
         {
           name: 'shura',
-          path: '/lifebook/shura',
-          component: './lifebook/shura',
+          path: '/soul/shura',
+          component: './soul/shura',
         },
         {
           name: 'hell',
-          path: '/lifebook/hell',
-          component: './lifebook/hell',
+          path: '/soul/hell',
+          component: './soul/hell',
         },
         ////////////////////////////
       ],
     },
-    
 
     ///////////////////////////
     // {
