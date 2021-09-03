@@ -36,7 +36,7 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
-
+  
   const updateGhost = (item: GhostItem) => {
     setVisible(true);
     setCurrent({ ...item });
@@ -62,6 +62,18 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '受刑时间/日',
       dataIndex: 'lifetime',
       valueType: 'textarea',
+    },
+    {
+      title: '受刑结束时间',
+      dataIndex: 'lifetime',
+      valueType: 'textarea',
+      render:(_:any, record:any) =>{
+        const day =  moment(record.time_end).add(record.lifetime, 'days')
+        console.log("]]]",day)
+        
+        return moment(day).format('YYYY年MM月DD日HH时');
+      }
+      
     },
     {
       title: '姓名',

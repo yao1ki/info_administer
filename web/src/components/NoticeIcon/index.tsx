@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Tag, message, Table} from 'antd';
+import { Tag, message, Table } from 'antd';
 import { groupBy } from 'lodash';
 import moment from 'moment';
 import { useModel } from 'umi';
@@ -17,7 +17,6 @@ export type GlobalHeaderRightProps = {
   onNoticeVisibleChange?: (visible: boolean) => void;
   onNoticeClear?: (tabName?: string) => void;
 };
-
 
 const getNoticeData = (notices: API.NoticeIconItem[]): Record<string, API.NoticeIconItem[]> => {
   if (!notices || notices.length === 0 || !Array.isArray(notices)) {
@@ -59,14 +58,8 @@ const getNoticeData = (notices: API.NoticeIconItem[]): Record<string, API.Notice
   return groupBy(newNotices, 'type');
 };
 
-
 const getUnreadData = (noticeData: Record<string, API.NoticeIconItem[]>) => {
   const unreadMsg: Record<string, number> = {};
-  
-
-
-
-
 
   Object.keys(noticeData).forEach((key) => {
     const value = noticeData[key];
@@ -88,12 +81,9 @@ const NoticeIconView = () => {
   const [notices, setNotices] = useState<API.NoticeIconItem[]>([]);
   const [params, setParams] = useState<string>('');
 
-  let { data } = useRequest(
-    async () => {
-      return await service.list();
-    },
-  );
-
+  let { data } = useRequest(async () => {
+    return await service.list();
+  });
 
   useEffect(() => {
     getNotices().then(({ data }) => setNotices(data || []));
@@ -126,20 +116,40 @@ const NoticeIconView = () => {
     );
     message.success(`${'清空了'} ${title}`);
   };
-  const aa =[
+  const aa = [
     {
       id: '000000005',
       title: '内容不要超过两行字，超出时自动截断',
       datetime: '2017-08-07',
       description: '描述信息描述信息描述信息',
-
+      extra: '',
+      status:''
     },
-  ]
-  data===undefined?'':data.map((v:any,i:any)=>aa.push({id:i,title:v.name,datetime:'死亡时间'+moment(v.time_end).format("YYYY年MM月DD日HH时"),description:'类别'+v.rein===undefined?'11111':v.rein.name}),aa.shift())
+  ];
+  data === undefined
+    ? ''
+    : data.map(
+        (v: any, i: any) =>
+          aa.push({status:v.state,
+            extra:
+              v.state == 1
+                ? '待处理'
+                : v.state == 2
+                ? '待确认'
+                : v.state == 3
+                ? '待验收'
+                : v.state == 5
+                ? '待投胎'
+                : '待分配命运',
+            id: i,
+            title: v.name,
+            datetime: '死亡时间' + moment(v.time_end).format('YYYY年MM月DD日HH时'),
+            description: '类别' + v.rein === undefined ? '' : v.rein.name,
+          }),
+        aa.shift(),
+      );
 
-  
   return (
-
     // <div>
     //   <Table
     //         columns={aa}
@@ -147,18 +157,26 @@ const NoticeIconView = () => {
     //         rowKey={(record: GhostItem): number => record.id as number}
     //       />
     // </div>
-<NoticeIcon
+    <NoticeIcon
       className={styles.action}
-      count={aa&&aa.length}
-
-      onItemClick={() => {
-        history.push(`/erotic`);
-
+      count={aa && aa.length}
+      onItemClick={(item) => {
+        console.log('llllll',item.status)
+        item.status=='1'?
+        history.push(`/erotic/undispose`):
+        item.status=='2'?
+        history.push(`/erotic/process`):
+        item.status=='3'?
+        history.push(`/erotic/checkout`):
+        item.status=='5'?
+        history.push(`/rein`):
+        item.status=='6'?
+        history.push(`/birth`):''
       }}
       loading={false}
     >
-        <NoticeIcon.Tab
-        style={{textAlign:'center'}}
+      <NoticeIcon.Tab
+        style={{ textAlign: 'center' }}
         tabKey="event"
         title="未处理"
         emptyText="你已完成所有未处理"
@@ -166,7 +184,6 @@ const NoticeIconView = () => {
       />
       <NoticeIcon></NoticeIcon>
     </NoticeIcon>
-      
   );
 };
 

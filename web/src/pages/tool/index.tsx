@@ -51,10 +51,11 @@ const Personnel: FC<{}> = () => {
                 <Col span={6} >
                   {
                     <Card
+                    style={{height:'100%'}}
                       className={styles.aa}
-                      cover={<img src={v.titles==1?v.covers:'https://img2.baidu.com/it/u=4273932495,1345879263&fm=26&fmt=auto&gp=0.jpg'} />}
+                      cover={<img style={{height:'250px'}} src={v.titles==1?v.covers:'https://img2.baidu.com/it/u=4273932495,1345879263&fm=26&fmt=auto&gp=0.jpg'} />}
                       title={
-                        <div>
+                        <div >
                           <Row className={styles.bb}>
                             <Col span={12}>{v.name}</Col>
                             {v.titles == 0 ? (

@@ -39,7 +39,8 @@ class OrderController extends Controller {
     ctx.body = ctx.success(order);
   }
   async notic() {
-    let user= this.ctx.locals.user.user;
+    let user= this.ctx.locals.user.auth;
+    console.log('---->',user)
     const { ctx, service } = this;
     const state = ctx.params.state;
     const { params } = ctx.request.query;

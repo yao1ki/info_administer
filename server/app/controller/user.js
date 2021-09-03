@@ -30,7 +30,8 @@ class UserController extends Controller {
     const token = app.jwt.sign(
       {
         user: user.id,
-        potence:user.potence
+        potence:user.potence,
+        auth:user.auth
       },
       app.config.jwt.secret,
       { expiresIn: "3d" }
