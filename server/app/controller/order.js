@@ -31,12 +31,22 @@ class OrderController extends Controller {
   // }
 
   async list() {
+    let user= this.ctx.locals.user.user;
     const { ctx, service } = this;
     const state = ctx.params.state;
     const { params } = ctx.request.query;
     const order = await service.order.querystate(state, params);
     ctx.body = ctx.success(order);
   }
+  async notic() {
+    let user= this.ctx.locals.user.user;
+    const { ctx, service } = this;
+    const state = ctx.params.state;
+    const { params } = ctx.request.query;
+    const order = await service.order.notic(user);
+    ctx.body = ctx.success(order);
+  }
+
   async list1() {
     const { ctx, service } = this;
     const state = ctx.params.state;

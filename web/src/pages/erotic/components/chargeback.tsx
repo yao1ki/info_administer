@@ -66,7 +66,6 @@ const Back: FC<BackProps> = (props) => {
     const id = current ? current.id : '';
     const name = current ? current.name : '';
     let res,les;
-console.log("::::::::::",current?.name)
     if (id) {
      const lifetime = values.lifetime
       res = await service.updateGhost(id, {"lifetime":lifetime});

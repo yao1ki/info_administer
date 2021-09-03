@@ -60,6 +60,19 @@ class OrderService extends Service {
 
 
   // ////
+  async notic(id) {
+    const { ctx } = this;
+    let shop;
+      shop = await ctx.model.Ghost.findAll({
+        where: { state: 1, dead : "1" },
+        include: { model: ctx.model.Rein, },
+      });
+    
+    if (!shop) {
+      ctx.throw(404, ctx.__("未找到"));
+    }
+    return shop;
+  }
   async querystate(state, params) {
     const { ctx } = this;
     let shop;

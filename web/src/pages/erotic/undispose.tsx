@@ -13,7 +13,6 @@ import { Select } from 'antd';
 import moment from 'moment';
 
 let times = moment().format('YYYY-MM-DD HH:mm:ss');
-//console.log(']]]]]]]]]]]]', moment(times).endOf('day').fromNow());
 const state = '1';
 const { Option } = Select;
 type SearchProps = {

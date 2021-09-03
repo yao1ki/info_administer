@@ -4,19 +4,23 @@ import type { FC } from 'react';
 import { history } from 'umi';
 import { useRequest } from 'umi';
 import {  useState } from 'react';
-
 import { Badge, Avatar } from 'antd';
 import moment from 'moment';
 import service from './service';
 
 type SearchProps = {
+  a:{
+    hello:string;
+  }
   match: {
     url: string;
     path: string;
+    name:string;
   };
   location: {
     pathname: string;
   };
+
 };
 
 
@@ -24,7 +28,7 @@ type SearchProps = {
 const Search: FC<SearchProps> = (props) => {
 
 
-  var a =0
+var a =0
 var b =0
 var c = 0
 var d = 0
@@ -35,12 +39,9 @@ let { data } = useRequest(
     return await service.listGhost(params);
   },
 );
-
+const aa = ()=>{
+}
 data===undefined?'':data.map((v:any,i:any)=>v.dead==0?'':v.state==1?a++:v.state==2?b++:v.state==3?c++:v.state==4?d++:'')
-console.log("_________aaaaa>",a)
-console.log("_________bbbbb>",b)
-console.log("_________ccccc>",c)
-console.log("_________ddddd>",d)
 const tabList = [
   {
     key: 'undispose',
@@ -59,7 +60,6 @@ const tabList = [
     tab: <Badge count={d}>受刑中</Badge>,
   },
 ];
-
 
   const handleTabChange = (key: string) => {
     const { match } = props;
@@ -84,7 +84,6 @@ const tabList = [
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
-    console.log(value);
   };
 
   const getTabKey = () => {

@@ -7,7 +7,7 @@ import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-
+import app from './index'
 const state = '2';
 type SearchProps = {
   match: {
@@ -131,7 +131,6 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
-
   return (
     <div>
 

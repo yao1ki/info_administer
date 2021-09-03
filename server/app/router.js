@@ -7,6 +7,7 @@ module.exports = (app) => {
   const { router, controller } = app;
   router.post("/api/login", controller.user.login);
   router.get("/api/user", controller.user.current);
+  router.get("/api/notic", controller.order.notic);
 
   router.get("/api/querystate/:state", controller.ghost.querystate);
   router.get("/api/userlist/:potence", controller.user.userlist);

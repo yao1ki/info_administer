@@ -1,6 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout';
 import { Input } from 'antd';
 import type { FC } from 'react';
+import React from 'react';
 import { history } from 'umi';
 
 type SearchProps = {
@@ -54,15 +55,15 @@ const Search: FC<SearchProps> = (props) => {
       case 'shura':
         history.push(`${url}/shura`);
         break;
-        case 'animal':
-          history.push(`${url}/animal`);
-          break;
-          case 'ghoul':
-            history.push(`${url}/ghoul`);
-            break;
-            case 'hell':
-              history.push(`${url}/hell`);
-              break;
+      case 'animal':
+        history.push(`${url}/animal`);
+        break;
+      case 'ghoul':
+        history.push(`${url}/ghoul`);
+        break;
+      case 'hell':
+        history.push(`${url}/hell`);
+        break;
       default:
         break;
     }
@@ -72,6 +73,11 @@ const Search: FC<SearchProps> = (props) => {
     // eslint-disable-next-line no-console
     console.log(value);
   };
+  // const constructor=(props:any)=>{
+  //   super(props);
+  //   this.state={
+  //     name
+  //   }
 
   const getTabKey = () => {
     const { match, location } = props;

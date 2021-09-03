@@ -50,7 +50,7 @@ export default defineConfig({
     {
       path: '/welcome',
       name: 'welcome',
-      icon: 'smile',
+      icon: 'bell',
       component: './Welcome',
       access: 'supadmin',
     },
@@ -79,7 +79,7 @@ export default defineConfig({
       hideInMenu: true,
     },
     {
-      path: '/Create',
+      path: '/birth',
       name: 'create',
       icon: 'table',
       component: './Lucky/create',
@@ -89,7 +89,7 @@ export default defineConfig({
     {
       name: 'leader',
       icon: 'table',
-      path: '/account/leader.tsx',
+      path: '/account/yama',
       component: './Account/leader.tsx',
       access: 'adminRouteFilter',
     },
@@ -97,7 +97,7 @@ export default defineConfig({
     {
       name: 'list.account',
       icon: 'table',
-      path: '/account/index.tsx',
+      path: '/account/bleach',
       component: './Account/index.tsx',
       access: 'adminRouteFilter',
     },
@@ -148,14 +148,14 @@ export default defineConfig({
       access: 'guestRouteFilter',
     },
     {
-      path: '/Tool',
+      path: '/tool',
       name: 'tool',
       icon: 'table',
       component: './Tool',
       access: 'guestRouteFilter',
     },
     {
-      path: '/Rein',
+      path: '/rein',
       name: 'Rein',
       icon: 'table',
       component: './Lucky/index.tsx',

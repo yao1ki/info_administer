@@ -11,7 +11,6 @@ const Personnel: FC<{}> = () => {
   const [opFlag, setOpFlag] = useState<number>(0);
 
   let times = moment().format("YYYY-MM-DD HH:mm:ss"); 
-  //console.log("]]]]]]]]]]]]", moment(times).endOf('day').fromNow())
 
 
 

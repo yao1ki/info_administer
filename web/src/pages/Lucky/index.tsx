@@ -76,7 +76,7 @@ const Personnel: FC<SearchProps> = (props) => {
       tab: '投胎管理',
     },
     {
-      key: 'create',
+      key: 'birth',
       tab: '已投胎',
     },
   ];
@@ -133,10 +133,10 @@ const Personnel: FC<SearchProps> = (props) => {
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'rein':
-        history.push(`/Rein`);
+        history.push(`/rein`);
         break;
-      case 'create':
-        history.push(`/Create`);
+      case 'birth':
+        history.push(`/birth`);
         break;
       default:
         break;

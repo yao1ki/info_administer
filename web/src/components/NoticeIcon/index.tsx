@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Tag, message } from 'antd';
+import { Tag, message, Table} from 'antd';
 import { groupBy } from 'lodash';
 import moment from 'moment';
 import { useModel } from 'umi';
 import { getNotices } from '@/services/ant-design-pro/api';
+import { useRequest, Link } from 'umi';
+import service from './service';
+import { GhostItem } from './data.d';
+import { history } from 'umi';
 
 import NoticeIcon from './NoticeIcon';
 import styles from './index.less';
@@ -13,6 +17,7 @@ export type GlobalHeaderRightProps = {
   onNoticeVisibleChange?: (visible: boolean) => void;
   onNoticeClear?: (tabName?: string) => void;
 };
+
 
 const getNoticeData = (notices: API.NoticeIconItem[]): Record<string, API.NoticeIconItem[]> => {
   if (!notices || notices.length === 0 || !Array.isArray(notices)) {
@@ -54,8 +59,15 @@ const getNoticeData = (notices: API.NoticeIconItem[]): Record<string, API.Notice
   return groupBy(newNotices, 'type');
 };
 
+
 const getUnreadData = (noticeData: Record<string, API.NoticeIconItem[]>) => {
   const unreadMsg: Record<string, number> = {};
+  
+
+
+
+
+
   Object.keys(noticeData).forEach((key) => {
     const value = noticeData[key];
 
@@ -74,6 +86,14 @@ const NoticeIconView = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
   const [notices, setNotices] = useState<API.NoticeIconItem[]>([]);
+  const [params, setParams] = useState<string>('');
+
+  let { data } = useRequest(
+    async () => {
+      return await service.list();
+    },
+  );
+
 
   useEffect(() => {
     getNotices().then(({ data }) => setNotices(data || []));
@@ -106,46 +126,47 @@ const NoticeIconView = () => {
     );
     message.success(`${'清空了'} ${title}`);
   };
+  const aa =[
+    {
+      id: '000000005',
+      title: '内容不要超过两行字，超出时自动截断',
+      datetime: '2017-08-07',
+      description: '描述信息描述信息描述信息',
 
+    },
+  ]
+  data===undefined?'':data.map((v:any,i:any)=>aa.push({id:i,title:v.name,datetime:'死亡时间'+moment(v.time_end).format("YYYY年MM月DD日HH时"),description:'类别'+v.rein===undefined?'11111':v.rein.name}),aa.shift())
+
+  
   return (
-    <NoticeIcon
+
+    // <div>
+    //   <Table
+    //         columns={aa}
+    //         dataSource={data}
+    //         rowKey={(record: GhostItem): number => record.id as number}
+    //       />
+    // </div>
+<NoticeIcon
       className={styles.action}
-      count={currentUser && currentUser.unreadCount}
-      onItemClick={(item) => {
-        changeReadState(item.id!);
+      count={aa&&aa.length}
+
+      onItemClick={() => {
+        history.push(`/erotic`);
+
       }}
-      onClear={(title: string, key: string) => clearReadState(title, key)}
       loading={false}
-      clearText="清空"
-      viewMoreText="查看更多"
-      onViewMore={() => message.info('Click on view more')}
-      clearClose
     >
-      <NoticeIcon.Tab
-        tabKey="notification"
-        count={unreadMsg.notification}
-        list={noticeData.notification}
-        title="通知"
-        emptyText="你已查看所有通知"
-        showViewMore
-      />
-      <NoticeIcon.Tab
-        tabKey="message"
-        count={unreadMsg.message}
-        list={noticeData.message}
-        title="消息"
-        emptyText="您已读完所有消息"
-        showViewMore
-      />
-      <NoticeIcon.Tab
+        <NoticeIcon.Tab
+        style={{textAlign:'center'}}
         tabKey="event"
-        title="待办"
-        emptyText="你已完成所有待办"
-        count={unreadMsg.event}
-        list={noticeData.event}
-        showViewMore
+        title="未处理"
+        emptyText="你已完成所有未处理"
+        list={aa}
       />
+      <NoticeIcon></NoticeIcon>
     </NoticeIcon>
+      
   );
 };
 

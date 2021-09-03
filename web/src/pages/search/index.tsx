@@ -56,7 +56,6 @@ const Search: FC<SearchProps> = (props) => {
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
-    console.log(value);
   };
 
   const getTabKey = () => {

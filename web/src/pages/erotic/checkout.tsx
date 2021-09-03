@@ -8,6 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
+import app from './index'
 type SearchProps = {
   match: {
     url: string;
@@ -109,7 +110,9 @@ const Personnel: FC<SearchProps> = (props) => {
     pageSize: 10,
     onChange: handleJump,
   };
+  const aa = (props:any)=>{
 
+  }
 
   const getTabKey = () => {
     const { match, location } = props;
@@ -120,7 +123,6 @@ const Personnel: FC<SearchProps> = (props) => {
     }
     return 'articles';
   };
-
   return (
     <div>
       
@@ -131,7 +133,7 @@ const Personnel: FC<SearchProps> = (props) => {
             rowKey={(record: GhostItem): number => record.id as number}
           />
         </Card>
-    
+        {aa({name:"Sara"}) }
       <Back current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );

@@ -32,7 +32,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   let data  = useRequest(
     async () => {
       const data = await service.userlist(potence);
-    //  console.log(data)
       return  data;
 
     },

@@ -108,7 +108,7 @@ const Personnel: FC<SearchProps> = (props) => {
     const url = match.url === '/' ? '' : match.url;
     switch (key) {
       case 'rein':
-        history.push(`/Rein`);
+        history.push(`/rein`);
         break;
       case 'create':
         history.push(`/Create`);
