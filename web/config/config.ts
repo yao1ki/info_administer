@@ -71,20 +71,8 @@ export default defineConfig({
     },
 
 
-    {
-      path: '/Lucky/:id',
-      name: 'lucky',
-      icon: 'table',
-      component: './Lucky/lucky.jsx',
-      hideInMenu: true,
-    },
-    {
-      path: '/birth',
-      name: 'create',
-      icon: 'table',
-      component: './Lucky/create',
-      hideInMenu: true,
-    },
+
+
 
     {
       name: 'leader',
@@ -114,6 +102,18 @@ export default defineConfig({
       icon: 'table',
       path: '/lifebook.detail/:id',
       component: './lifebook/detail.tsx',
+      hideInMenu: true,
+    },    {
+      path: '/Lucky/:id',
+      name: 'lucky',
+      icon: 'table',
+      component: './Lucky/lucky.jsx',
+      hideInMenu: true,
+    },    {
+      path: '/birth',
+      name: 'create',
+      icon: 'table',
+      component: './Lucky/create',
       hideInMenu: true,
     },
     // {
