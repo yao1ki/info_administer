@@ -61,7 +61,7 @@ const Personnel: FC<SearchProps> = (props) => {
              
              )
             );
-      !res.error ? history.push(`/Lucky/${id}`) : '';
+      !res.error ? history.push(`/liudao/${id}`) : '';
       await service.updateGhost(id, {  ghost_id: parseInt(ghost_id)+1 ,state:"6"})
       les = await service.experience({"experience":gnosis})
 
@@ -168,22 +168,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   return (
     <div>
-      <PageContainer
-        content={
-          <div style={{ textAlign: 'center' }}>
-            <Input.Search
-              placeholder="请输入"
-              enterButton="搜索"
-              size="large"
-              onSearch={handleFormSubmit}
-              style={{ maxWidth: 522, width: '100%' }}
-            />
-          </div>
-        }
-        tabList={tabList}
-        tabActiveKey={getTabKey()}
-        onTabChange={handleTabChange}
-      >
+      
         <Card>
           <Table
             columns={columns}
@@ -192,7 +177,7 @@ const Personnel: FC<SearchProps> = (props) => {
           />
         </Card>
         
-      </PageContainer>
+      
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );

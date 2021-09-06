@@ -142,22 +142,7 @@ const Personnel: FC<SearchProps> = (props) => {
   };
   return (
     <div>
-      <PageContainer
-        content={
-          <div style={{ textAlign: 'center' }}>
-            <Input.Search
-              placeholder="请输入"
-              enterButton="搜索"
-              size="large"
-              onSearch={handleFormSubmit}
-              style={{ maxWidth: 522, width: '100%' }}
-            />
-            </div>
-          }
-          tabList={tabList}
-          tabActiveKey={getTabKey()}
-          onTabChange={handleTabChange}
-      >
+
         <Card>
           <Table
             columns={columns}
@@ -165,7 +150,6 @@ const Personnel: FC<SearchProps> = (props) => {
             rowKey={(record: GhostItem): number => record.id as number}
           />
         </Card>
-      </PageContainer>
     <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );

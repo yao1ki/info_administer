@@ -104,18 +104,12 @@ export default defineConfig({
       component: './lifebook/detail.tsx',
       hideInMenu: true,
     },    {
-      path: '/Lucky/:id',
+      path: '/liudao/:id',
       name: 'lucky',
       icon: 'table',
-      component: './Lucky/lucky.jsx',
+      component: './Lucky/liudao.jsx',
       hideInMenu: true,
-    },    {
-      path: '/birth',
-      name: 'create',
-      icon: 'table',
-      component: './Lucky/create',
-      hideInMenu: true,
-    },
+    },    
     // {
     //   name: 'death.book',
     //   icon: 'table',
@@ -142,10 +136,61 @@ export default defineConfig({
     {
       name: 'erotic',
       icon: 'table',
-      path: '/erotic',
-      component: './erotic/all.tsx',
-
+      path: 'erotic',
       access: 'guestRouteFilter',
+
+      component: './erotic',
+      routes: [
+        {
+          name: 'undispose',
+          path: '/erotic/undispose',
+          component: './erotic/undispose',
+        },
+        {
+          name: 'process',
+          path: '/erotic/process',
+          component: './erotic/process',
+        },
+
+        {
+          name: 'checkout',
+          path: '/erotic/checkout',
+          component: './erotic/checkout',
+        },
+
+        {
+          name: 'punishment',
+          path: '/erotic/punishment',
+          component: './erotic/punishment',
+        },
+
+        ////////////////////////////
+      ],
+
+    },
+
+    {
+      name: 'Lucky',
+      icon: 'table',
+      path: 'Lucky',
+      component: './Lucky',
+      access: 'userRouteFilter',
+     // hideInMenu: true,
+      routes: [
+        {
+          name: 'rein',
+          path: '/Lucky/rein',
+          component: './Lucky/rein',
+        },
+        {
+          name: 'birth',
+          path: '/Lucky/birth',
+          component: './Lucky/create',
+        },
+  
+
+        ////////////////////////////
+      ],
     },
     {
       path: '/tool',
@@ -154,13 +199,12 @@ export default defineConfig({
       component: './Tool',
       access: 'guestRouteFilter',
     },
-    {
-      path: '/rein',
-      name: 'Rein',
-      icon: 'table',
-      component: './Lucky/index.tsx',
-      access: 'userRouteFilter',
-    },
+
+
+
+
+
+
     {
       path: '/material',
       name: 'material',
@@ -175,6 +219,7 @@ export default defineConfig({
       component: './Lucky/record.tsx',
       access: 'userRouteFilter',
     },
+    
     {
       name: 'Form',
       icon: 'table',
@@ -214,7 +259,6 @@ export default defineConfig({
       path: 'soul',
       component: './soul',
       hideInMenu: true,
-
       routes: [
         {
           name: 'god',
@@ -249,38 +293,9 @@ export default defineConfig({
         ////////////////////////////
       ],
     },
-    {
-      name: 'erotic',
-      icon: 'table',
-      path: 'erotic',
-      hideInMenu: true,
+    
 
-      component: './erotic',
-      routes: [
-        {
-          name: 'checkout',
-          path: '/erotic/checkout',
-          component: './erotic/checkout',
-        },
-        {
-          name: 'process',
-          path: '/erotic/process',
-          component: './erotic/process',
-        },
-        {
-          name: 'punishment',
-          path: '/erotic/punishment',
-          component: './erotic/punishment',
-        },
-        {
-          name: 'undispose',
-          path: '/erotic/undispose',
-          component: './erotic/undispose',
-        },
 
-        ////////////////////////////
-      ],
-    },
     ///////////////////////////
     // {
     //   name: 'detail.book',

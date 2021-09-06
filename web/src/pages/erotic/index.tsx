@@ -46,7 +46,7 @@ data===undefined?'':data.map((v:any,i:any)=>v.dead==0?'':v.state==1?a++:v.state=
 const tabList = [
   {
     key: 'undispose',
-    tab: <Badge count={a}>未处理</Badge>,
+    tab: <Badge count={a}>待处理</Badge>,
   },
   {
     key: 'process',
@@ -54,7 +54,7 @@ const tabList = [
   },
   {
     key: 'checkout',
-    tab: <Badge count={c}>阎王验收</Badge>,
+    tab: <Badge count={c}>阎王审核</Badge>,
   },
   {
     key: 'punishment',
@@ -83,16 +83,7 @@ const tabList = [
     }
   };
 const pop = ()=>{
-  class App extends Component {
-    constructor(props:any){
-        super(props);
-        this.state={
-            msg:'父类的消息',
-            name:'John',
-            age:99
-        }
-      }
-      }  
+
     
 
 }
