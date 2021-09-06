@@ -28,6 +28,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const [opFlag, setOpFlag] = useState<number>(0);
   const [params, setParams] = useState<string>('');
   //获取数据
+  console.log("------------>",props)
   let { data } = useRequest(
     async () => {
       return await service.list(state, params);

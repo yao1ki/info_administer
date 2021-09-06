@@ -7,6 +7,7 @@ import {  useState } from 'react';
 import { Badge, Avatar } from 'antd';
 import moment from 'moment';
 import service from './service';
+import React, { Component } from 'react';
 
 type SearchProps = {
   a:{
@@ -81,7 +82,20 @@ const tabList = [
         break;
     }
   };
+const pop = ()=>{
+  class App extends Component {
+    constructor(props:any){
+        super(props);
+        this.state={
+            msg:'父类的消息',
+            name:'John',
+            age:99
+        }
+      }
+      }  
+    
 
+}
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
   };
@@ -104,7 +118,7 @@ const tabList = [
             placeholder="请输入"
             enterButton="搜索"
             size="large"
-            onSearch={handleFormSubmit}
+            onSearch={pop}
             style={{ maxWidth: 522, width: '100%' }}
           />
         </div>
