@@ -9,19 +9,10 @@ import moment from 'moment';
 
 const Personnel: FC<{}> = () => {
   const [opFlag, setOpFlag] = useState<number>(0);
-
   let times = moment().format("YYYY-MM-DD HH:mm:ss"); 
-
-
-
-
   let bb = parseInt(new Date().toLocaleString());
   parseInt(moment(times).format('YYYY'))
   moment(times).startOf('hour').fromNow(); 
-
-
-
-  
   let { data } = useRequest(
     async () => {
       return await service.list();
@@ -33,11 +24,10 @@ const Personnel: FC<{}> = () => {
   const updateItem = async (id: number, title: any) => {
     const res =
       title == 0
-        ? await service.updateTool(id, { titles: '1' }):title==1?
-         await service.updateTool(id, { titles: '0' }):
-         await service.updateTool(id, { year: title });
+        ? await service.updateTool(id, { titles: '1',servicelife:'10' }):
+         await service.updateTool(id, { titles: '0',servicelife:'10' });
     if (!res.error) {
-      message.success(title==9?'更换成功':title==0?'重启成功':'暂停成功');
+      message.success(title==0?'重启成功':'暂停成功');
       setOpFlag(opFlag + 1);
     }
   };
@@ -62,12 +52,15 @@ const Personnel: FC<{}> = () => {
                               <Col span={12} style={{ color: 'red' }}>
                                 设备检修
                               </Col>
-                            ) : (
-                              <Col span={12} style={{ color: 'green' }}>
-                                设备正常
-                              </Col>
-                            )}
+                            ) :v.servicelife<=3?(
+                              <Col span={12} style={{ color: '#C80000' }}>
+                                设备耐久:{v.servicelife}
 
+                              </Col>
+                            ):<Col span={12} style={{ color: 'green' }}>
+                            设备耐久:{v.servicelife}
+
+                          </Col>}
                             <Col span={12}>{'操纵员:' + (v.user===undefined?"暂无" :v.user.name)}</Col>
                             <Col span={12}>{'使用时间' +(bb-v.year-parseInt(moment(v.created_at).format('YYYY')))+
                               '年'}</Col>
@@ -85,7 +78,7 @@ const Personnel: FC<{}> = () => {
                                   updateItem(v.id, v.titles);
                                 }}
                               >
-                                {v.titles == 0 ? '设备重启' : '设备暂停'}
+                                {v.titles == 0 ? '设备重启' : '设备维修'}
                               </a>
                             }
                           </Col>

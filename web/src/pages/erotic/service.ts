@@ -29,11 +29,19 @@ async function updateGhost(id: number, data: ParamsType) {
 async function list(state: string,params: any) {
   return request(`/api/list/${state}?params=${params}`);
 }
+async function listtool() {
+  return request('/api/tools', { method: 'GET' });
+}
+async function updateTool(id: number, data: ParamsType) {
+  return request(`/api/tools/${id}`, { method: 'PUT', data });
+}
 
 
 
 
 export default {
+  listtool,
+  updateTool,
   listGhost,
   updateGhost,
   querystate,

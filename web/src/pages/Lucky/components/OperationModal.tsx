@@ -5,14 +5,14 @@ import { GhostItem } from '../data.d';
 import moment from 'moment';
 import { PageContainer } from '@ant-design/pro-layout';
 
-import { ModalForm, ProFormText,ProFormSelect, ProFormDatePicker } from '@ant-design/pro-form';
+import { ModalForm, ProFormText, ProFormSelect, ProFormDatePicker } from '@ant-design/pro-form';
 interface OperationModalProps {
   visible: boolean;
   current: Partial<GhostItem> | undefined;
   onOk: () => void;
   onCancel: () => void;
 }
-let times = moment().format(); 
+let times = moment().format();
 const formLayout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 13 },
@@ -50,8 +50,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     let res, les, tes, fes;
     tes = await service.Order();
     const id = current ? current.id : '';
-    values.other===undefined?'':values.cause=values.other
-    
+    values.other === undefined ? '' : (values.cause = values.other);
+
     let a = moment(values.times).format('YYYY');
     let b = parseInt(moment(values.times).format('MM'));
     let c = parseInt(moment(values.times).format('DD'));
@@ -122,7 +122,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         { constellation: dd },
       );
       les = await service.updateGhost(id, aa);
-      les = await service.updateGhost(id, { state: '1', reason: '' });
+      les = await service.updateGhost(id, { state: '1', reason: '', dead: '0' });
     }
     if (!res.error && !les.error) {
       message.success('操作成功！');
@@ -135,7 +135,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   const getanimalModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-
         <Form.Item
           name="name"
           label="种族"
@@ -162,47 +161,44 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入死因" />
         </Form.Item> */}
         <ProFormSelect
-            name="cause"
-            label="死因"
-            rules={[{ required: true, message: '请选择死因' }]}
-            options={[
-              {
-                label: '车祸',
-                value: '车祸',
-              },
-              {
-                label: '自然死亡',
-                value: '自然死亡',
-              },
-              {
-                label: '猝死',
-                value: '猝死',
-              },
-              {
-                label: '其他',
-                value: '其他',
-              },
-            ]}
-            placeholder="请选择死因"
-          />
-          <Form.Item noStyle shouldUpdate>
-        {(form) => {console.log('11',form.getFieldValue('cause'))
-          return (form.getFieldValue('cause')=='其他'?
-            <ProFormText
-              width="md"
-              name="other"
-              label='其他'
-            />:''
-          );
-        }}
-      </Form.Item>
+          name="cause"
+          label="死因"
+          rules={[{ required: true, message: '请选择死因' }]}
+          options={[
+            {
+              label: '车祸',
+              value: '车祸',
+            },
+            {
+              label: '自然死亡',
+              value: '自然死亡',
+            },
+            {
+              label: '猝死',
+              value: '猝死',
+            },
+            {
+              label: '其他',
+              value: '其他',
+            },
+          ]}
+          placeholder="请选择死因"
+        />
+        <Form.Item noStyle shouldUpdate>
+          {(form) => {
+            return form.getFieldValue('cause') == '其他' ? (
+              <ProFormText width="md" name="other" label="其他" />
+            ) : (
+              ''
+            );
+          }}
+        </Form.Item>
       </Form>
     );
   };
   const getgodModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-
         <Form.Item
           name="name"
           label="称号"
@@ -221,7 +217,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           }}
           rules={[{ required: true, message: '请选择日期' }]}
         />
-                <Form.Item
+        <Form.Item
           name="cause"
           label="陨落原因"
           rules={[{ required: true, message: '请输入陨落方式' }]}
@@ -229,23 +225,20 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           <Input placeholder="请输入陨落原因" />
         </Form.Item>
         <Form.Item noStyle shouldUpdate>
-        {(form) => {console.log('11',form.getFieldValue('cause'))
-          return (form.getFieldValue('cause')=='其他'?
-            <ProFormText
-              width="md"
-              name="other"
-              label='其他'
-            />:''
-          );
-        }}
-      </Form.Item>
+          {(form) => {
+            return form.getFieldValue('cause') == '其他' ? (
+              <ProFormText width="md" name="other" label="其他" />
+            ) : (
+              ''
+            );
+          }}
+        </Form.Item>
       </Form>
     );
   };
   const getpeopleModalContent = () => {
     return (
       <Form {...formLayout} form={form} onFinish={handleFinish}>
-
         <Form.Item
           name="name"
           label="姓名"
@@ -264,41 +257,39 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           }}
           rules={[{ required: true, message: '请选择日期' }]}
         />
-   <ProFormSelect
-            name="cause"
-            label="死因"
-            rules={[{ required: true, message: '请选择死因' }]}
-            options={[
-              {
-                label: '车祸',
-                value: '车祸',
-              },
-              {
-                label: '自然死亡',
-                value: '自然死亡',
-              },
-              {
-                label: '猝死',
-                value: '猝死',
-              },
-              {
-                label: '其他',
-                value: '其他',
-              },
-            ]}
-            placeholder="请选择死因"
-          />
-      <Form.Item noStyle shouldUpdate>
-        {(form) => {console.log('11',form.getFieldValue('cause'))
-          return (form.getFieldValue('cause')=='其他'?
-            <ProFormText
-              width="md"
-              name="other"
-              label='其他'
-            />:''
-          );
-        }}
-      </Form.Item>
+        <ProFormSelect
+          name="cause"
+          label="死因"
+          rules={[{ required: true, message: '请选择死因' }]}
+          options={[
+            {
+              label: '车祸',
+              value: '车祸',
+            },
+            {
+              label: '自然死亡',
+              value: '自然死亡',
+            },
+            {
+              label: '猝死',
+              value: '猝死',
+            },
+            {
+              label: '其他',
+              value: '其他',
+            },
+          ]}
+          placeholder="请选择死因"
+        />
+        <Form.Item noStyle shouldUpdate>
+          {(form) => {
+            return form.getFieldValue('cause') == '其他' ? (
+              <ProFormText width="md" name="other" label="其他" />
+            ) : (
+              ''
+            );
+          }}
+        </Form.Item>
       </Form>
     );
   };

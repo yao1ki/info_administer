@@ -141,7 +141,7 @@ const Personnel: FC<SearchProps> = (props) => {
       title: '寿命/日',
       render: (_: any, record: any) => {
         
-       return moment(record.time_end).diff(moment(record.time_start), 'hour')
+       return moment(record.time_end).diff(moment(record.time_start), 'day')
         //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
       },
       key: 'sort',
@@ -150,7 +150,7 @@ const Personnel: FC<SearchProps> = (props) => {
     {
       title: '剩余寿命/日',
       render: (_: any, record: any) => {
-         aa =(moment(record.time_end).diff(moment(moment().format()), 'hour'));
+         aa =(moment(record.time_end).diff(moment(moment().format()), 'day'));
          return aa<=0&&record.dead==0?(updateItem(record.id),'阳寿已尽'):record.dead==1?'阳寿已尽': aa;
         //return aa <= 0 ? (service.updateGhost(record.id, {dead:'1'}),"阳寿已尽" ): aa;
       },

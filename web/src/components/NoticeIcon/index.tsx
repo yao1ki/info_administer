@@ -161,7 +161,6 @@ const NoticeIconView = () => {
       className={styles.action}
       count={aa && aa.length}
       onItemClick={(item) => {
-        console.log('llllll',item.status)
         item.status=='1'?
         history.push(`/erotic/undispose`):
         item.status=='2'?
@@ -169,9 +168,9 @@ const NoticeIconView = () => {
         item.status=='3'?
         history.push(`/erotic/checkout`):
         item.status=='5'?
-        history.push(`/rein`):
+        history.push(`/Lucky/rein`):
         item.status=='6'?
-        history.push(`/birth`):''
+        history.push(`/Lucky/birth`):''
       }}
       loading={false}
     >

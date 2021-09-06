@@ -69,15 +69,15 @@ class OrderService extends Service {
         ? 3
         : id == 2
         ? (shop = await ctx.model.Ghost.findAll({
-            where: { dead: "1",[Op.or]:[{state:5},{state:6}] },
+            where: { dead: "1",[Op.or]:[{state:5},{state:6}],[Op.not]:[{state:4}] },
             include: { model: ctx.model.Rein },
           }))
         : (shop = await ctx.model.Ghost.findAll({
-            where: { dead: "1" },
+            where: { dead: "1",[Op.not]:[{state:4}] },
             include: { model: ctx.model.Rein },
           }));
           start==1||start==3?shop = await ctx.model.Ghost.findAll({
-      where: { state: start, dead: "1" },
+      where: { state: start, dead: "1",[Op.not]:[{state:4}] },
       include: { model: ctx.model.Rein },
     }):'';
 

@@ -43,7 +43,12 @@ const Personnel: FC<SearchProps> = (props) => {
    // await service.updateGhost(id,{lifetime:lifetime-1})
     //setOpFlag(opFlag + 1);
   };
-
+  const tool = () => {
+    setVisible(true);
+    setCurrent(undefined);
+   // await service.updateGhost(id,{lifetime:lifetime-1})
+    //setOpFlag(opFlag + 1);
+  };
 
   const updatelifetime =async (id: any) => {
     (await service.updateGhost(id,{state:'5',lifetime:'0'})).error?'':(
@@ -51,6 +56,7 @@ const Personnel: FC<SearchProps> = (props) => {
       
     )
   };
+
   const columns = [
     {
       title: '灵魂ID',
@@ -69,8 +75,6 @@ const Personnel: FC<SearchProps> = (props) => {
       valueType: 'textarea',
       render:(_:any, record:any) =>{
         const day =  moment(record.time_end).add(record.lifetime, 'days')
-        console.log("]]]",day)
-        
         return moment(day).format('YYYY年MM月DD日HH时');
       }
       
@@ -108,13 +112,13 @@ const Personnel: FC<SearchProps> = (props) => {
           >
            更改刑期
           </a>
-          {/* <Divider type="vertical" />
+          <Divider type="vertical" />
           <a
-            onClick={() => {
+            onClick={() => {tool()
             }}
           >
             使用刑具
-          </a> */}
+          </a>
         </span>
       ),
     },

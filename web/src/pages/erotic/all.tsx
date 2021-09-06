@@ -115,6 +115,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleOk = () => {
     setVisible(false);
+
     setOpFlag(opFlag + 1);
   };
 

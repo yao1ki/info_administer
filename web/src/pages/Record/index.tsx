@@ -1,4 +1,5 @@
 import React from 'react';
+import aa from './aa';
 import { Form, message } from 'antd';
 import ProForm, { ProFormText, ProFormSelect, ProFormDependency } from '@ant-design/pro-form';
 
@@ -15,7 +16,6 @@ export default () => {
     <ProForm
       onFinish={async (values) => {
         await waitTime(2000);
-        console.log(values);
         message.success('提交成功');
       }}
       initialValues={{
@@ -36,13 +36,15 @@ export default () => {
 
       {/* noStyle shouldUpdate 是必选的，写了 name 就会失效 */}
       <Form.Item noStyle shouldUpdate>
-        {(form) => {console.log('11',form.getFieldValue('name'))
-          return (form.getFieldValue('name')==='1'?
+        {(form) => {
+          return form.getFieldValue('name') === '1' ? (
             <ProFormText
               width="md"
               name="useMode"
               label={`与《${form.getFieldValue('name')}》合同约定生效方式`}
-            />:''
+            />
+          ) : (
+            ''
           );
         }}
       </Form.Item>

@@ -7,6 +7,7 @@ export interface ToolItem {
   desc: string,
   year: string,
   user_id: string,
+  servicelife:string,
   created_at?: string;
   updated_at?: string;
 }

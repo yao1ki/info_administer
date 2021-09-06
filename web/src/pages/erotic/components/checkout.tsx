@@ -65,7 +65,6 @@ const Back: FC<BackProps> = (props) => {
   const handleFinish = async (values: { [key: string]: any }) => {
     const id = current ? current.id : '';
     let res;
-console.log("moment",moment().format())
     if (id) {
       values = values.lifetime
         ? { reason: values.reason, gnosis: values.gnosis, state: '4', lifetime: values.lifetime,time_end:moment().format() }

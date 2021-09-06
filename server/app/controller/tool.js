@@ -24,9 +24,9 @@ class ToolController extends Controller {
 
     async create() {
         const ctx = this.ctx;
-        const { name, titles,covers,desc,user_id,year } = ctx.request.body;
+        const { name, titles,covers,desc,user_id,year,servicelife } = ctx.request.body;
         const tool = await ctx.service.tool.create({
-            name, titles,covers,desc,user_id,year
+            name, titles,covers,desc,user_id,year,servicelife
         });
         ctx.body = ctx.success(tool);
     }
@@ -36,8 +36,8 @@ class ToolController extends Controller {
         const id = ctx.params.id;
         let user= this.ctx.locals.user.user;
         const tool = await service.tool.show(id);
-        const {name, titles,covers,desc,user_id,year,created_at} = ctx.request.body;
-        await tool.update({name, titles,covers,desc,user_id:user,year,created_at });
+        const {name,servicelife, titles,covers,desc,user_id,year,created_at} = ctx.request.body;
+        await tool.update({name,servicelife, titles,covers,desc,user_id:user,year,created_at });
         ctx.body = ctx.success();
     }
     async show() {

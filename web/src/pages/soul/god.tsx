@@ -96,7 +96,7 @@ const state = '1';
       title: '寿命/日',
       render: (_: any, record: any) => {
         
-       return moment(record.time_end).diff(moment(record.time_start), 'hour')
+       return moment(record.time_end).diff(moment(record.time_start), 'day')
         //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
       },
       key: 'sort',
@@ -105,7 +105,7 @@ const state = '1';
     {
       title: '剩余寿命/日',
       render: (_: any, record: any) => {
-         aa =moment(record.time_end).diff(moment(moment().format()), 'hour');
+         aa =moment(record.time_end).diff(moment(moment().format()), 'day');
         return aa <= 0 ? ("阳寿已尽" ): aa;
       },
       key: 'sort',

@@ -64,7 +64,7 @@ const Test: FC<{}> = () => {
         ? ''
         : shop.orders.map((v: any, i: any) =>
            aa==v.state&&aa>0 ? (
-            aa%2==1? <Descriptions layout="vertical"  style={{backgroundColor:'red'}}>
+            aa%2==1? <Descriptions layout="vertical"  style={{backgroundColor:'blue'}}>
                 <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>i%2======{aa}</Descriptions.Item>
                 <Descriptions.Item label="勾魂使者">
                   {shop.orders === undefined
@@ -74,7 +74,7 @@ const Test: FC<{}> = () => {
                 <Descriptions.Item label={'第' + (bb-aa-1) + '世的轮回'}>{v.rein_name}道</Descriptions.Item>
 
               </Descriptions>:
-              <Descriptions layout="vertical"  style={{backgroundColor:'green'}}>
+              <Descriptions layout="vertical"  style={{backgroundColor:'snow'}}>
               <Descriptions.Item label={'第' + (bb-aa--) + '世的姓名'}>i%2======{aa}</Descriptions.Item>
               <Descriptions.Item label="勾魂使者">
                 {shop.orders === undefined

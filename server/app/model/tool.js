@@ -11,7 +11,7 @@ module.exports = (app) => {
     desc: STRING,
     year: STRING,
     user_id: STRING,
-
+    servicelife:STRING,
     created_at: {
       type: app.Sequelize.DATE,
       defaultValue: app.Sequelize.fn("NOW"),

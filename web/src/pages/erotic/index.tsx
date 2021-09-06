@@ -84,8 +84,6 @@ const tabList = [
   };
 const pop = ()=>{
 
-    
-
 }
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
@@ -109,7 +107,7 @@ const pop = ()=>{
             placeholder="请输入"
             enterButton="搜索"
             size="large"
-            onSearch={pop}
+            onSearch={handleFormSubmit}
             style={{ maxWidth: 522, width: '100%' }}
           />
         </div>
@@ -120,6 +118,7 @@ const pop = ()=>{
     >
       {props.children}
     </PageContainer>
+   // <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
   );
 };
 

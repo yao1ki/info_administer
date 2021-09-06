@@ -7,6 +7,7 @@ export interface GhostItem {
     cause:STRING,
     sort:STRING,
     reason:String,
+    dead:string
     state:STRING,
     experience:STRING,
     quantity:Number,

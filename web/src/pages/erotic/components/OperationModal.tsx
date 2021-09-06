@@ -33,10 +33,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     async () => {
       const data = await service.userlist(potence);
       return  data;
-
     },
-
   );
+
 
   let options: opt[] = [];
   for(let i = 0;(data.data===undefined)?"":i < data.data.length;i++){
