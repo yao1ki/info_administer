@@ -85,7 +85,6 @@ export default () => {
         },
       ]}
       onSearch={(value) => {
-        console.log('input', value);
       }}
     />
   );

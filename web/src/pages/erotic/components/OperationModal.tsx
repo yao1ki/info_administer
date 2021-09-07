@@ -73,8 +73,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     const id = current ? current.id : '';
     const name = current ? current.name : '';
     const rein = current?.rein.name;
-
-
     let res;
     if (id) {
        res = await service.updateGhost(id,{"state":"2"});
@@ -89,7 +87,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       onOk();
     }
   };
-
   const handleCancel = () => {
     onCancel();
   };

@@ -21,7 +21,7 @@ type SearchProps = {
 };
 
 
-const Personnel: FC<SearchProps> = (props) => {
+const animal: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
@@ -30,7 +30,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [params, setParams] = useState<string>('');
   var aa = 0 ;
 const state = '3';
-
   //获取数据
   let { data } = useRequest(
     async () => {
@@ -175,4 +174,4 @@ const state = '3';
   );
 };
 
-export default Personnel;
+export default animal;

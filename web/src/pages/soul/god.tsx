@@ -11,6 +11,7 @@ import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
 type SearchProps = {
+  ind:string;
   match: {
     url: string;
     path: string;
@@ -19,7 +20,6 @@ type SearchProps = {
     pathname: string;
   };
 };
-
 
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -40,7 +40,6 @@ const state = '1';
       refreshDeps: [opFlag],
     },
   );
-
 
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);

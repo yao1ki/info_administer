@@ -3,8 +3,19 @@ import { Input } from 'antd';
 import type { FC } from 'react';
 import React from 'react';
 import { history } from 'umi';
+import { GhostItem } from './data';
+import{  useState } from 'react';
+import OperationModal from './components/OperationModal';
+
+import animal from './animal'
+import ghoul from './ghoul'
+
+
+
+
 
 type SearchProps = {
+
   match: {
     url: string;
     path: string;
@@ -42,6 +53,16 @@ const tabList = [
 ];
 
 const Search: FC<SearchProps> = (props) => {
+  const [params, setCurrent] = useState<string>('');
+  const [visible, setVisible] =  useState<boolean>(false);
+  const [opFlag, setOpFlag] = useState<number>(0);
+
+  let aa  = 0;
+  const handleOk = () => {
+    setVisible(false)
+    return 3
+
+  };
   const handleTabChange = (key: string) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
@@ -68,15 +89,14 @@ const Search: FC<SearchProps> = (props) => {
         break;
     }
   };
+ 
 
   const handleFormSubmit = (value: string) => {
-    // eslint-disable-next-line no-console
+    setVisible(true)
+
+    setCurrent(value)
+
   };
-  // const constructor=(props:any)=>{
-  //   super(props);
-  //   this.state={
-  //     name
-  //   }
 
   const getTabKey = () => {
     const { match, location } = props;
@@ -105,8 +125,13 @@ const Search: FC<SearchProps> = (props) => {
       tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
     >
-      {props.children}
+     {/* {props.children} */}
+     {props.children && React.cloneElement(props.children, {
+              params:params,onnn:handleOk,op:visible
+            })}
+
     </PageContainer>
+    
   );
 };
 

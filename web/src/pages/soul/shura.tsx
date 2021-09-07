@@ -11,6 +11,9 @@ import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
 type SearchProps = {
+  params: string;
+  onnn: () => void;
+  op:boolean;
   match: {
     url: string;
     path: string;
@@ -20,36 +23,25 @@ type SearchProps = {
   };
 };
 
-
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
-  var aa = 0 ;
-const state = '2';
+ // setOpFlag()
+ var aa = 0;
 
+  const state = '2';
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state, props.params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
-
-
-  const deleteItem = async (id: number) => {
-    const res = await service.removeGhost(id);
-    if (!res.error) {
-      message.success('放逐成功！');
-      setOpFlag(opFlag + 1);
-    }
-  };
-
 
   const columns = [
     {
@@ -95,8 +87,7 @@ const state = '2';
     {
       title: '寿命/日',
       render: (_: any, record: any) => {
-        
-       return moment(record.time_end).diff(moment(record.time_start), 'day')
+        return moment(record.time_end).diff(moment(record.time_start), 'day');
         //return (parseInt(moment(record.time_end).format('YYYYMMDD'))-parseInt(moment(record.time_start).format('YYYYMMDD')));
       },
       key: 'sort',
@@ -105,8 +96,8 @@ const state = '2';
     {
       title: '剩余寿命/日',
       render: (_: any, record: any) => {
-         aa =moment(record.time_end).diff(moment(moment().format()), 'day');
-        return aa <= 0 ? ("阳寿已尽" ): aa;
+        aa = moment(record.time_end).diff(moment(moment().format()), 'day');
+        return aa <= 0 ? '阳寿已尽' : aa;
       },
       key: 'sort',
       valueType: 'textarea',
@@ -115,28 +106,29 @@ const state = '2';
     {
       title: '操作',
       key: 'action',
-      render: (item: GhostItem) => (
-        aa<=0?'已死亡':
-        <span>
-          <a
-            onClick={() => {
-              showEditModal(item);
-            }}
-          >
-            编辑
-          </a>
-         
-        </span>
-      ),
+      render: (item: GhostItem) =>
+        aa <= 0 ? (
+          '已死亡'
+        ) : (
+          <span>
+            <a
+              onClick={() => {
+                showEditModal(item);
+              }}
+            >
+              编辑
+            </a>
+          </span>
+        ),
     },
   ];
   /* 添加current置空 */
-
 
   /* 编辑框将item传给current */
   const showEditModal = (item: GhostItem) => {
     setVisible(true);
     setCurrent({ ...item });
+    props.onnn();
   };
 
   const handleOk = () => {
@@ -160,16 +152,15 @@ const state = '2';
     onChange: handleJump,
   };
 
-
   return (
     <div>
-        <Card  >
-          <Table
-            columns={columns}
-            dataSource={data}
-            rowKey={(record: GhostItem): number => record.id as number}
-          />
-        </Card>
+      <Card>
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowKey={(record: GhostItem): number => record.id as number}
+        />
+      </Card>
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>
   );

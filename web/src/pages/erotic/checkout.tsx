@@ -37,7 +37,6 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   );
   const bb =()=>{
-    console.log('abcdefghijklmnopqrstuvwxyz')
   }
 
   const columns = [

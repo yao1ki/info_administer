@@ -61,7 +61,7 @@ const Personnel: FC<{}> = () => {
                             设备耐久:{v.servicelife}
 
                           </Col>}
-                            <Col span={12}>{'操纵员:' + (v.user===undefined?"暂无" :v.user.name)}</Col>
+                            <Col span={12}>{'维修员:' + (v.user===undefined?"暂无" :v.user.name)}</Col>
                             <Col span={12}>{'使用时间' +(bb-v.year-parseInt(moment(v.created_at).format('YYYY')))+
                               '年'}</Col>
                           </Row>

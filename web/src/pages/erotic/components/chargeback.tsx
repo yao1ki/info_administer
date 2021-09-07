@@ -112,7 +112,7 @@ const Back: FC<BackProps> = (props) => {
     }
     if (!res.error) {
       les == 'aa'
-        ? message.success(name + '修改刑期成功！' + les)
+        ? message.success(name + '修改刑期成功！')
         : message.success(name + '刑满释放');
       onOk();
     }
