@@ -102,7 +102,12 @@ class OrderService extends Service {
               },
             },
             {
-              ghost_id: {
+              reason: {
+                [Op.like]: `%${params}%`,
+              },
+            },
+            {
+              id: {
                 [Op.like]: `%${params}%`,
               },
             },

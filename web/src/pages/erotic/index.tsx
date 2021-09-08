@@ -10,9 +10,7 @@ import service from './service';
 import React, { Component } from 'react';
 
 type SearchProps = {
-  a:{
-    hello:string;
-  }
+  params:string;
   match: {
     url: string;
     path: string;
@@ -34,15 +32,25 @@ var b =0
 var c = 0
 var d = 0
 const [params, setParams] = useState<string>('');
+const [opFlag, setOpFlag] = useState<number>(0);
+const handleFormSubmit = (value: string) => {
+  setParams(value)
+  
+};
+console.log("setOpFlag",opFlag)
+
 
 let { data } = useRequest(
   async () => {
     return await service.listGhost(params);
   },
+  {
+    refreshDeps: [opFlag],
+  },
 );
-const aa = ()=>{
-}
+
 data===undefined?'':data.map((v:any,i:any)=>v.dead==0?'':v.state==1?a++:v.state==2?b++:v.state==3?c++:v.state==4?d++:'')
+console.log("ABCD",a,b,c,d)
 const tabList = [
   {
     key: 'undispose',
@@ -82,12 +90,10 @@ const tabList = [
         break;
     }
   };
-const pop = ()=>{
-
+const refresh =()=>{
+  setOpFlag(opFlag+1)
 }
-  const handleFormSubmit = (value: string) => {
-    // eslint-disable-next-line no-console
-  };
+
 
   const getTabKey = () => {
     const { match, location } = props;
@@ -116,7 +122,9 @@ const pop = ()=>{
       tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
     >
-      {props.children}
+         {props.children && React.cloneElement(props.children, {
+              params:params,refresh:refresh
+            })}
     </PageContainer>
    // <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
   );

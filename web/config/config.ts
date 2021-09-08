@@ -134,6 +134,13 @@ export default defineConfig({
    
     },
     {
+      name: 'barrage',
+      icon: 'table',
+      path: '/barrage',
+      component: './barrage/index.tsx',
+   
+    },
+    {
       name: 'erotic',
       icon: 'table',
       path: 'erotic',

@@ -6,6 +6,7 @@ import { history } from 'umi';
 import { GhostItem } from './data';
 import{  useState } from 'react';
 import OperationModal from './components/OperationModal';
+import Test from "./test.";
 
 import animal from './animal'
 import ghoul from './ghoul'
@@ -58,8 +59,10 @@ const Search: FC<SearchProps> = (props) => {
   const [opFlag, setOpFlag] = useState<number>(0);
 
   let aa  = 0;
-  const handleOk = () => {
+  const handleOk = (): number => {
+
     setVisible(false)
+    console.log("gggggggggggggg",visible)
     return 3
 
   };
@@ -93,9 +96,9 @@ const Search: FC<SearchProps> = (props) => {
 
   const handleFormSubmit = (value: string) => {
     setVisible(true)
-
+    console.log("___KKKKKKKKK",visible)
     setCurrent(value)
-
+    
   };
 
   const getTabKey = () => {
@@ -127,9 +130,9 @@ const Search: FC<SearchProps> = (props) => {
     >
      {/* {props.children} */}
      {props.children && React.cloneElement(props.children, {
-              params:params,onnn:handleOk,op:visible
+              params:params,onnn:handleOk,op:visible,set1:setVisible
             })}
-
+      {/* <Test params={params} visible={visible} onn={handleOk} setVisible={setVisible} /> */}
     </PageContainer>
     
   );

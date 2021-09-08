@@ -12,8 +12,9 @@ import { values } from 'lodash';
 import moment from 'moment';
 type SearchProps = {
   params: string;
-  onnn: () => void;
-  op:boolean;
+  set1: any;
+  onnn: () => number;
+  op: boolean;
   match: {
     url: string;
     path: string;
@@ -29,9 +30,8 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
- // setOpFlag()
- var aa = 0;
-
+  // setOpFlag()
+  var aa = 0;
   const state = '2';
   //获取数据
   let { data } = useRequest(

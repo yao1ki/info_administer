@@ -9,6 +9,8 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import moment from 'moment'
 type SearchProps = {
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -26,11 +28,11 @@ const Personnel: FC<SearchProps> = (props) => {
   /* current作为修改值可能存在部分属性 */
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
   //获取数据
+  console.log("props.param",props.params)
   let { data } = useRequest(
     async () => {
-      return await service.list(state, params);
+      return await service.list(state, props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -41,7 +43,8 @@ const Personnel: FC<SearchProps> = (props) => {
     setVisible(true);
     setCurrent({ ...item });
    // await service.updateGhost(id,{lifetime:lifetime-1})
-    //setOpFlag(opFlag + 1);
+    setOpFlag(opFlag + 1);
+
   };
   const tool = () => {
     setVisible(true);
@@ -129,6 +132,8 @@ const Personnel: FC<SearchProps> = (props) => {
   const handleOk = () => {
     setVisible(false);
     setOpFlag(opFlag + 1);
+    props.refresh()
+
   };
 
   const handleCancel = () => {
