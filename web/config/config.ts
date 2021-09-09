@@ -4,6 +4,7 @@ import { join } from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
+import Icon from '@ant-design/icons/lib/components/Icon';
 
 const { REACT_APP_ENV } = process.env;
 
@@ -76,7 +77,7 @@ export default defineConfig({
 
     {
       name: 'leader',
-      icon: 'table',
+      icon: 'UserOutlined',
       path: '/account/yama',
       component: './Account/leader.tsx',
       access: 'adminRouteFilter',
@@ -84,7 +85,7 @@ export default defineConfig({
 
     {
       name: 'list.account',
-      icon: 'table',
+      icon: 'UserSwitchOutlined',
       path: '/account/bleach',
       component: './Account/index.tsx',
       access: 'adminRouteFilter',
@@ -113,7 +114,7 @@ export default defineConfig({
     {
       path: '/barr',
       name: 'barr',
-      icon: 'table',
+      icon: 'PlaySquareOutlined',
       component: './Barrage/barr.jsx',
     },   
     // {
@@ -133,7 +134,7 @@ export default defineConfig({
     // },
     {
       name: 'soul',
-      icon: 'table',
+      icon: 'ReadOutlined',
       path: '/soul',
       component: './soul/all.tsx',
       access: 'adminRouteFilter',
@@ -148,7 +149,7 @@ export default defineConfig({
     },
     {
       name: 'erotic',
-      icon: 'table',
+      icon: 'ProfileOutlined',
       path: 'erotic',
       access: 'guestRouteFilter',
 
@@ -184,7 +185,7 @@ export default defineConfig({
 
     {
       name: 'Lucky',
-      icon: 'table',
+      icon: 'SyncOutlined',
       path: 'Lucky',
       component: './Lucky',
       access: 'userRouteFilter',
@@ -208,7 +209,7 @@ export default defineConfig({
     {
       path: '/tool',
       name: 'tool',
-      icon: 'table',
+      icon: 'ToolOutlined',
       component: './Tool',
       access: 'guestRouteFilter',
     },
@@ -221,7 +222,7 @@ export default defineConfig({
     {
       path: '/material',
       name: 'material',
-      icon: 'table',
+      icon: 'FunnelPlotOutlined',
       component: './Lucky/material.tsx',
       access: 'userRouteFilter',
     },

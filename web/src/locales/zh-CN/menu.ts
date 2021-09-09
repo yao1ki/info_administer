@@ -37,6 +37,7 @@ export default {
   'menu.erotic.checkout': '阎王审核中',
   'menu.erotic.punishment': '受刑中',
   'menu.tool': '工具管理',
+  'menu.barr': '奈何桥',
   'menu.Lucky': '投胎管理',
   'menu.Lucky.rein': '待投胎',
   'menu.lucky': '投胎大转盘',

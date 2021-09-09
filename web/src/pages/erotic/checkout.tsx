@@ -10,6 +10,8 @@ import { history } from 'umi';
 import { values } from 'lodash';
 import app from './index'
 type SearchProps = {
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -26,11 +28,10 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list(state, params);
+      return await service.list(state, props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -94,6 +95,9 @@ const Personnel: FC<SearchProps> = (props) => {
   const handleOk = () => {
     setVisible(false);
     setOpFlag(opFlag + 1);
+    props.refresh()
+
+
   };
 
   const handleCancel = () => {

@@ -10,6 +10,8 @@ import { history } from 'umi';
 import app from './index'
 const state = '2';
 type SearchProps = {
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -29,7 +31,7 @@ const Personnel: FC<SearchProps> = (props) => {
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.list(state, params);
+      return await service.list(state, props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -100,6 +102,7 @@ const Personnel: FC<SearchProps> = (props) => {
   /* 编辑框将item传给current */
   const handleOk = () => {
     setVisible(false);
+    props.refresh()
     setOpFlag(opFlag + 1);
   };
 

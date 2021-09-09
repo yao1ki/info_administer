@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 
 type SearchProps = {
   params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -21,7 +22,6 @@ type SearchProps = {
   };
 
 };
-
 
 
 const Search: FC<SearchProps> = (props) => {

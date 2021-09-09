@@ -10,6 +10,8 @@ import { Input } from 'antd';
 import { history } from 'umi';
 
 type SearchProps = {
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -27,7 +29,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [current] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
 
   //获取数据
   let aa = useRequest(
@@ -40,7 +41,7 @@ const Personnel: FC<SearchProps> = (props) => {
   );
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state, props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -118,6 +119,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleOk = () => {
     setVisible(false);
+    props.refresh()
     setOpFlag(opFlag + 1);
   };
 

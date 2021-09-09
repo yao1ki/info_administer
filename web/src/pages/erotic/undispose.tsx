@@ -16,7 +16,8 @@ let times = moment().format('YYYY-MM-DD HH:mm:ss');
 const state = '1';
 const { Option } = Select;
 type SearchProps = {
-  
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -26,19 +27,17 @@ type SearchProps = {
   };
 };
 
-
 const Personnel: FC<SearchProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
   /* current作为修改值可能存在部分属性 */
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state, props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -99,6 +98,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleOk = () => {
     setVisible(false);
+    props.refresh()
     setOpFlag(opFlag + 1);
   };
 

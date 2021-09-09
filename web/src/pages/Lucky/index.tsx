@@ -3,6 +3,10 @@ import { Input } from 'antd';
 import type { FC } from 'react';
 import React from 'react';
 import { history } from 'umi';
+import {  useState } from 'react';
+import service from './service';
+import { useRequest } from 'umi';
+import { Badge } from 'antd';
 
 type SearchProps = {
   match: {
@@ -14,18 +18,39 @@ type SearchProps = {
   };
 };
 
-const tabList = [
-  {
-    key: 'rein',
-    tab: '待投胎',
-  },
-  {
-    key: 'birth',
-    tab: '待分配',
-  },
-];
+
 
 const Search: FC<SearchProps> = (props) => {
+  const [params, setParams] = useState<string>('');
+  const [opFlag, setOpFlag] = useState<number>(0);
+  let a = 0;
+  let b = 0;
+  let { data } = useRequest(
+    async () => {
+      return await service.listGhost(params);
+    },
+    {
+      refreshDeps: [opFlag],
+    },
+  );
+  data===undefined?'':data.map((v:any,i:any)=>v.dead==0?'':v.state==5?a++:v.state==6?b++:'')
+
+  const tabList = [
+    {
+      key: 'undispose',
+    },
+    {
+      key: 'rein',
+      tab: <Badge count={a}>待投胎</Badge>,
+
+    },
+    {
+      key: 'birth',
+      tab: <Badge count={b}>待分配</Badge>,
+    },
+  ];
+  console.log("ABCD",a,b)
+
   const handleTabChange = (key: string) => {
     const { match } = props;
     const url = match.url === '/' ? '' : match.url;
@@ -42,8 +67,12 @@ const Search: FC<SearchProps> = (props) => {
     }
   };
 
+
+const refresh=()=>{
+  setOpFlag(opFlag+1)
+}
   const handleFormSubmit = (value: string) => {
-    // eslint-disable-next-line no-console
+    setParams(value)
   };
   // const constructor=(props:any)=>{
   //   super(props);
@@ -78,7 +107,9 @@ const Search: FC<SearchProps> = (props) => {
       tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
     >
-      {props.children}
+      {props.children && React.cloneElement(props.children, {
+              params:params,refresh:refresh
+            })}
     </PageContainer>
   );
 };

@@ -10,6 +10,8 @@ import { Input } from 'antd';
 import { history } from 'umi';
 
 type SearchProps = {
+  params:string;
+  refresh:any
   match: {
     url: string;
     path: string;
@@ -18,7 +20,6 @@ type SearchProps = {
     pathname: string;
   };
 };
-
 const state = '6';
 
 const Personnel: FC<SearchProps> = (props) => {
@@ -28,13 +29,12 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
   var aa;
 
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state,props.params);
     },
     {
       refreshDeps: [opFlag],
@@ -93,6 +93,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleOk = () => {
     setVisible(false);
+    props.refresh()
     setOpFlag(opFlag + 1);
   };
 

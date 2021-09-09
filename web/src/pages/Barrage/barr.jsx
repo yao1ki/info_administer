@@ -10,45 +10,33 @@ export default function Demo() {
   const [screen, setScreen] = useState(null);
   // 弹幕内容
   const [bullet, setBullet] = useState('');
-  const [flag,setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
 
+  const componentDidMount = () => setInterval(() => danmu(), 3000);
 
+  let { data } = useRequest(async () => {
+    return await service.recordlist();
+  });
+  let exper = new Array();
+  data === undefined ? '' : data.map((v, i) => exper.push(v.experience));
 
-
-  const componentDidMount=() =>
-    setInterval(
-       () => danmu(),
-       1000
-     );
-
-  let {data} = useRequest(
-    async () => {
-      return await service.recordlist();
-    },
-  );
-  let exper =new Array();
-  data===undefined?'':data.map((v,i)=>exper.push(v.experience));
-
-  useEffect (() => {
-    if(flag){
-      setInterval(() => danmu(),1000)
+  useEffect(() => {
+    if (flag) {
+      setInterval(() => danmu(), 1000);
     }
-  },[flag])
+  }, [flag]);
 
   const handleSubmit = () => {
     setFlag(!flag);
-  }
+  };
 
+  const danmu = () => {
+    const num = (Math.random() * exper.length) >> 0;
+    console.log('exper', exper[num]);
 
-
-    const danmu=()=>{
-      const num = Math.random() *exper.length >> 0;
-      console.log("exper",exper[num])
-      console.log(num,"------------------>",bullet)
-
-      handleSend(exper[num])
-    }
- //////////////////////////////////////////
+    handleSend(exper[num]);
+  };
+  //////////////////////////////////////////
   // 弹幕屏幕
   ////////////////
 
@@ -65,29 +53,35 @@ export default function Demo() {
   // };
   // 发送弹幕
   const handleSend = (barr) => {
-console.log("ppppppppppppppppppppp",bullet)
+    // push 纯文本
+    barr === undefined
+      ? ''
+      : (screen.push(barr)
+        // or 使用 StyledBullet
 
-      // push 纯文本
-      screen.push(barr);
-      // or 使用 StyledBullet
-
-      screen.push(
-        <StyledBullet head={headUrl} msg={barr} backgroundColor={'#fff'} size="large" />,
-      );
-      // or 还可以这样使用，效果等同使用 StyledBullet 组件
-      screen.push({
-        msg: barr,
-        head: headUrl,
-        color: '#eee',
-        size: 'large',
-        backgroundColor: 'rgba(2,2,2,.3)',
-      });
+        // screen.push(
+        //   <StyledBullet head={headUrl} msg={barr} backgroundColor={'#fff'} size="large" />,
+        // ),
+        // // or 还可以这样使用，效果等同使用 StyledBullet 组件
+        // screen.push({
+        //   msg: barr,
+        //   head: headUrl,
+        //   color: '#eee',
+        //   size: 'large',
+        //   backgroundColor: 'rgba(2,2,2,.3)',
+        // })
+        );
   };
-
+  componentDidMount();
   return (
-    <main style={{background:'url()' }}>
-      <div className="screen" style={{ width: '100vw', height: '80vh'}}></div>
-      <button onClick={componentDidMount}>发送</button>
+    <main
+      style={{
+        background: 'url(https://cdn.pixabay.com/photo/2012/03/01/00/21/bridge-19513__340.jpg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100%',
+      }}
+    >
+      <div className="screen" style={{ height: '90vh' }}></div>
     </main>
   );
 }
