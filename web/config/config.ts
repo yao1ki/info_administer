@@ -109,7 +109,13 @@ export default defineConfig({
       icon: 'table',
       component: './Lucky/liudao.jsx',
       hideInMenu: true,
-    },    
+    },   
+    {
+      path: '/barr',
+      name: 'barr',
+      icon: 'table',
+      component: './Barrage/barr.jsx',
+    },   
     // {
     //   name: 'death.book',
     //   icon: 'table',

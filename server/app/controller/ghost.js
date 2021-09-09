@@ -1,9 +1,9 @@
 "use strict";
 const Controller = require("egg").Controller;
 const Op = require("sequelize").Op;
-const schedule = require("node-schedule");
-const moment = require("moment");
 
+const moment = require("moment");
+const schedule = require("node-schedule");
 // 定义规则
 let rule = new schedule.RecurrenceRule();
 rule.second = 0;
