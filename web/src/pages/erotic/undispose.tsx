@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState,useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table, message, Divider, Button, Modal } from 'antd';
 import { GhostItem } from './data.d';
@@ -14,7 +14,6 @@ import moment from 'moment';
 
 let times = moment().format('YYYY-MM-DD HH:mm:ss');
 const state = '1';
-const { Option } = Select;
 type SearchProps = {
   params:string;
   refresh:any
@@ -43,6 +42,10 @@ const Personnel: FC<SearchProps> = (props) => {
       refreshDeps: [opFlag],
     },
   );
+  useEffect(() => {
+    setOpFlag(opFlag+1)
+    console.log('changed...',opFlag)
+  }, [props.params])
   const columns = [
     {
       title: '灵魂ID',

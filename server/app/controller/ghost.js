@@ -94,7 +94,6 @@ class GhostController extends Controller {
     const {
       name,
       dead,
-
       lifetime,
       cause,
       sort,

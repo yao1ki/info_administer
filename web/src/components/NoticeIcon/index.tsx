@@ -123,7 +123,8 @@ const NoticeIconView = () => {
       datetime: '2017-08-07',
       description: '描述信息描述信息描述信息',
       extra: '',
-      status:''
+      status:'',
+      ghostid:''
     },
   ];
   data === undefined
@@ -131,6 +132,7 @@ const NoticeIconView = () => {
     : data.map(
         (v: any, i: any) =>
           aa.push({status:v.state,
+            ghostid:v.id,
             extra:
               v.state == 1
                 ? '待处理'
@@ -150,18 +152,12 @@ const NoticeIconView = () => {
       );
 
   return (
-    // <div>
-    //   <Table
-    //         columns={aa}
-    //         dataSource={data}
-    //         rowKey={(record: GhostItem): number => record.id as number}
-    //       />
-    // </div>
+
     <NoticeIcon
       className={styles.action}
       count={aa && aa.length}
-      onItemClick={(item) => {
-        item.status=='1'?
+      onItemClick={(item) => {console.log("1111111111",item),
+        (item.status=='1'?
         history.push(`/erotic/undispose`):
         item.status=='2'?
         history.push(`/erotic/process`):
@@ -170,7 +166,7 @@ const NoticeIconView = () => {
         item.status=='5'?
         history.push(`/Lucky/rein`):
         item.status=='6'?
-        history.push(`/Lucky/birth`):''
+        history.push(`/Lucky/birth`):'')
       }}
       loading={false}
     >
@@ -178,7 +174,7 @@ const NoticeIconView = () => {
         style={{ textAlign: 'center' }}
         tabKey="event"
         title="未处理"
-        emptyText="你已完成所有未处理"
+        emptyText="你已完成所有任务"
         list={aa}
       />
       <NoticeIcon></NoticeIcon>

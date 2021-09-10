@@ -8,7 +8,7 @@ import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-
+import {useEffect}  from 'react'
 type SearchProps = {
   params:string;
   refresh:any
@@ -90,7 +90,7 @@ const Personnel: FC<SearchProps> = (props) => {
     setVisible(true);
     setCurrent({id:item.id,rein_id:item.rein_id});
   };
-
+useEffect(()=>{setOpFlag(opFlag+1)},[props.params])
   const handleOk = () => {
     setVisible(false);
     props.refresh()
@@ -129,7 +129,7 @@ const Personnel: FC<SearchProps> = (props) => {
 
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
-    setParams(value);
+    //setParams(value);
     setOpFlag(opFlag + 1);
   };
   const getTabKey = () => {

@@ -10,6 +10,7 @@ import { history } from 'umi';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
+import {useEffect} from 'react'
 type SearchProps = {
   params:string;
   match: {
@@ -40,7 +41,7 @@ const state = '5';
       refreshDeps: [opFlag],
     },
   );
-
+useEffect(()=>{setOpFlag(opFlag+1)},[props.params])
 
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
@@ -58,7 +59,7 @@ const state = '5';
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+            <Link to={`/soul.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),

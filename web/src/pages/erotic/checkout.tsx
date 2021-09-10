@@ -9,6 +9,7 @@ import { Input } from 'antd';
 import { history } from 'umi';
 import { values } from 'lodash';
 import app from './index'
+import {useEffect} from 'react'
 type SearchProps = {
   params:string;
   refresh:any
@@ -91,11 +92,14 @@ const Personnel: FC<SearchProps> = (props) => {
     setVisible(true);
     setCurrent({ ...item });
   };
-
+useEffect(()=>{
+  setOpFlag(opFlag+1)
+},[props.params])
   const handleOk = () => {
     setVisible(false);
-    setOpFlag(opFlag + 1);
     props.refresh()
+
+    setOpFlag(opFlag + 1);
 
 
   };

@@ -10,6 +10,7 @@ import { history } from 'umi';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
+import {useEffect} from 'react'
 type SearchProps = {
   params: string;
   set1: any;
@@ -34,6 +35,10 @@ const Personnel: FC<SearchProps> = (props) => {
   var aa = 0;
   const state = '2';
   //获取数据
+  useEffect(()=>{
+    setOpFlag(opFlag+1)},[props.params]
+  )
+  
   let { data } = useRequest(
     async () => {
       return await service.querystate(state, props.params);
@@ -50,7 +55,7 @@ const Personnel: FC<SearchProps> = (props) => {
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+            <Link to={`/soul.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),

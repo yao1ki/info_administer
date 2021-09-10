@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Table,message } from 'antd';
 import { GhostItem } from './data';
 import OperationModal from './components/OperationModal';
-
+import { useEffect } from 'react';
 import { useRequest, Link } from 'umi';
 import service from './service';
 import { Input } from 'antd';
@@ -126,7 +126,7 @@ const Personnel: FC<SearchProps> = (props) => {
   const handleCancel = () => {
     setVisible(false);
   };
-
+useEffect(()=>{setOpFlag(opFlag+1)},[props.params])
   const handleJump = (page: number) => {
     setPagesize(page);
   };

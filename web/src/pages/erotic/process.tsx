@@ -7,11 +7,14 @@ import { useRequest } from 'umi';
 import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
-import app from './index'
+import app from './index';
+import { useEffect } from 'react';
+
+import { react } from '@babel/types';
 const state = '2';
 type SearchProps = {
-  params:string;
-  refresh:any
+  params: string;
+  refresh: any;
   match: {
     url: string;
     path: string;
@@ -51,6 +54,7 @@ const Personnel: FC<SearchProps> = (props) => {
     if (!res.error) {
       message.success('确认成功！');
       setOpFlag(opFlag + 1);
+      props.refresh();
     }
   };
   const columns = [
@@ -74,7 +78,7 @@ const Personnel: FC<SearchProps> = (props) => {
       render: (_: any, record: any) => {
         return record.orders.map((v: any, i: any) => {
           if (i) {
-            return "、"+v.user.name;
+            return '、' + v.user.name;
           } else {
             return v.user.name;
           }
@@ -99,10 +103,8 @@ const Personnel: FC<SearchProps> = (props) => {
     },
   ];
 
-  /* 编辑框将item传给current */
   const handleOk = () => {
     setVisible(false);
-    props.refresh()
     setOpFlag(opFlag + 1);
   };
 
@@ -121,9 +123,9 @@ const Personnel: FC<SearchProps> = (props) => {
     pageSize: 10,
     onChange: handleJump,
   };
-
-
-
+  useEffect(()=>{
+    setOpFlag(opFlag+1)
+  },[props.params])
 
   const getTabKey = () => {
     const { match, location } = props;
@@ -136,14 +138,13 @@ const Personnel: FC<SearchProps> = (props) => {
   };
   return (
     <div>
-
-        <Card>
-          <Table
-            columns={columns}
-            dataSource={data}
-            rowKey={(record: GhostItem): number => record.id as number}
-          />
-        </Card>
+      <Card>
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowKey={(record: GhostItem): number => record.id as number}
+        />
+      </Card>
 
       <OperationModal current={current} visible={visible} onOk={handleOk} onCancel={handleCancel} />
     </div>

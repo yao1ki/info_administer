@@ -8,6 +8,7 @@ import service from './service';
 import { Input } from 'antd';
 import { history } from 'umi';
 import moment from 'moment'
+import { useEffect } from 'react';
 type SearchProps = {
   params:string;
   refresh:any
@@ -29,7 +30,6 @@ const Personnel: FC<SearchProps> = (props) => {
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
   //获取数据
-  console.log("props.param",props.params)
   let { data } = useRequest(
     async () => {
       return await service.list(state, props.params);
@@ -60,6 +60,9 @@ const Personnel: FC<SearchProps> = (props) => {
     )
   };
 
+  useEffect(() => {
+    setOpFlag(opFlag+1)
+  }, [props.params])
   const columns = [
     {
       title: '灵魂ID',

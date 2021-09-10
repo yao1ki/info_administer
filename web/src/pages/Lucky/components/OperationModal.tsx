@@ -122,7 +122,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         { constellation: dd },
       );
       les = await service.updateGhost(id, aa);
-      les = await service.updateGhost(id, { state: '1', reason: '', dead: '0' });
+      les = await service.updateGhost(id, { state: '1',experience:'', reason: '', dead: '0' });
     }
     if (!res.error && !les.error) {
       message.success('操作成功！');

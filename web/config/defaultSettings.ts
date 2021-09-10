@@ -14,7 +14,9 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '地狱管理系统',
+  title: '地府管理系统',
+ 
+ // title: '地狱管理系统',
   pwa: false,
   logo: 'https://cdn.pixabay.com/photo/2016/11/28/21/40/pentagram-1866115__340.png',
   iconfontUrl: '',

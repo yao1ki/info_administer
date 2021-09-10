@@ -94,7 +94,7 @@ const Personnel: FC<SearchProps> = (props) => {
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+            <Link to={`/soul.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),

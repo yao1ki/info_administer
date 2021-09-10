@@ -101,8 +101,8 @@ export default defineConfig({
     {
       name: 'detail.lifebook',
       icon: 'table',
-      path: '/lifebook.detail/:id',
-      component: './lifebook/detail.tsx',
+      path: '/soul.detail/:id',
+      component: './soul/detail.tsx',
       hideInMenu: true,
     },    {
       path: '/liudao/:id',

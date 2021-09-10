@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BulletScreen, { StyledBullet } from 'rc-bullets';
 import service from '../Lucky/service';
 import { useRequest } from 'umi';
+import img from "../../image/qiao.jpg"
 const headUrl = 'https://img1.baidu.com/it/u=4262778161,3449122068&fm=26&fmt=auto&gp=0.jpg';
 export default function Demo() {
   // let data = async () => {
@@ -56,32 +57,36 @@ export default function Demo() {
     // push 纯文本
     barr === undefined
       ? ''
-      : (screen.push(barr)
-        // or 使用 StyledBullet
+      : (screen.push(barr),
+      //  or 使用 StyledBullet
 
-        // screen.push(
-        //   <StyledBullet head={headUrl} msg={barr} backgroundColor={'#fff'} size="large" />,
-        // ),
-        // // or 还可以这样使用，效果等同使用 StyledBullet 组件
-        // screen.push({
-        //   msg: barr,
-        //   head: headUrl,
-        //   color: '#eee',
-        //   size: 'large',
-        //   backgroundColor: 'rgba(2,2,2,.3)',
-        // })
+        screen.push(
+          <StyledBullet head={headUrl} msg={barr} backgroundColor={'#fff'} size="large" />,
+        ),
+        // or 还可以这样使用，效果等同使用 StyledBullet 组件
+        screen.push({
+          msg: barr,
+          head: headUrl,
+          color: '#eee',
+          size: 'large',
+          backgroundColor: 'rgba(2,2,2,.3)',
+        })
         );
   };
   componentDidMount();
   return (
-    <main
+    <div
+      // className={styles.mainnn}
       style={{
-        background: 'url(https://cdn.pixabay.com/photo/2012/03/01/00/21/bridge-19513__340.jpg)',
+        // background: 'url(https://cdn.pixabay.com/photo/2012/03/01/00/21/bridge-19513__340.jpg)',
+        backgroundImage: `url(${img})`,
+       // backgroundImage: `url(${require("../../image/qiao.jpg")})`,
+        
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
       }}
     >
       <div className="screen" style={{ height: '90vh' }}></div>
-    </main>
+    </div>
   );
 }

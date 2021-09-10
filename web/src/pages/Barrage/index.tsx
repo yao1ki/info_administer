@@ -52,7 +52,7 @@ const rand =()=>{
 //className={styles.aa}
 
   return (
-    <main style={{background:'url()' }}>
+    <main style={{background:`url(')` }}>
      <div style={{ height: '80vh'}} className={styles.aa} >
         {a === undefined
           ? ''

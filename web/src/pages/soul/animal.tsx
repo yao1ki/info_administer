@@ -10,7 +10,9 @@ import { history } from 'umi';
 import { ModalForm, ProFormSelect } from '@ant-design/pro-form';
 import { values } from 'lodash';
 import moment from 'moment';
+import {useEffect}from 'react'
 type SearchProps = {
+  params:string
   match: {
     url: string;
     path: string;
@@ -27,20 +29,19 @@ const animal: FC<SearchProps> = (props) => {
   const [current, setCurrent] = useState<Partial<GhostItem> | undefined>(undefined);
   const [pagesize, setPagesize] = useState<number>(1);
   const [opFlag, setOpFlag] = useState<number>(0);
-  const [params, setParams] = useState<string>('');
   var aa = 0 ;
 const state = '3';
   //获取数据
   let { data } = useRequest(
     async () => {
-      return await service.querystate(state, params);
+      return await service.querystate(state, props.params);
     },
     {
       refreshDeps: [opFlag],
     },
   );
 
-
+useEffect (()=>{setOpFlag(opFlag+1)},[props.params])
   const deleteItem = async (id: number) => {
     const res = await service.removeGhost(id);
     if (!res.error) {
@@ -57,7 +58,7 @@ const state = '3';
       render: (_: any, record: any) => (
         <span>
           <span>
-            <Link to={`/lifebook.detail/${record.id}`}>{record.id}</Link>
+            <Link to={`/soul.detail/${record.id}`}>{record.id}</Link>
           </span>
         </span>
       ),
